@@ -10,6 +10,7 @@
 		358FDF1D5DBFDCCDB10EDEFA /* Pods_NotificationProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 749444232832201744575B9A /* Pods_NotificationProject.framework */; };
 		563C03CF2B3B5C24009F2811 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563C03CE2B3B5C24009F2811 /* Rectangle.swift */; };
 		563C03D12B3B5CC9009F2811 /* BurgerMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563C03D02B3B5CC9009F2811 /* BurgerMenu.swift */; };
+		569C8B8D2B446E7B0066E23B /* EditableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569C8B8C2B446E7B0066E23B /* EditableViewModel.swift */; };
 		56A7B8532B1E557F0022FC86 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A7B8522B1E557F0022FC86 /* AppDelegate.swift */; };
 		56A7B8552B1E557F0022FC86 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A7B8542B1E557F0022FC86 /* SceneDelegate.swift */; };
 		56A7B8572B1E557F0022FC86 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A7B8562B1E557F0022FC86 /* ViewController.swift */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		563C03CE2B3B5C24009F2811 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 		563C03D02B3B5CC9009F2811 /* BurgerMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurgerMenu.swift; sourceTree = "<group>"; };
+		569C8B8C2B446E7B0066E23B /* EditableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableViewModel.swift; sourceTree = "<group>"; };
 		56A7B84F2B1E557F0022FC86 /* NotificationProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotificationProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56A7B8522B1E557F0022FC86 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		56A7B8542B1E557F0022FC86 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				56CFDFD92B25A7BC00FC4F98 /* EditableTableViewCell.swift */,
 				56CFDFDB2B277B6800FC4F98 /* CheckPointButton.swift */,
 				56A7B86E2B2238E70022FC86 /* MenuViewController.swift */,
+				569C8B8C2B446E7B0066E23B /* EditableViewModel.swift */,
 				56A7B8682B1F984E0022FC86 /* Notification.swift */,
 				56A7B86C2B1F99180022FC86 /* Manager.swift */,
 				563C03CE2B3B5C24009F2811 /* Rectangle.swift */,
@@ -232,6 +235,7 @@
 				56CFDFDC2B277B6800FC4F98 /* CheckPointButton.swift in Sources */,
 				563C03D12B3B5CC9009F2811 /* BurgerMenu.swift in Sources */,
 				56A7B86D2B1F99180022FC86 /* Manager.swift in Sources */,
+				569C8B8D2B446E7B0066E23B /* EditableViewModel.swift in Sources */,
 				56A7B8552B1E557F0022FC86 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
