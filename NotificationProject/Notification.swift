@@ -10,8 +10,10 @@ import Foundation
 final class Notification {
     var id: UUID
     var text: String
-    init(text: String) {
+    var state: Bool
+    init(text: String, state: Bool) {
         self.text = text
         self.id = UUID()
+        self.state = state
     }
 }

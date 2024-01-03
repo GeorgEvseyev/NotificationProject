@@ -14,6 +14,7 @@ class ViewController: UIViewController {
         return true
     }
     
+    var cellViewModels: [EditableViewModel] = []
 
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -59,6 +60,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        addCellViewModels()
 
         Manager.shared.delegate = self
 
@@ -101,14 +104,15 @@ class ViewController: UIViewController {
 
     func setUpAddNotificationButton() {
         let action = UIAction { _ in
-            self.addNewNotificationButton()
+            self.addNotification()
         }
         addNotificationButton.addAction(action, for: .touchUpInside)
         view.addSubview(addNotificationButton)
     }
 
-    func addNewNotificationButton() {
-        Manager.shared.notifications.append(Notification(text: "text"))
+    func addNotification() {
+        Manager.shared.notifications.append(Notification(text: "text", state: false))
+        addCellViewModels()
         tableView.reloadData()
     }
 
@@ -121,16 +125,23 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        Manager.shared.notifications.count
+        cellViewModels.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EditableTableViewCell.identifier, for: indexPath) as? EditableTableViewCell else { return EditableTableViewCell() }
-        cell.configure(object: Manager.shared.notifications[indexPath.row])
-        cell.configureButton {
-            cell.cellTextView.attributedText = cell.checked(text: Manager.shared.notifications[indexPath.row].text)
+        let cellViewModel = cellViewModels[indexPath.row]
+        if cellViewModel.cellState {
+            cellViewModel.configureUncheckCell(cell: cell)
             cell.cellTextView.isUserInteractionEnabled = false
+        } else {
+            cellViewModel.configureCheckCell(cell: cell)
         }
+//        cell.configure(object: Manager.shared.notifications[indexPath.row])
+//        cell.configureButton {
+//            cell.cellTextView.attributedText = cell.checked(text: Manager.shared.notifications[indexPath.row].text)
+//            cell.cellTextView.isUserInteractionEnabled = false
+//        }
         return cell
     }
 
@@ -175,6 +186,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             make.top.bottom.equalToSuperview()
             make.width.equalToSuperview()
             make.right.equalTo(view.snp.left)
+        }
+    }
+    
+    func addCellViewModels() {
+        cellViewModels = []
+        for notification in Manager.shared.notifications {
+            let cellViewModel = EditableViewModel(cellText: notification.text, cellState: notification.state)
+            cellViewModels.append(cellViewModel)
         }
     }
 }
