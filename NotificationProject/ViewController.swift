@@ -30,6 +30,13 @@ class ViewController: UIViewController {
         calendarView.backgroundColor = .opaqueSeparator
         return calendarView
     }()
+    
+    let visualShadowView: UIView = {
+       let visualShadowView = UIView()
+        visualShadowView.backgroundColor = .black
+        visualShadowView.alpha = 0.4
+        return visualShadowView
+    }()
 
     let topImageView: UIView = {
         let imageView = UIView()
@@ -86,6 +93,7 @@ class ViewController: UIViewController {
         view.addSubview(titleLabel)
 //        setUpMenuButton()
         setUpAddNotificationButton()
+        view.addSubview(visualShadowView)
         view.addSubview(calendarView)
         calendarView.addGestureRecognizer(swipeGestureRecognizer)
         menuButton.addGestureRecognizer(tapGestureRecognizer)
@@ -168,6 +176,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         titleLabel.snp.makeConstraints { make in
             make.center.equalTo(topImageView.snp.center)
         }
+        visualShadowView.snp.makeConstraints { make in
+            make.height.width.equalToSuperview()
+            make.right.equalTo(view.snp.left)
+        }
         calendarView.snp.makeConstraints { make in
             make.height.width.equalToSuperview()
             make.right.equalTo(view.snp.left)
@@ -175,6 +187,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     @objc func showCalendar() {
+        visualShadowView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
         calendarView.snp.remakeConstraints { make in
             make.right.equalTo(view.snp.right).inset(90)
             make.height.width.equalToSuperview()
@@ -182,9 +197,12 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     @objc func hideCalendar() {
+        visualShadowView.snp.remakeConstraints { make in
+            make.top.bottom.width.equalToSuperview()
+            make.right.equalTo(view.snp.left)
+        }
         calendarView.snp.remakeConstraints { make in
-            make.top.bottom.equalToSuperview()
-            make.width.equalToSuperview()
+            make.top.bottom.width.equalToSuperview()
             make.right.equalTo(view.snp.left)
         }
     }
