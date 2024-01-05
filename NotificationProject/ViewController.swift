@@ -82,6 +82,11 @@ class ViewController: UIViewController {
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showCalendar))
             return tapGestureRecognizer
         }()
+        
+        let tapGestureRecognizerToHideCalendar: UITapGestureRecognizer = {
+            let tapGestureRecognizerToHideCalendar = UITapGestureRecognizer(target: self, action: #selector(hideCalendar))
+            return tapGestureRecognizerToHideCalendar
+        }()
 
         tableView.register(EditableTableViewCell.self, forCellReuseIdentifier: EditableTableViewCell.identifier)
         tableView.delegate = self
@@ -97,6 +102,7 @@ class ViewController: UIViewController {
         view.addSubview(calendarView)
         calendarView.addGestureRecognizer(swipeGestureRecognizer)
         menuButton.addGestureRecognizer(tapGestureRecognizer)
+        visualShadowView.addGestureRecognizer(tapGestureRecognizerToHideCalendar)
 
         makeConstraints()
     }
