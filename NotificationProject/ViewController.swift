@@ -8,12 +8,11 @@
 import SnapKit
 import UIKit
 
-
 class ViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
-    
+
     var cellViewModels: [EditableViewModel] = []
 
     let tableView: UITableView = {
@@ -30,12 +29,18 @@ class ViewController: UIViewController {
         calendarView.backgroundColor = .opaqueSeparator
         return calendarView
     }()
-    
+
     let visualShadowView: UIView = {
-       let visualShadowView = UIView()
+        let visualShadowView = UIView()
         visualShadowView.backgroundColor = .black
         visualShadowView.alpha = 0.4
         return visualShadowView
+    }()
+
+    let bottomPartOfCalendarView: UIView = {
+        let bottomPartOfCalendarView = UIView()
+        bottomPartOfCalendarView.backgroundColor = .opaqueSeparator
+        return bottomPartOfCalendarView
     }()
 
     let topImageView: UIView = {
@@ -67,26 +72,37 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         addCellViewModels()
 
         Manager.shared.delegate = self
 
+
+        let tapGestureRecognizer: UITapGestureRecognizer = {
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showCalendar))
+            return tapGestureRecognizer
+        }()
+        
         let swipeGestureRecognizer: UISwipeGestureRecognizer = {
             let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(hideCalendar))
             swipeRecognizer.direction = .left
             return swipeRecognizer
         }()
 
-        let tapGestureRecognizer: UITapGestureRecognizer = {
-            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showCalendar))
+        let tapGestureRecognizerToHideCalendar: UITapGestureRecognizer = {
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideCalendar))
+            return tapGestureRecognizer
+        }()
+        
+        let tapGestureRecognizerToHideCalendarForBottomPartOfCalenarView: UITapGestureRecognizer = {
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideCalendar))
             return tapGestureRecognizer
         }()
 
         tableView.register(EditableTableViewCell.self, forCellReuseIdentifier: EditableTableViewCell.identifier)
         tableView.delegate = self
         tableView.dataSource = self
-        
+
         view.addSubview(tableView)
         view.addSubview(topImageView)
         view.addSubview(menuButton)
@@ -95,12 +111,14 @@ class ViewController: UIViewController {
         setUpAddNotificationButton()
         view.addSubview(visualShadowView)
         view.addSubview(calendarView)
-        calendarView.addGestureRecognizer(swipeGestureRecognizer)
+        calendarView.addSubview(bottomPartOfCalendarView)
         menuButton.addGestureRecognizer(tapGestureRecognizer)
+        calendarView.addGestureRecognizer(swipeGestureRecognizer)
+        bottomPartOfCalendarView.addGestureRecognizer(tapGestureRecognizerToHideCalendarForBottomPartOfCalenarView)
+        visualShadowView.addGestureRecognizer(tapGestureRecognizerToHideCalendar)
 
         makeConstraints()
     }
-    
 
 //    func setUpMenuButton() {
 //        let action = UIAction { _ in
@@ -131,7 +149,6 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         cellViewModels.count
     }
@@ -184,6 +201,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             make.height.width.equalToSuperview()
             make.right.equalTo(view.snp.left)
         }
+        bottomPartOfCalendarView.snp.makeConstraints { make in
+            make.bottom.left.right.equalTo(calendarView)
+            make.height.equalTo(calendarView.snp.height).dividedBy(3)
+        }
     }
 
     @objc func showCalendar() {
@@ -206,7 +227,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             make.right.equalTo(view.snp.left)
         }
     }
-    
+
     func addCellViewModels() {
         cellViewModels = []
         for notification in Manager.shared.notifications {
