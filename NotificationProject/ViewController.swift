@@ -156,17 +156,15 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EditableTableViewCell.identifier, for: indexPath) as? EditableTableViewCell else { return EditableTableViewCell() }
         let cellViewModel = cellViewModels[indexPath.row]
+        
         if cellViewModel.cellState {
-            cellViewModel.configureUncheckCell(cell: cell)
-            cell.cellTextView.isUserInteractionEnabled = false
+            cellViewModel.configureUncheckCell(cell: cell, index: indexPath.row)
+            cell.cellTextView.text = cellViewModel.cellText
         } else {
-            cellViewModel.configureCheckCell(cell: cell)
+            cellViewModel.configureCheckCell(cell: cell, index: indexPath.row)
+            cell.cellTextView.text = cellViewModel.cellText
         }
-//        cell.configure(object: Manager.shared.notifications[indexPath.row])
-//        cell.configureButton {
-//            cell.cellTextView.attributedText = cell.checked(text: Manager.shared.notifications[indexPath.row].text)
-//            cell.cellTextView.isUserInteractionEnabled = false
-//        }
+        
         return cell
     }
 
@@ -231,7 +229,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func addCellViewModels() {
         cellViewModels = []
         for notification in Manager.shared.notifications {
-            let cellViewModel = EditableViewModel(cellText: notification.text, cellState: notification.state)
+            let cellViewModel = EditableViewModel(cellText: notification.text, cellState: notification.state, image: .uncheck)
             cellViewModels.append(cellViewModel)
         }
     }
@@ -242,3 +240,4 @@ extension ViewController: ManagerDelegate {
         tableView.reloadData()
     }
 }
+

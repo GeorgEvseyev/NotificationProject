@@ -11,7 +11,9 @@ import UIKit
 class CheckPointButton: UIButton {
     private let checkImage = UIImage(named: "check")
     private let uncheckImage = UIImage(named: "uncheck")
-    var isChecked: Bool = false {
+    var index: Int = 0
+    var isChecked: Bool = false
+    {
         didSet {
             if isChecked {
                 self.setImage(checkImage, for: .normal)
@@ -32,6 +34,8 @@ class CheckPointButton: UIButton {
 
     func tapButton(sender: UIButton) {
         isChecked = !isChecked
+        Manager.shared.notifications[index].state = isChecked
+        print("ok")
     }
     
     func setChecked() {

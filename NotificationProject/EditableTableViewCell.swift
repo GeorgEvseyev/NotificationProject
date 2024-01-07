@@ -19,7 +19,9 @@ class EditableTableViewCell: UITableViewCell {
         let button = CheckPointButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.imageView?.contentMode = .scaleAspectFit
-        button.setChecked()
+//        button.setImage(UIImage(named: "check"), for: .normal)
+//        button.setChecked()
+        button.setImage(.check, for: .normal)
         button.setButton()
         return button
     }()
@@ -28,6 +30,7 @@ class EditableTableViewCell: UITableViewCell {
         let cellTextView = UITextView()
         cellTextView.translatesAutoresizingMaskIntoConstraints = false
         cellTextView.isScrollEnabled = false
+        
         return cellTextView
     }()
 
@@ -86,12 +89,4 @@ class EditableTableViewCell: UITableViewCell {
     func checkButtonTapped() {
         closure?()
     }
-
-//    func checked(text: String) -> NSMutableAttributedString {
-//        let attributedString = NSMutableAttributedString(string: text)
-//        attributedString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: NSUnderlineStyle.thick.rawValue, range: NSMakeRange(0, attributedString.length))
-//        attributedString.addAttribute(NSAttributedString.Key.strikethroughColor, value: UIColor.black, range: NSMakeRange(0, attributedString.length))
-//        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.gray, range: NSMakeRange(0, attributedString.length))
-//        return attributedString
-//    }
 }
