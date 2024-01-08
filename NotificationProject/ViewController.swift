@@ -13,8 +13,6 @@ class ViewController: UIViewController {
         return true
     }
 
-    var cellViewModels: [EditableViewModel] = []
-
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.rowHeight = UITableView.automaticDimension
@@ -72,17 +70,13 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        addCellViewModels()
-
         Manager.shared.delegate = self
-
 
         let tapGestureRecognizer: UITapGestureRecognizer = {
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showCalendar))
             return tapGestureRecognizer
         }()
-        
+
         let swipeGestureRecognizer: UISwipeGestureRecognizer = {
             let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(hideCalendar))
             swipeRecognizer.direction = .left
@@ -93,7 +87,7 @@ class ViewController: UIViewController {
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideCalendar))
             return tapGestureRecognizer
         }()
-        
+
         let tapGestureRecognizerToHideCalendarForBottomPartOfCalenarView: UITapGestureRecognizer = {
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideCalendar))
             return tapGestureRecognizer
@@ -116,17 +110,8 @@ class ViewController: UIViewController {
         calendarView.addGestureRecognizer(swipeGestureRecognizer)
         bottomPartOfCalendarView.addGestureRecognizer(tapGestureRecognizerToHideCalendarForBottomPartOfCalenarView)
         visualShadowView.addGestureRecognizer(tapGestureRecognizerToHideCalendar)
-
         makeConstraints()
     }
-
-//    func setUpMenuButton() {
-//        let action = UIAction { _ in
-//            self.showCalendar()
-//        }
-//        menuButton.addAction(action, for: .touchUpInside)
-//        view.addSubview(menuButton)
-//    }
 
     func setUpAddNotificationButton() {
         let action = UIAction { _ in
@@ -137,9 +122,8 @@ class ViewController: UIViewController {
     }
 
     func addNotification() {
-        Manager.shared.notifications.append(Notification(text: "text", state: false))
-        addCellViewModels()
-        tableView.reloadData()
+        Manager.shared.notifications.append(Notification(text: "text", state: true))
+        Manager.shared.delegate?.updateData()
     }
 
     func showMenu() {
@@ -150,21 +134,24 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        cellViewModels.count
+        Manager.shared.notifications.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EditableTableViewCell.identifier, for: indexPath) as? EditableTableViewCell else { return EditableTableViewCell() }
-        let cellViewModel = cellViewModels[indexPath.row]
-        
-        if cellViewModel.cellState {
-            cellViewModel.configureUncheckCell(cell: cell, index: indexPath.row)
-            cell.cellTextView.text = cellViewModel.cellText
-        } else {
-            cellViewModel.configureCheckCell(cell: cell, index: indexPath.row)
-            cell.cellTextView.text = cellViewModel.cellText
+
+        cell.configureCell(cell: cell, notification: Manager.shared.notifications[indexPath.row])
+        cell.checkButton.setImage(cell.getImage(state: Manager.shared.notifications[indexPath.row].state), for: .normal)
+
+        cell.configureButton {
+            Manager.shared.notifications[indexPath.row].state = !Manager.shared.notifications[indexPath.row].state
+            Manager.shared.delegate?.updateData()
         }
         
+        if Manager.shared.notifications[indexPath.row].state == false {
+            cell.cellTextView.attributedText = cell.checked(text: Manager.shared.notifications[indexPath.row].text)
+            cell.cellTextView.isEditable = false
+        }
         return cell
     }
 
@@ -225,14 +212,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             make.right.equalTo(view.snp.left)
         }
     }
-
-    func addCellViewModels() {
-        cellViewModels = []
-        for notification in Manager.shared.notifications {
-            let cellViewModel = EditableViewModel(cellText: notification.text, cellState: notification.state, image: .uncheck)
-            cellViewModels.append(cellViewModel)
-        }
-    }
 }
 
 extension ViewController: ManagerDelegate {
@@ -240,4 +219,3 @@ extension ViewController: ManagerDelegate {
         tableView.reloadData()
     }
 }
-

@@ -16,14 +16,10 @@ class EditableTableViewCell: UITableViewCell {
     var closure: (() -> Void)?
 
     var checkButton: UIButton = {
-        let button = CheckPointButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.imageView?.contentMode = .scaleAspectFit
-//        button.setImage(UIImage(named: "check"), for: .normal)
-//        button.setChecked()
-        button.setImage(.check, for: .normal)
-        button.setButton()
-        return button
+        let checkButton = UIButton()
+        checkButton.translatesAutoresizingMaskIntoConstraints = false
+        checkButton.imageView?.contentMode = .scaleAspectFit
+        return checkButton
     }()
 
     var cellTextView: UITextView = {
@@ -88,5 +84,33 @@ class EditableTableViewCell: UITableViewCell {
 
     func checkButtonTapped() {
         closure?()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        cellTextView.text = nil
+        checkButton.setImage(nil, for: .normal)
+        closure = nil
+    }
+    
+    func configureCell(cell: EditableTableViewCell, notification: Notification) {
+        cell.cellTextView.text = notification.text
+        cell.checkButton.setImage(getImage(state: notification.state), for: .normal)
+    }
+    
+    func checked(text: String) -> NSMutableAttributedString {
+        let attributedString = NSMutableAttributedString(string: text)
+        attributedString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: NSUnderlineStyle.thick.rawValue, range: NSMakeRange(0, attributedString.length))
+        attributedString.addAttribute(NSAttributedString.Key.strikethroughColor, value: UIColor.black, range: NSMakeRange(0, attributedString.length))
+        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.gray, range: NSMakeRange(0, attributedString.length))
+        return attributedString
+    }
+    
+    func getImage(state: Bool) -> UIImage {
+        if state {
+            return .uncheck
+        } else {
+            return .check
+        }
     }
 }

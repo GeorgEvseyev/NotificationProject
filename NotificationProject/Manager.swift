@@ -18,9 +18,9 @@ final class Manager {
     
     var notifications = [Notification(text: "asdaf", state: false), Notification(text: "b", state: false), Notification(text: "c", state: true), Notification(text: "d", state: true), Notification(text: "e", state: false)]
     
-    func addNotification(index: Int, text: String) {
-        notifications[index].text = text
-    }
+//    func addNotification(index: Int, text: String) {
+//        notifications[index].text = text
+//    }
 }
 
 
