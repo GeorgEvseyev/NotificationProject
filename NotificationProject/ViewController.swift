@@ -70,6 +70,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         Manager.shared.delegate = self
 
         let tapGestureRecognizer: UITapGestureRecognizer = {
@@ -101,7 +102,6 @@ class ViewController: UIViewController {
         view.addSubview(topImageView)
         view.addSubview(menuButton)
         view.addSubview(titleLabel)
-//        setUpMenuButton()
         setUpAddNotificationButton()
         view.addSubview(visualShadowView)
         view.addSubview(calendarView)
@@ -125,11 +125,6 @@ class ViewController: UIViewController {
         Manager.shared.notifications.append(Notification(text: "text", state: true))
         Manager.shared.delegate?.updateData()
     }
-
-    func showMenu() {
-        let menuViewController = MenuViewController()
-        present(menuViewController, animated: true)
-    }
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
@@ -139,18 +134,12 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EditableTableViewCell.identifier, for: indexPath) as? EditableTableViewCell else { return EditableTableViewCell() }
-
-        cell.configureCell(cell: cell, notification: Manager.shared.notifications[indexPath.row])
-        cell.checkButton.setImage(cell.getImage(state: Manager.shared.notifications[indexPath.row].state), for: .normal)
-
-        cell.configureButton {
+        cell.prepareForReuse()
+        cell.configure(notification: Manager.shared.notifications[indexPath.row])
+        cell.viewModel?.configureCell(cell: cell, notification: Manager.shared.notifications[indexPath.row])
+        cell.viewModel?.configureButton {
             Manager.shared.notifications[indexPath.row].state = !Manager.shared.notifications[indexPath.row].state
             Manager.shared.delegate?.updateData()
-        }
-        
-        if Manager.shared.notifications[indexPath.row].state == false {
-            cell.cellTextView.attributedText = cell.checked(text: Manager.shared.notifications[indexPath.row].text)
-            cell.cellTextView.isEditable = false
         }
         return cell
     }
