@@ -8,12 +8,14 @@
 import Foundation
 import UIKit
 
+
 class EditableTableViewCell: UITableViewCell {
+    
     static var identifier: String {
         return String(describing: self)
     }
-
-    var viewModel: EditableViewModel?
+    
+    var closure: (() -> Void)?
     
     var checkButton: UIButton = {
         let checkButton = UIButton()
@@ -69,14 +71,46 @@ class EditableTableViewCell: UITableViewCell {
         }
     }
     
-    func configure(notification: Notification) {
-        viewModel = EditableViewModel(cell: self, notification: notification)
+    func configure(with index: Int) {
+
+        if Manager.shared.notifications[index].state {
+            cellTextView.attributedText = NSMutableAttributedString(string: Manager.shared.notifications[index].text)
+            cellTextView.isEditable = true
+            checkButton.setImage(.uncheck, for: .normal)
+        } else {
+            cellTextView.attributedText = checked(text: Manager.shared.notifications[index].text)
+            cellTextView.isEditable = false
+            checkButton.setImage(.check, for: .normal)
+        }
+    }
+    
+    func configureButton(with closure: @escaping () -> Void) {
+        self.closure = closure
+        let action = UIAction { _ in
+            self.checkButtonTapped()
+        }
+        checkButton.addAction(action, for: .touchUpInside)
+    }
+
+    func checkButtonTapped() {
+        closure?()
+    }
+    
+    
+    func checked(text: String) -> NSMutableAttributedString {
+        let attributedString = NSMutableAttributedString(string: text)
+        attributedString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: NSUnderlineStyle.thick.rawValue, range: NSMakeRange(0, attributedString.length))
+        attributedString.addAttribute(NSAttributedString.Key.strikethroughColor, value: UIColor.black, range: NSMakeRange(0, attributedString.length))
+        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.gray, range: NSMakeRange(0, attributedString.length))
+        return attributedString
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
         cellTextView.text = nil
         checkButton.setImage(nil, for: .normal)
-        viewModel?.closure = nil
+        closure = nil
     }
 }
+
+

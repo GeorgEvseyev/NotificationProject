@@ -20,7 +20,6 @@
 		56A7B86D2B1F99180022FC86 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A7B86C2B1F99180022FC86 /* Manager.swift */; };
 		56A7B86F2B2238E70022FC86 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A7B86E2B2238E70022FC86 /* MenuViewController.swift */; };
 		56CFDFDA2B25A7BC00FC4F98 /* EditableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CFDFD92B25A7BC00FC4F98 /* EditableTableViewCell.swift */; };
-		56CFDFDC2B277B6800FC4F98 /* CheckPointButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CFDFDB2B277B6800FC4F98 /* CheckPointButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,7 +37,6 @@
 		56A7B86C2B1F99180022FC86 /* Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
 		56A7B86E2B2238E70022FC86 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		56CFDFD92B25A7BC00FC4F98 /* EditableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableTableViewCell.swift; sourceTree = "<group>"; };
-		56CFDFDB2B277B6800FC4F98 /* CheckPointButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPointButton.swift; sourceTree = "<group>"; };
 		749444232832201744575B9A /* Pods_NotificationProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8373792C668F335596919346 /* Pods-NotificationProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationProject.release.xcconfig"; path = "Target Support Files/Pods-NotificationProject/Pods-NotificationProject.release.xcconfig"; sourceTree = "<group>"; };
 		EE0DDAF84218D8E038FA6783 /* Pods-NotificationProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationProject.debug.xcconfig"; path = "Target Support Files/Pods-NotificationProject/Pods-NotificationProject.debug.xcconfig"; sourceTree = "<group>"; };
@@ -98,9 +96,8 @@
 				56A7B8542B1E557F0022FC86 /* SceneDelegate.swift */,
 				56A7B8562B1E557F0022FC86 /* ViewController.swift */,
 				56CFDFD92B25A7BC00FC4F98 /* EditableTableViewCell.swift */,
-				56CFDFDB2B277B6800FC4F98 /* CheckPointButton.swift */,
-				56A7B86E2B2238E70022FC86 /* MenuViewController.swift */,
 				569C8B8C2B446E7B0066E23B /* EditableViewModel.swift */,
+				56A7B86E2B2238E70022FC86 /* MenuViewController.swift */,
 				56A7B8682B1F984E0022FC86 /* Notification.swift */,
 				56A7B86C2B1F99180022FC86 /* Manager.swift */,
 				563C03CE2B3B5C24009F2811 /* Rectangle.swift */,
@@ -232,7 +229,6 @@
 				563C03CF2B3B5C24009F2811 /* Rectangle.swift in Sources */,
 				56CFDFDA2B25A7BC00FC4F98 /* EditableTableViewCell.swift in Sources */,
 				56A7B86F2B2238E70022FC86 /* MenuViewController.swift in Sources */,
-				56CFDFDC2B277B6800FC4F98 /* CheckPointButton.swift in Sources */,
 				563C03D12B3B5CC9009F2811 /* BurgerMenu.swift in Sources */,
 				56A7B86D2B1F99180022FC86 /* Manager.swift in Sources */,
 				569C8B8D2B446E7B0066E23B /* EditableViewModel.swift in Sources */,

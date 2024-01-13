@@ -21,6 +21,11 @@ final class Manager {
 //    func addNotification(index: Int, text: String) {
 //        notifications[index].text = text
 //    }
+    
+    func toggleButtonImage(index: Int) {
+        Manager.shared.notifications[index].state = !Manager.shared.notifications[index].state
+        Manager.shared.delegate?.updateData()
+    }
 }
 
 

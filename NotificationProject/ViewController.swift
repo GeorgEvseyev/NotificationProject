@@ -70,7 +70,6 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         Manager.shared.delegate = self
 
         let tapGestureRecognizer: UITapGestureRecognizer = {
@@ -120,7 +119,7 @@ class ViewController: UIViewController {
         addNotificationButton.addAction(action, for: .touchUpInside)
         view.addSubview(addNotificationButton)
     }
-
+    
     func addNotification() {
         Manager.shared.notifications.append(Notification(text: "text", state: true))
         Manager.shared.delegate?.updateData()
@@ -134,11 +133,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EditableTableViewCell.identifier, for: indexPath) as? EditableTableViewCell else { return EditableTableViewCell() }
-        cell.prepareForReuse()
-        cell.configure(notification: Manager.shared.notifications[indexPath.row])
-        cell.viewModel?.configureCell(cell: cell, notification: Manager.shared.notifications[indexPath.row])
-        cell.viewModel?.configureButton {
-            Manager.shared.notifications[indexPath.row].state = !Manager.shared.notifications[indexPath.row].state
+
+//        cell.viewModel = EditableViewModel(index: indexPath.row)
+        cell.configure(with: indexPath.row)
+
+        cell.configureButton {
+            cell.prepareForReuse()
+            Manager.shared.toggleButtonImage(index: indexPath.row)
             Manager.shared.delegate?.updateData()
         }
         return cell
@@ -208,3 +209,4 @@ extension ViewController: ManagerDelegate {
         tableView.reloadData()
     }
 }
+
