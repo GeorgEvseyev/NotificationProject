@@ -13,7 +13,7 @@ final class Notification {
     var state: Bool
     init(text: String, state: Bool) {
         self.text = text
-        self.id = UUID()
+        id = UUID()
         self.state = state
     }
 }

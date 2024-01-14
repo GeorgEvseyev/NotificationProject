@@ -8,10 +8,17 @@
 import SnapKit
 import UIKit
 
+protocol ViewControllerDelegate: AnyObject {
+    func addNotification()
+    func addNotificationText(index: Int, text: String)
+}
+
 class ViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
+
+    weak var delegate: ViewControllerDelegate?
 
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -119,10 +126,9 @@ class ViewController: UIViewController {
         addNotificationButton.addAction(action, for: .touchUpInside)
         view.addSubview(addNotificationButton)
     }
-    
+
     func addNotification() {
-        Manager.shared.notifications.append(Notification(text: "text", state: true))
-        Manager.shared.delegate?.updateData()
+        Manager.shared.addNotification()
     }
 }
 
@@ -134,7 +140,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EditableTableViewCell.identifier, for: indexPath) as? EditableTableViewCell else { return EditableTableViewCell() }
 
-//        cell.viewModel = EditableViewModel(index: indexPath.row)
         cell.configure(with: indexPath.row)
 
         cell.configureButton {
@@ -209,4 +214,3 @@ extension ViewController: ManagerDelegate {
         tableView.reloadData()
     }
 }
-

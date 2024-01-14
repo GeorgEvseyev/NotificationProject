@@ -8,15 +8,13 @@
 import Foundation
 import UIKit
 
-
 class EditableTableViewCell: UITableViewCell {
-    
     static var identifier: String {
         return String(describing: self)
     }
-    
+
     var closure: (() -> Void)?
-    
+
     var checkButton: UIButton = {
         let checkButton = UIButton()
         checkButton.translatesAutoresizingMaskIntoConstraints = false
@@ -70,9 +68,8 @@ class EditableTableViewCell: UITableViewCell {
             make.left.equalTo(contentView.snp.left).inset(60)
         }
     }
-    
-    func configure(with index: Int) {
 
+    func configure(with index: Int) {
         if Manager.shared.notifications[index].state {
             cellTextView.attributedText = NSMutableAttributedString(string: Manager.shared.notifications[index].text)
             cellTextView.isEditable = true
@@ -83,7 +80,7 @@ class EditableTableViewCell: UITableViewCell {
             checkButton.setImage(.check, for: .normal)
         }
     }
-    
+
     func configureButton(with closure: @escaping () -> Void) {
         self.closure = closure
         let action = UIAction { _ in
@@ -95,8 +92,7 @@ class EditableTableViewCell: UITableViewCell {
     func checkButtonTapped() {
         closure?()
     }
-    
-    
+
     func checked(text: String) -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString(string: text)
         attributedString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: NSUnderlineStyle.thick.rawValue, range: NSMakeRange(0, attributedString.length))
@@ -112,5 +108,3 @@ class EditableTableViewCell: UITableViewCell {
         closure = nil
     }
 }
-
-
