@@ -8,10 +8,15 @@
 import Foundation
 import UIKit
 
-class EditableTableViewCell: UITableViewCell {
+
+
+
+class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
     static var identifier: String {
         return String(describing: self)
     }
+    
+    weak var cellHeightDelegate: ConstraintsDelegate?
 
     var closure: (() -> Void)?
 
@@ -26,7 +31,6 @@ class EditableTableViewCell: UITableViewCell {
         let cellTextView = UITextView()
         cellTextView.translatesAutoresizingMaskIntoConstraints = false
         cellTextView.isScrollEnabled = false
-
         return cellTextView
     }()
 
@@ -43,6 +47,7 @@ class EditableTableViewCell: UITableViewCell {
         contentView.addSubview(cellLabel)
         contentView.addSubview(checkButton)
         contentView.addSubview(cellTextView)
+        cellTextView.delegate = self
         setupCell()
     }
 
@@ -51,9 +56,9 @@ class EditableTableViewCell: UITableViewCell {
     }
 
     func setupCell() {
-        cellLabel.snp.makeConstraints { make in
-            make.height.equalTo(cellTextView.snp.height)
+        cellLabel.snp.updateConstraints { make in
             make.top.left.right.equalTo(contentView)
+            make.height.equalTo(cellTextView.snp.height)
         }
 
         checkButton.snp.makeConstraints { make in
@@ -70,6 +75,7 @@ class EditableTableViewCell: UITableViewCell {
     }
 
     func configure(with index: Int) {
+        cellTextView.tag = index
         if Manager.shared.notifications[index].state {
             cellTextView.attributedText = NSMutableAttributedString(string: Manager.shared.notifications[index].text)
             cellTextView.isEditable = true
@@ -92,6 +98,19 @@ class EditableTableViewCell: UITableViewCell {
     func checkButtonTapped() {
         closure?()
     }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        cellTextView.keyboardAppearance = .default
+        print("ok")
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        let index = textView.tag
+        let text = cellTextView.text ?? "is empty"
+        Manager.shared.addNotificationText(index: index, text: text)
+        Manager.shared.delegate?.updateData()
+        cellHeightDelegate?.updateConstraints(index: index)
+    }
 
     func checked(text: String) -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString(string: text)
@@ -106,5 +125,14 @@ class EditableTableViewCell: UITableViewCell {
         cellTextView.text = nil
         checkButton.setImage(nil, for: .normal)
         closure = nil
+    }
+}
+
+extension EditableTableViewCell: ConstraintsDelegate {
+    func updateConstraints(index: Int) {
+        cellLabel.snp.makeConstraints { make in
+            make.top.left.right.equalTo(contentView)
+            make.height.equalTo(cellTextView.snp.height)
+        }
     }
 }

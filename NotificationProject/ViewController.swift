@@ -8,6 +8,10 @@
 import SnapKit
 import UIKit
 
+protocol ConstraintsDelegate: AnyObject {
+    func updateConstraints(index: Int)
+}
+
 protocol ViewControllerDelegate: AnyObject {
     func addNotification()
     func addNotificationText(index: Int, text: String)
@@ -17,6 +21,8 @@ class ViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
+    
+    weak var cellHeightDelegate: ConstraintsDelegate?
 
     weak var delegate: ViewControllerDelegate?
 
@@ -78,6 +84,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         Manager.shared.delegate = self
+//        Manager.shared.loadNotifications()
 
         let tapGestureRecognizer: UITapGestureRecognizer = {
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showCalendar))
@@ -141,12 +148,12 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EditableTableViewCell.identifier, for: indexPath) as? EditableTableViewCell else { return EditableTableViewCell() }
 
         cell.configure(with: indexPath.row)
-
         cell.configureButton {
             cell.prepareForReuse()
             Manager.shared.toggleButtonImage(index: indexPath.row)
             Manager.shared.delegate?.updateData()
         }
+        cellHeightDelegate = cell
         return cell
     }
 
