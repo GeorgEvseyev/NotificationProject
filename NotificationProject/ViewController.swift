@@ -83,8 +83,20 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         Manager.shared.delegate = self
-//        Manager.shared.loadNotifications()
+        
+
+        
+        if let savedNotifications = Manager.shared.defaults.object(forKey: "notifications") as? Data {
+            let jsonDecoder = JSONDecoder()
+            
+            do {
+                Manager.shared.notifications = try jsonDecoder.decode([Notification].self, from: savedNotifications)
+            } catch {
+                print("Failed to load")
+            }
+        }
 
         let tapGestureRecognizer: UITapGestureRecognizer = {
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showCalendar))

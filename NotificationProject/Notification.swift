@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class Notification {
+final class Notification: Codable {
     var id: UUID
     var text: String
     var state: Bool

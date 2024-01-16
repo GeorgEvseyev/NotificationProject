@@ -13,9 +13,10 @@ protocol ManagerDelegate: AnyObject {
 }
 
 final class Manager {
-//    let defaults = UserDefaults.standard
     static let shared = Manager()
     weak var delegate: ManagerDelegate?
+
+    let defaults = UserDefaults.standard
 
     var notifications = [Notification(text: "asdaf", state: false), Notification(text: "b", state: false), Notification(text: "c", state: true), Notification(text: "d", state: true), Notification(text: "e", state: false)]
 
@@ -27,19 +28,24 @@ final class Manager {
 extension Manager: ViewControllerDelegate {
     func addNotification() {
         notifications.append(Notification(text: "smt text", state: true))
+        save()
         delegate?.updateData()
-//        defaults.set(notifications, forKey: "SavedNotifications")
     }
 
     func addNotificationText(index: Int, text: String) {
         notifications[index].text = text
+        save()
         delegate?.updateData()
-//        defaults.set(self.notifications, forKey: "SavedNotifications")
-
     }
-    
-//    func loadNotifications() {
-//        let savedNotifications = defaults.array(forKey: "SavedNotifications") as? [Notification]? ?? []
-//        notifications = savedNotifications ?? notifications
-//    }
+
+    func save() {
+        let jsonEncoder = JSONEncoder()
+
+        if let savedData = try? jsonEncoder.encode(Manager.shared.notifications) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedData, forKey: "notifications")
+        } else {
+            print("Failed to save Notifications")
+        }
+    }
 }
