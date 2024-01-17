@@ -15,8 +15,6 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
     static var identifier: String {
         return String(describing: self)
     }
-    
-    weak var cellHeightDelegate: ConstraintsDelegate?
 
     var closure: (() -> Void)?
 
@@ -37,6 +35,7 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
     var cellLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
+        label.backgroundColor = .green
         label.font = .systemFont(ofSize: 18)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -56,21 +55,23 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
     }
 
     func setupCell() {
-        cellLabel.snp.updateConstraints { make in
-            make.top.left.right.equalTo(contentView)
-            make.height.equalTo(cellTextView.snp.height)
+        cellLabel.snp.remakeConstraints { make in
+            make.top.equalTo(contentView.snp.top).offset(8)
+            make.left.equalTo(contentView.snp.left).offset(60)
+            make.right.equalTo(contentView.snp.right).inset(8)
         }
 
         checkButton.snp.makeConstraints { make in
             make.height.width.equalTo(44)
             make.left.equalTo(contentView.snp.left)
-            make.top.equalTo(contentView.snp.top)
+            make.centerY.equalTo(cellLabel.snp.centerY)
         }
 
         cellTextView.snp.makeConstraints { make in
-            make.height.greaterThanOrEqualTo(44)
-            make.top.right.bottom.equalTo(cellLabel)
-            make.left.equalTo(contentView.snp.left).inset(60)
+            make.top.equalTo(cellLabel.snp.bottom).offset(8)
+            make.left.equalTo(contentView.snp.left).offset(60)
+            make.right.equalTo(contentView.snp.right).inset(8)
+            make.bottom.equalTo(contentView.snp.bottom).inset(8)
         }
     }
 
@@ -109,7 +110,12 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
         let text = cellTextView.text ?? "is empty"
         Manager.shared.addNotificationText(index: index, text: text)
         Manager.shared.delegate?.updateData()
-        cellHeightDelegate?.updateConstraints(index: index)
+        cellTextView.snp.makeConstraints { make in
+            make.height.equalTo(textView.snp.height)
+        }
+        cellLabel.snp.makeConstraints { make in
+            make.height.equalTo(cellTextView.snp.height)
+        }
     }
 
     func checked(text: String) -> NSMutableAttributedString {
@@ -128,11 +134,3 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
     }
 }
 
-extension EditableTableViewCell: ConstraintsDelegate {
-    func updateConstraints(index: Int) {
-        cellLabel.snp.makeConstraints { make in
-            make.top.left.right.equalTo(contentView)
-            make.height.equalTo(cellTextView.snp.height)
-        }
-    }
-}

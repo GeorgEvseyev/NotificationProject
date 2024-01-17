@@ -8,9 +8,6 @@
 import SnapKit
 import UIKit
 
-protocol ConstraintsDelegate: AnyObject {
-    func updateConstraints(index: Int)
-}
 
 protocol ViewControllerDelegate: AnyObject {
     func addNotification()
@@ -21,8 +18,6 @@ class ViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
-    
-    weak var cellHeightDelegate: ConstraintsDelegate?
 
     weak var delegate: ViewControllerDelegate?
 
@@ -85,8 +80,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         Manager.shared.delegate = self
-        
-
         
         if let savedNotifications = Manager.shared.defaults.object(forKey: "notifications") as? Data {
             let jsonDecoder = JSONDecoder()
@@ -158,14 +151,16 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EditableTableViewCell.identifier, for: indexPath) as? EditableTableViewCell else { return EditableTableViewCell() }
-
+        cell.cellTextView.delegate = cell
         cell.configure(with: indexPath.row)
         cell.configureButton {
             cell.prepareForReuse()
             Manager.shared.toggleButtonImage(index: indexPath.row)
             Manager.shared.delegate?.updateData()
         }
-        cellHeightDelegate = cell
+        cell.cellTextView.delegate = cell
+
+        
         return cell
     }
 
