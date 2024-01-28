@@ -26,12 +26,6 @@ final class Manager {
 }
 
 extension Manager: ViewControllerDelegate {
-    func addNotification() {
-        notifications.append(Notification(text: "smt text", state: true))
-        save()
-        delegate?.updateData()
-    }
-
     func addNotificationText(index: Int, text: String) {
         notifications[index].text = text
         save()

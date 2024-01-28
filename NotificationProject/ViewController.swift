@@ -8,9 +8,7 @@
 import SnapKit
 import UIKit
 
-
 protocol ViewControllerDelegate: AnyObject {
-    func addNotification()
     func addNotificationText(index: Int, text: String)
 }
 
@@ -18,6 +16,8 @@ class ViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
+
+    var viewModel = ViewModel()
 
     weak var delegate: ViewControllerDelegate?
 
@@ -78,12 +78,13 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         Manager.shared.delegate = self
-        
+        viewModel.delegate = self
+
         if let savedNotifications = Manager.shared.defaults.object(forKey: "notifications") as? Data {
             let jsonDecoder = JSONDecoder()
-            
+
             do {
                 Manager.shared.notifications = try jsonDecoder.decode([Notification].self, from: savedNotifications)
             } catch {
@@ -133,14 +134,10 @@ class ViewController: UIViewController {
 
     func setUpAddNotificationButton() {
         let action = UIAction { _ in
-            self.addNotification()
+            self.viewModel.addNotificationButtonPressed()
         }
         addNotificationButton.addAction(action, for: .touchUpInside)
         view.addSubview(addNotificationButton)
-    }
-
-    func addNotification() {
-        Manager.shared.addNotification()
     }
 }
 
@@ -160,7 +157,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         }
         cell.cellTextView.delegate = cell
 
-        
         return cell
     }
 
@@ -225,6 +221,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension ViewController: ManagerDelegate {
     func updateData() {
+        tableView.reloadData()
+    }
+}
+
+extension ViewController: ViewModelDelegate {
+    func addNotification(notification: Notification) {
+        Manager.shared.notifications.append(notification)
         tableView.reloadData()
     }
 }

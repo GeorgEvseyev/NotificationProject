@@ -10,7 +10,8 @@
 		358FDF1D5DBFDCCDB10EDEFA /* Pods_NotificationProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 749444232832201744575B9A /* Pods_NotificationProject.framework */; };
 		563C03CF2B3B5C24009F2811 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563C03CE2B3B5C24009F2811 /* Rectangle.swift */; };
 		563C03D12B3B5CC9009F2811 /* BurgerMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563C03D02B3B5CC9009F2811 /* BurgerMenu.swift */; };
-		569C8B8D2B446E7B0066E23B /* EditableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569C8B8C2B446E7B0066E23B /* EditableViewModel.swift */; };
+		5662AC582B663F6000B42751 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5662AC572B663F6000B42751 /* ViewModel.swift */; };
+		5662AC5A2B66407600B42751 /* NetWorkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5662AC592B66407600B42751 /* NetWorkService.swift */; };
 		56A7B8532B1E557F0022FC86 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A7B8522B1E557F0022FC86 /* AppDelegate.swift */; };
 		56A7B8552B1E557F0022FC86 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A7B8542B1E557F0022FC86 /* SceneDelegate.swift */; };
 		56A7B8572B1E557F0022FC86 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A7B8562B1E557F0022FC86 /* ViewController.swift */; };
@@ -25,7 +26,8 @@
 /* Begin PBXFileReference section */
 		563C03CE2B3B5C24009F2811 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 		563C03D02B3B5CC9009F2811 /* BurgerMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurgerMenu.swift; sourceTree = "<group>"; };
-		569C8B8C2B446E7B0066E23B /* EditableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableViewModel.swift; sourceTree = "<group>"; };
+		5662AC572B663F6000B42751 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		5662AC592B66407600B42751 /* NetWorkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorkService.swift; sourceTree = "<group>"; };
 		56A7B84F2B1E557F0022FC86 /* NotificationProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotificationProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56A7B8522B1E557F0022FC86 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		56A7B8542B1E557F0022FC86 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -96,10 +98,11 @@
 				56A7B8542B1E557F0022FC86 /* SceneDelegate.swift */,
 				56A7B8562B1E557F0022FC86 /* ViewController.swift */,
 				56CFDFD92B25A7BC00FC4F98 /* EditableTableViewCell.swift */,
-				569C8B8C2B446E7B0066E23B /* EditableViewModel.swift */,
 				56A7B86E2B2238E70022FC86 /* MenuViewController.swift */,
 				56A7B8682B1F984E0022FC86 /* Notification.swift */,
 				56A7B86C2B1F99180022FC86 /* Manager.swift */,
+				5662AC572B663F6000B42751 /* ViewModel.swift */,
+				5662AC592B66407600B42751 /* NetWorkService.swift */,
 				563C03CE2B3B5C24009F2811 /* Rectangle.swift */,
 				563C03D02B3B5CC9009F2811 /* BurgerMenu.swift */,
 				56A7B85B2B1E55810022FC86 /* Assets.xcassets */,
@@ -226,12 +229,13 @@
 				56A7B8572B1E557F0022FC86 /* ViewController.swift in Sources */,
 				56A7B8692B1F984E0022FC86 /* Notification.swift in Sources */,
 				56A7B8532B1E557F0022FC86 /* AppDelegate.swift in Sources */,
+				5662AC582B663F6000B42751 /* ViewModel.swift in Sources */,
+				5662AC5A2B66407600B42751 /* NetWorkService.swift in Sources */,
 				563C03CF2B3B5C24009F2811 /* Rectangle.swift in Sources */,
 				56CFDFDA2B25A7BC00FC4F98 /* EditableTableViewCell.swift in Sources */,
 				56A7B86F2B2238E70022FC86 /* MenuViewController.swift in Sources */,
 				563C03D12B3B5CC9009F2811 /* BurgerMenu.swift in Sources */,
 				56A7B86D2B1F99180022FC86 /* Manager.swift in Sources */,
-				569C8B8D2B446E7B0066E23B /* EditableViewModel.swift in Sources */,
 				56A7B8552B1E557F0022FC86 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

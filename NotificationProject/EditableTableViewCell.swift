@@ -8,9 +8,6 @@
 import Foundation
 import UIKit
 
-
-
-
 class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
     static var identifier: String {
         return String(describing: self)
@@ -35,7 +32,6 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
     var cellLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.backgroundColor = .green
         label.font = .systemFont(ofSize: 18)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -64,7 +60,7 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
         checkButton.snp.makeConstraints { make in
             make.height.width.equalTo(44)
             make.left.equalTo(contentView.snp.left)
-            make.centerY.equalTo(cellLabel.snp.centerY)
+            make.centerY.equalTo(contentView.snp.centerY)
         }
 
         cellTextView.snp.makeConstraints { make in
@@ -99,12 +95,12 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
     func checkButtonTapped() {
         closure?()
     }
-    
+
     func textViewDidBeginEditing(_ textView: UITextView) {
         cellTextView.keyboardAppearance = .default
         print("ok")
     }
-    
+
     func textViewDidEndEditing(_ textView: UITextView) {
         let index = textView.tag
         let text = cellTextView.text ?? "is empty"
@@ -133,4 +129,3 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
         closure = nil
     }
 }
-
