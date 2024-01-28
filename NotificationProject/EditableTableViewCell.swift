@@ -96,22 +96,20 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
         closure?()
     }
 
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        cellTextView.keyboardAppearance = .default
-        print("ok")
-    }
-
     func textViewDidEndEditing(_ textView: UITextView) {
         let index = textView.tag
         let text = cellTextView.text ?? "is empty"
-        Manager.shared.addNotificationText(index: index, text: text)
-        Manager.shared.delegate?.updateData()
-        cellTextView.snp.makeConstraints { make in
+        Manager.shared.notifications[index].text = text
+        
+        cellTextView.snp.prepareConstraints { make in
             make.height.equalTo(textView.snp.height)
         }
-        cellLabel.snp.makeConstraints { make in
+        
+        cellLabel.snp.prepareConstraints { make in
             make.height.equalTo(cellTextView.snp.height)
         }
+        Manager.shared.save()
+        Manager.shared.delegate?.updateData()
     }
 
     func checked(text: String) -> NSMutableAttributedString {

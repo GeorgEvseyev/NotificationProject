@@ -18,6 +18,12 @@ class ViewModel {
     func addNotificationButtonPressed() {
         netWorkService.sendRequest { notification in
             self.delegate?.addNotification(notification: notification)
+            Manager.shared.delegate?.updateData()
         }
+    }
+
+    func toggleNotificationState(index: Int) {
+        Manager.shared.notifications[index].state = !Manager.shared.notifications[index].state
+        Manager.shared.delegate?.updateData()
     }
 }

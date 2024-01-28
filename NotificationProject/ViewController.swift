@@ -8,18 +8,12 @@
 import SnapKit
 import UIKit
 
-protocol ViewControllerDelegate: AnyObject {
-    func addNotificationText(index: Int, text: String)
-}
-
 class ViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
 
     var viewModel = ViewModel()
-
-    weak var delegate: ViewControllerDelegate?
 
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -81,16 +75,7 @@ class ViewController: UIViewController {
 
         Manager.shared.delegate = self
         viewModel.delegate = self
-
-        if let savedNotifications = Manager.shared.defaults.object(forKey: "notifications") as? Data {
-            let jsonDecoder = JSONDecoder()
-
-            do {
-                Manager.shared.notifications = try jsonDecoder.decode([Notification].self, from: savedNotifications)
-            } catch {
-                print("Failed to load")
-            }
-        }
+        Manager.shared.load()
 
         let tapGestureRecognizer: UITapGestureRecognizer = {
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showCalendar))
@@ -152,8 +137,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         cell.configure(with: indexPath.row)
         cell.configureButton {
             cell.prepareForReuse()
-            Manager.shared.toggleButtonImage(index: indexPath.row)
-            Manager.shared.delegate?.updateData()
+            self.viewModel.toggleNotificationState(index: indexPath.row)
+
         }
         cell.cellTextView.delegate = cell
 
@@ -221,6 +206,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension ViewController: ManagerDelegate {
     func updateData() {
+        Manager.shared.save()
         tableView.reloadData()
     }
 }
@@ -228,6 +214,7 @@ extension ViewController: ManagerDelegate {
 extension ViewController: ViewModelDelegate {
     func addNotification(notification: Notification) {
         Manager.shared.notifications.append(notification)
-        tableView.reloadData()
+        Manager.shared.save()
+        Manager.shared.delegate?.updateData()
     }
 }

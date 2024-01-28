@@ -19,19 +19,7 @@ final class Manager {
     let defaults = UserDefaults.standard
 
     var notifications = [Notification(text: "asdaf", state: false), Notification(text: "b", state: false), Notification(text: "c", state: true), Notification(text: "d", state: true), Notification(text: "e", state: false)]
-
-    func toggleButtonImage(index: Int) {
-        Manager.shared.notifications[index].state = !Manager.shared.notifications[index].state
-    }
-}
-
-extension Manager: ViewControllerDelegate {
-    func addNotificationText(index: Int, text: String) {
-        notifications[index].text = text
-        save()
-        delegate?.updateData()
-    }
-
+    
     func save() {
         let jsonEncoder = JSONEncoder()
 
@@ -40,6 +28,19 @@ extension Manager: ViewControllerDelegate {
             defaults.set(savedData, forKey: "notifications")
         } else {
             print("Failed to save Notifications")
+        }
+    }
+    
+    func load() {
+        if let savedNotifications = Manager.shared.defaults.object(forKey: "notifications") as? Data {
+            let jsonDecoder = JSONDecoder()
+
+            do {
+                notifications = try jsonDecoder.decode([Notification].self, from: savedNotifications)
+                print("ok")
+            } catch {
+                print("Failed to load")
+            }
         }
     }
 }
