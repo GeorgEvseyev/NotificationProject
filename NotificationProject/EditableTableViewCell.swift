@@ -108,7 +108,6 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
         cellLabel.snp.prepareConstraints { make in
             make.height.equalTo(cellTextView.snp.height)
         }
-        Manager.shared.save()
         Manager.shared.delegate?.updateData()
     }
 

@@ -12,6 +12,8 @@ class ViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
+    
+    var userDefaultsManager = UserDefaultsManager()
 
     var viewModel = ViewModel()
 
@@ -24,9 +26,15 @@ class ViewController: UIViewController {
         return tableView
     }()
 
-    let calendarView: UIView = {
+    let menuView: UIView = {
         let calendarView = UIView()
         calendarView.backgroundColor = .opaqueSeparator
+        return calendarView
+    }()
+    
+    let calendarView: UICalendarView = {
+       let calendarView = UICalendarView()
+        calendarView.backgroundColor = .white
         return calendarView
     }()
 
@@ -75,7 +83,7 @@ class ViewController: UIViewController {
 
         Manager.shared.delegate = self
         viewModel.delegate = self
-        Manager.shared.load()
+        userDefaultsManager.load()
 
         let tapGestureRecognizer: UITapGestureRecognizer = {
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showCalendar))
@@ -108,10 +116,11 @@ class ViewController: UIViewController {
         view.addSubview(titleLabel)
         setUpAddNotificationButton()
         view.addSubview(visualShadowView)
-        view.addSubview(calendarView)
-        calendarView.addSubview(bottomPartOfCalendarView)
+        view.addSubview(menuView)
+        menuView.addSubview(bottomPartOfCalendarView)
+        menuView.addSubview(calendarView)
         menuButton.addGestureRecognizer(tapGestureRecognizer)
-        calendarView.addGestureRecognizer(swipeGestureRecognizer)
+        menuView.addGestureRecognizer(swipeGestureRecognizer)
         bottomPartOfCalendarView.addGestureRecognizer(tapGestureRecognizerToHideCalendarForBottomPartOfCalenarView)
         visualShadowView.addGestureRecognizer(tapGestureRecognizerToHideCalendar)
         makeConstraints()
@@ -172,13 +181,18 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             make.height.width.equalToSuperview()
             make.right.equalTo(view.snp.left)
         }
-        calendarView.snp.makeConstraints { make in
+        menuView.snp.makeConstraints { make in
             make.height.width.equalToSuperview()
             make.right.equalTo(view.snp.left)
         }
         bottomPartOfCalendarView.snp.makeConstraints { make in
-            make.bottom.left.right.equalTo(calendarView)
-            make.height.equalTo(calendarView.snp.height).dividedBy(3)
+            make.bottom.left.right.equalTo(menuView)
+            make.height.equalTo(menuView.snp.height).dividedBy(3)
+        }
+        calendarView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(60)
+            make.right.equalToSuperview().inset(25)
+            make.height.width.equalTo(240)
         }
     }
 
@@ -186,7 +200,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         visualShadowView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        calendarView.snp.remakeConstraints { make in
+        menuView.snp.remakeConstraints { make in
             make.right.equalTo(view.snp.right).inset(90)
             make.height.width.equalToSuperview()
         }
@@ -197,7 +211,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             make.top.bottom.width.equalToSuperview()
             make.right.equalTo(view.snp.left)
         }
-        calendarView.snp.remakeConstraints { make in
+        menuView.snp.remakeConstraints { make in
             make.top.bottom.width.equalToSuperview()
             make.right.equalTo(view.snp.left)
         }
@@ -206,7 +220,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension ViewController: ManagerDelegate {
     func updateData() {
-        Manager.shared.save()
+        userDefaultsManager.save()
         tableView.reloadData()
     }
 }
@@ -214,7 +228,7 @@ extension ViewController: ManagerDelegate {
 extension ViewController: ViewModelDelegate {
     func addNotification(notification: Notification) {
         Manager.shared.notifications.append(notification)
-        Manager.shared.save()
+        userDefaultsManager.save()
         Manager.shared.delegate?.updateData()
     }
 }
