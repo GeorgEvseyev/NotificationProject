@@ -24,9 +24,40 @@ class ViewController: UIViewController {
         return tableView
     }()
 
-    let calendarView: UIView = {
-        let calendarView = UIView()
-        calendarView.backgroundColor = .opaqueSeparator
+    let menuView: UIView = {
+        let menuView = UIView()
+        menuView.backgroundColor = .opaqueSeparator
+        return menuView
+    }()
+    
+    let calendarView: UICalendarView = {
+       let calendarView = UICalendarView()
+        calendarView.backgroundColor = .white
+//        calendarView.visibleDateComponents = DateComponents(
+//        year: 2024,
+//        month: 2,
+//        day: 2
+//        )
+//        
+//        let fromDateComponents = DateComponents(
+//            year: 2024,
+//            month: 2,
+//            day: 1
+//        )
+//        
+//        let toDateComponents = DateComponents(
+//            year: 2024,
+//            month: 3,
+//            day: 12
+//        )
+//        
+//        guard let fromDate = fromDateComponents.date, let toDate = toDateComponents.date else {
+//            fatalError("Invalid date components")
+//        }
+//        
+//        let calendarViewDateRange = DateInterval(start: fromDate, end: toDate)
+//        calendarView.availableDateRange = calendarViewDateRange
+        
         return calendarView
     }()
 
@@ -75,7 +106,7 @@ class ViewController: UIViewController {
 
         Manager.shared.delegate = self
         viewModel.delegate = self
-        Manager.shared.load()
+        UserDefaultsManager.shared.load()
 
         let tapGestureRecognizer: UITapGestureRecognizer = {
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showCalendar))
@@ -108,10 +139,11 @@ class ViewController: UIViewController {
         view.addSubview(titleLabel)
         setUpAddNotificationButton()
         view.addSubview(visualShadowView)
-        view.addSubview(calendarView)
-        calendarView.addSubview(bottomPartOfCalendarView)
+        view.addSubview(menuView)
+        menuView.addSubview(bottomPartOfCalendarView)
+        menuView.addSubview(calendarView)
         menuButton.addGestureRecognizer(tapGestureRecognizer)
-        calendarView.addGestureRecognizer(swipeGestureRecognizer)
+        menuView.addGestureRecognizer(swipeGestureRecognizer)
         bottomPartOfCalendarView.addGestureRecognizer(tapGestureRecognizerToHideCalendarForBottomPartOfCalenarView)
         visualShadowView.addGestureRecognizer(tapGestureRecognizerToHideCalendar)
         makeConstraints()
@@ -172,13 +204,18 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             make.height.width.equalToSuperview()
             make.right.equalTo(view.snp.left)
         }
-        calendarView.snp.makeConstraints { make in
+        menuView.snp.makeConstraints { make in
             make.height.width.equalToSuperview()
             make.right.equalTo(view.snp.left)
         }
         bottomPartOfCalendarView.snp.makeConstraints { make in
-            make.bottom.left.right.equalTo(calendarView)
-            make.height.equalTo(calendarView.snp.height).dividedBy(3)
+            make.bottom.left.right.equalTo(menuView)
+            make.height.equalTo(menuView.snp.height).dividedBy(3)
+        }
+        calendarView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(60)
+            make.right.equalToSuperview().inset(25)
+            make.width.equalTo(240)
         }
     }
 
@@ -186,7 +223,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         visualShadowView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        calendarView.snp.remakeConstraints { make in
+        menuView.snp.remakeConstraints { make in
             make.right.equalTo(view.snp.right).inset(90)
             make.height.width.equalToSuperview()
         }
@@ -197,7 +234,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             make.top.bottom.width.equalToSuperview()
             make.right.equalTo(view.snp.left)
         }
-        calendarView.snp.remakeConstraints { make in
+        menuView.snp.remakeConstraints { make in
             make.top.bottom.width.equalToSuperview()
             make.right.equalTo(view.snp.left)
         }
@@ -206,7 +243,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension ViewController: ManagerDelegate {
     func updateData() {
-        Manager.shared.save()
+        UserDefaultsManager.shared.save()
         tableView.reloadData()
     }
 }
@@ -214,7 +251,7 @@ extension ViewController: ManagerDelegate {
 extension ViewController: ViewModelDelegate {
     func addNotification(notification: Notification) {
         Manager.shared.notifications.append(notification)
-        Manager.shared.save()
+        UserDefaultsManager.shared.save()
         Manager.shared.delegate?.updateData()
     }
 }
