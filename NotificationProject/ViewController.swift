@@ -32,34 +32,13 @@ class ViewController: UIViewController {
     
     let calendarView: UICalendarView = {
        let calendarView = UICalendarView()
+        calendarView.calendar = Calendar.current
+        calendarView.fontDesign = .default
         calendarView.backgroundColor = .white
-//        calendarView.visibleDateComponents = DateComponents(
-//        year: 2024,
-//        month: 2,
-//        day: 2
-//        )
-//        
-//        let fromDateComponents = DateComponents(
-//            year: 2024,
-//            month: 2,
-//            day: 1
-//        )
-//        
-//        let toDateComponents = DateComponents(
-//            year: 2024,
-//            month: 3,
-//            day: 12
-//        )
-//        
-//        guard let fromDate = fromDateComponents.date, let toDate = toDateComponents.date else {
-//            fatalError("Invalid date components")
-//        }
-//        
-//        let calendarViewDateRange = DateInterval(start: fromDate, end: toDate)
-//        calendarView.availableDateRange = calendarViewDateRange
-        
         return calendarView
     }()
+    
+    let calendarViewDelegate = CalendarViewDelegate()
 
     let visualShadowView: UIView = {
         let visualShadowView = UIView()
@@ -105,6 +84,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         Manager.shared.delegate = self
+        calendarView.delegate = calendarViewDelegate
         viewModel.delegate = self
         UserDefaultsManager.shared.load()
 
@@ -201,9 +181,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             make.center.equalTo(topImageView.snp.center)
         }
         visualShadowView.snp.makeConstraints { make in
-            make.height.width.equalToSuperview()
-            make.right.equalTo(view.snp.left)
+            make.edges.equalToSuperview()
         }
+        visualShadowView.alpha = 0
+        
         menuView.snp.makeConstraints { make in
             make.height.width.equalToSuperview()
             make.right.equalTo(view.snp.left)
@@ -220,12 +201,18 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     @objc func showCalendar() {
-        visualShadowView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        menuView.snp.remakeConstraints { make in
-            make.right.equalTo(view.snp.right).inset(90)
-            make.height.width.equalToSuperview()
+        
+//        self.visualShadowView.snp.makeConstraints { make in
+//            make.edges.equalToSuperview()
+//        }
+        
+        UIView.animate(withDuration: 0.3) {
+            self.visualShadowView.alpha = 0.4
+            self.menuView.snp.remakeConstraints { make in
+                make.right.equalTo(self.view.snp.right).inset(90)
+                make.height.width.equalToSuperview()
+            }
+            self.view.layoutIfNeeded()
         }
     }
 
@@ -255,3 +242,4 @@ extension ViewController: ViewModelDelegate {
         Manager.shared.delegate?.updateData()
     }
 }
+

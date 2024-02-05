@@ -10,25 +10,22 @@ import Foundation
 final class UserDefaultsManager {
     
     static let shared = UserDefaultsManager()
-    let defaults = UserDefaults.standard
     
     func save() {
         let jsonEncoder = JSONEncoder()
 
         if let savedData = try? jsonEncoder.encode(Manager.shared.notifications) {
-            let defaults = UserDefaults.standard
-            defaults.set(savedData, forKey: "notifications")
+            UserDefaults.standard.set(savedData, forKey: "notifications")
         } else {
             print("Failed to save Notifications")
         }
     }
     
     func load() {
-        if let savedNotifications = defaults.object(forKey: "notifications") as? Data {
-            let jsonDecoder = JSONDecoder()
+        if let savedNotifications = UserDefaults.standard.object(forKey: "notifications") as? Data {
 
             do {
-                Manager.shared.notifications = try jsonDecoder.decode([Notification].self, from: savedNotifications)
+                Manager.shared.notifications = try JSONDecoder().decode([Notification].self, from: savedNotifications)
                 print("ok")
             } catch {
                 print("Failed to load")
