@@ -13,7 +13,6 @@
 		5662AC582B663F6000B42751 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5662AC572B663F6000B42751 /* ViewModel.swift */; };
 		5662AC5A2B66407600B42751 /* NetWorkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5662AC592B66407600B42751 /* NetWorkService.swift */; };
 		56A1BE562B69588D00ECEF01 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A1BE552B69588D00ECEF01 /* UserDefaultsManager.swift */; };
-		56A1BE5A2B6C03A100ECEF01 /* CalendarViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A1BE592B6C03A100ECEF01 /* CalendarViewDelegate.swift */; };
 		56A7B8532B1E557F0022FC86 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A7B8522B1E557F0022FC86 /* AppDelegate.swift */; };
 		56A7B8552B1E557F0022FC86 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A7B8542B1E557F0022FC86 /* SceneDelegate.swift */; };
 		56A7B8572B1E557F0022FC86 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A7B8562B1E557F0022FC86 /* ViewController.swift */; };
@@ -31,7 +30,6 @@
 		5662AC572B663F6000B42751 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		5662AC592B66407600B42751 /* NetWorkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorkService.swift; sourceTree = "<group>"; };
 		56A1BE552B69588D00ECEF01 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
-		56A1BE592B6C03A100ECEF01 /* CalendarViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewDelegate.swift; sourceTree = "<group>"; };
 		56A7B84F2B1E557F0022FC86 /* NotificationProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotificationProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56A7B8522B1E557F0022FC86 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		56A7B8542B1E557F0022FC86 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -108,7 +106,6 @@
 				56A1BE552B69588D00ECEF01 /* UserDefaultsManager.swift */,
 				5662AC572B663F6000B42751 /* ViewModel.swift */,
 				5662AC592B66407600B42751 /* NetWorkService.swift */,
-				56A1BE592B6C03A100ECEF01 /* CalendarViewDelegate.swift */,
 				563C03CE2B3B5C24009F2811 /* Rectangle.swift */,
 				563C03D02B3B5CC9009F2811 /* BurgerMenu.swift */,
 				56A7B85B2B1E55810022FC86 /* Assets.xcassets */,
@@ -233,7 +230,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				56A7B8572B1E557F0022FC86 /* ViewController.swift in Sources */,
-				56A1BE5A2B6C03A100ECEF01 /* CalendarViewDelegate.swift in Sources */,
 				56A7B8692B1F984E0022FC86 /* Notification.swift in Sources */,
 				56A1BE562B69588D00ECEF01 /* UserDefaultsManager.swift in Sources */,
 				56A7B8532B1E557F0022FC86 /* AppDelegate.swift in Sources */,

@@ -32,13 +32,13 @@ class ViewController: UIViewController {
     
     let calendarView: UICalendarView = {
        let calendarView = UICalendarView()
+        
+        calendarView.locale = .current
+
+        calendarView.translatesAutoresizingMaskIntoConstraints = false
         calendarView.calendar = Calendar.current
-        calendarView.fontDesign = .default
-        calendarView.backgroundColor = .white
         return calendarView
     }()
-    
-    let calendarViewDelegate = CalendarViewDelegate()
 
     let visualShadowView: UIView = {
         let visualShadowView = UIView()
@@ -82,11 +82,12 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         Manager.shared.delegate = self
-        calendarView.delegate = calendarViewDelegate
         viewModel.delegate = self
         UserDefaultsManager.shared.load()
+        
+        let selectionBehavior = UICalendarSelectionSingleDate(delegate: self)
+        calendarView.selectionBehavior = selectionBehavior
 
         let tapGestureRecognizer: UITapGestureRecognizer = {
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showCalendar))
@@ -240,6 +241,12 @@ extension ViewController: ViewModelDelegate {
         Manager.shared.notifications.append(notification)
         UserDefaultsManager.shared.save()
         Manager.shared.delegate?.updateData()
+    }
+}
+
+extension ViewController: UICalendarSelectionSingleDateDelegate {
+    func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
+        print(dateComponents?.date)
     }
 }
 
