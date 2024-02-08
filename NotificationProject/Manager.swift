@@ -16,5 +16,5 @@ final class Manager {
     static let shared = Manager()
     weak var delegate: ManagerDelegate?
 
-    var notifications = [Notification(text: "asdaf", state: false), Notification(text: "b", state: false), Notification(text: "c", state: true), Notification(text: "d", state: true), Notification(text: "e", state: false)]
+    var notifications = [Notification(date: 2024-02-08, number: 1, text: "asdaf", state: false), Notification(date: 2024-02-08, number: 1,text: "b", state: false), Notification(date: 2024-02-08, number: 1,text: "c", state: true), Notification(date: 2024-02-08, number: 1,text: "d", state: true), Notification(date: 2024-02-08, number: 1,text: "e", state: false)]
 }

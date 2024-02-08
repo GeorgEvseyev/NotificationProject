@@ -13,6 +13,8 @@ class ViewController: UIViewController {
         return true
     }
 
+    var date: String?
+
     var viewModel = ViewModel()
 
     let tableView: UITableView = {
@@ -29,10 +31,10 @@ class ViewController: UIViewController {
         menuView.backgroundColor = .opaqueSeparator
         return menuView
     }()
-    
+
     let calendarView: UICalendarView = {
-       let calendarView = UICalendarView()
-        
+        let calendarView = UICalendarView()
+
         calendarView.locale = .current
 
         calendarView.translatesAutoresizingMaskIntoConstraints = false
@@ -63,7 +65,7 @@ class ViewController: UIViewController {
         let titleLabel = UILabel()
         titleLabel.textColor = .black
         titleLabel.font = .systemFont(ofSize: 24)
-        titleLabel.text = "Сегодня, ВС"
+        titleLabel.text = ""
         return titleLabel
     }()
 
@@ -85,7 +87,9 @@ class ViewController: UIViewController {
         Manager.shared.delegate = self
         viewModel.delegate = self
         UserDefaultsManager.shared.load()
-        
+
+        titleLabel.text = calendarView.visibleDateComponents.date?.formatted(date: .abbreviated, time: .omitted)
+
         let selectionBehavior = UICalendarSelectionSingleDate(delegate: self)
         calendarView.selectionBehavior = selectionBehavior
 
@@ -151,7 +155,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         cell.configureButton {
             cell.prepareForReuse()
             self.viewModel.toggleNotificationState(index: indexPath.row)
-
         }
         cell.cellTextView.delegate = cell
 
@@ -185,7 +188,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             make.edges.equalToSuperview()
         }
         visualShadowView.alpha = 0
-        
+
         menuView.snp.makeConstraints { make in
             make.height.width.equalToSuperview()
             make.right.equalTo(view.snp.left)
@@ -202,11 +205,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     @objc func showCalendar() {
-        
-//        self.visualShadowView.snp.makeConstraints { make in
-//            make.edges.equalToSuperview()
-//        }
-        
         UIView.animate(withDuration: 0.3) {
             self.visualShadowView.alpha = 0.4
             self.menuView.snp.remakeConstraints { make in
@@ -226,6 +224,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             make.top.bottom.width.equalToSuperview()
             make.right.equalTo(view.snp.left)
         }
+        Manager.shared.delegate?.updateData()
     }
 }
 
@@ -246,7 +245,7 @@ extension ViewController: ViewModelDelegate {
 
 extension ViewController: UICalendarSelectionSingleDateDelegate {
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
-        print(dateComponents?.date)
+        titleLabel.text = dateComponents?.date?.formatted(date: .abbreviated, time: .omitted)
+        hideCalendar()
     }
 }
-
