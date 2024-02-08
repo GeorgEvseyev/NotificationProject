@@ -87,8 +87,8 @@ class ViewController: UIViewController {
         Manager.shared.delegate = self
         viewModel.delegate = self
         UserDefaultsManager.shared.load()
-
-        titleLabel.text = calendarView.visibleDateComponents.date?.formatted(date: .abbreviated, time: .omitted)
+        Manager.shared.notificationDate = calendarView.visibleDateComponents.date?.formatted(date: .abbreviated, time: .omitted) ?? ""
+        titleLabel.text = Manager.shared.notificationDate
 
         let selectionBehavior = UICalendarSelectionSingleDate(delegate: self)
         calendarView.selectionBehavior = selectionBehavior
@@ -145,7 +145,7 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        Manager.shared.notifications.count
+        Manager.shared.getFilteredNotifications().count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -245,7 +245,8 @@ extension ViewController: ViewModelDelegate {
 
 extension ViewController: UICalendarSelectionSingleDateDelegate {
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
-        titleLabel.text = dateComponents?.date?.formatted(date: .abbreviated, time: .omitted)
+        Manager.shared.notificationDate = dateComponents?.date?.formatted(date: .abbreviated, time: .omitted) ?? ""
+        titleLabel.text = Manager.shared.notificationDate
         hideCalendar()
     }
 }

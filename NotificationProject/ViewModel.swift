@@ -16,10 +16,10 @@ class ViewModel {
     var netWorkService = NetworkService()
 
     func addNotificationButtonPressed() {
-        netWorkService.sendRequest { notification in
+        netWorkService.sendRequest(completion: { notification in
             self.delegate?.addNotification(notification: notification)
-            Manager.shared.delegate?.updateData()
-        }
+        })
+        Manager.shared.delegate?.updateData()
     }
 
     func toggleNotificationState(index: Int) {
