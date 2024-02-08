@@ -87,7 +87,7 @@ class ViewController: UIViewController {
         Manager.shared.delegate = self
         viewModel.delegate = self
         UserDefaultsManager.shared.load()
-        Manager.shared.notificationDate = calendarView.visibleDateComponents.date?.formatted(date: .abbreviated, time: .omitted) ?? ""
+        Manager.shared.notificationDate = Date().formatted(date: .abbreviated, time: .omitted)
         titleLabel.text = Manager.shared.notificationDate
 
         let selectionBehavior = UICalendarSelectionSingleDate(delegate: self)
