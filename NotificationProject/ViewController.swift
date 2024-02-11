@@ -125,6 +125,7 @@ class ViewController: UIViewController {
         setUpAddNotificationButton()
         view.addSubview(visualShadowView)
         view.addSubview(menuView)
+        self.tableView.isEditing = true
         menuView.addSubview(bottomPartOfCalendarView)
         menuView.addSubview(calendarView)
         menuButton.addGestureRecognizer(tapGestureRecognizer)
@@ -150,6 +151,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EditableTableViewCell.identifier, for: indexPath) as? EditableTableViewCell else { return EditableTableViewCell() }
+        cell.setEditing(true, animated: false)
         cell.cellTextView.delegate = cell
         cell.configure(with: indexPath.row)
         cell.configureButton {
@@ -159,6 +161,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         cell.cellTextView.delegate = cell
 
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            print("1")
+            Manager.shared.removeNotification(notification: Manager.shared.getFilteredNotifications()[indexPath.row])
+            Manager.shared.delegate?.updateData()
+        }
     }
 
     func makeConstraints() {
