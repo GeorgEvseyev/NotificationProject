@@ -74,13 +74,14 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
     func configure(with index: Int) {
         cellTextView.tag = index
         if Manager.shared.notifications[index].state {
-            cellTextView.attributedText = NSMutableAttributedString(string: Manager.shared.getFilteredNotifications()[index].text)
+            cellTextView.attributedText = NSMutableAttributedString(string: Manager.shared.notifications[index].text)
             cellTextView.isEditable = true
             checkButton.setImage(.uncheck, for: .normal)
         } else {
-            cellTextView.attributedText = checked(text: Manager.shared.getFilteredNotifications()[index].text)
+            cellTextView.attributedText = checked(text: Manager.shared.notifications[index].text)
             cellTextView.isEditable = false
             checkButton.setImage(.check, for: .normal)
+
         }
     }
 
