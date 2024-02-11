@@ -238,7 +238,6 @@ extension ViewController: ManagerDelegate {
 extension ViewController: ViewModelDelegate {
     func addNotification(notification: Notification) {
         Manager.shared.notifications.append(notification)
-        UserDefaultsManager.shared.save()
         Manager.shared.delegate?.updateData()
     }
 }
