@@ -104,6 +104,12 @@ class ViewController: UIViewController {
             return swipeRecognizer
         }()
 
+        let swipeGestureRecognizerForCell: UISwipeGestureRecognizer = {
+            let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(deleteMode))
+            swipeRecognizer.direction = .left
+            return swipeRecognizer
+        }()
+
         let tapGestureRecognizerToHideCalendar: UITapGestureRecognizer = {
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideCalendar))
             return tapGestureRecognizer
@@ -125,7 +131,7 @@ class ViewController: UIViewController {
         setUpAddNotificationButton()
         view.addSubview(visualShadowView)
         view.addSubview(menuView)
-        self.tableView.isEditing = true
+
         menuView.addSubview(bottomPartOfCalendarView)
         menuView.addSubview(calendarView)
         menuButton.addGestureRecognizer(tapGestureRecognizer)
@@ -162,10 +168,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            print("1")
             Manager.shared.removeNotification(notification: Manager.shared.getFilteredNotifications()[indexPath.row])
             Manager.shared.delegate?.updateData()
         }
@@ -225,16 +230,20 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 
+    @objc func deleteMode() {
+        tableView.isEditing = true
+    }
+
     @objc func hideCalendar() {
-        visualShadowView.snp.remakeConstraints { make in
-            make.top.bottom.width.equalToSuperview()
-            make.right.equalTo(view.snp.left)
+        UIView.animate(withDuration: 0.3) {
+            self.visualShadowView.alpha = 0
+            self.menuView.snp.remakeConstraints { make in
+                make.top.bottom.width.equalToSuperview()
+                make.right.equalTo(self.view.snp.left)
+            }
+            self.view.layoutIfNeeded()
+            Manager.shared.delegate?.updateData()
         }
-        menuView.snp.remakeConstraints { make in
-            make.top.bottom.width.equalToSuperview()
-            make.right.equalTo(view.snp.left)
-        }
-        Manager.shared.delegate?.updateData()
     }
 }
 
