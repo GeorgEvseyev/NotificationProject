@@ -104,12 +104,6 @@ class ViewController: UIViewController {
             return swipeRecognizer
         }()
 
-        let swipeGestureRecognizerForCell: UISwipeGestureRecognizer = {
-            let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(deleteMode))
-            swipeRecognizer.direction = .left
-            return swipeRecognizer
-        }()
-
         let tapGestureRecognizerToHideCalendar: UITapGestureRecognizer = {
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideCalendar))
             return tapGestureRecognizer
@@ -230,10 +224,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 
-    @objc func deleteMode() {
-        tableView.isEditing = true
-    }
-
     @objc func hideCalendar() {
         UIView.animate(withDuration: 0.3) {
             self.visualShadowView.alpha = 0
@@ -256,7 +246,7 @@ extension ViewController: ManagerDelegate {
 
 extension ViewController: ViewModelDelegate {
     func addNotification(notification: Notification) {
-        Manager.shared.notifications.append(notification)
+        Manager.shared.notifications.insert(notification, at: 0)
         UserDefaultsManager.shared.save()
         Manager.shared.delegate?.updateData()
     }
