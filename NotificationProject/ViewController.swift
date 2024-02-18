@@ -87,8 +87,8 @@ class ViewController: UIViewController {
         Manager.shared.delegate = self
         viewModel.delegate = self
 //        UserDefaultsManager.shared.load()
-        date = Date().formatted(date: .abbreviated, time: .omitted)
-        titleLabel.text = date
+        Manager.shared.getDate(date: Date().formatted(date: .abbreviated, time: .omitted))
+        titleLabel.text = Manager.shared.notificationDate
         let selectionBehavior = UICalendarSelectionSingleDate(delegate: self)
         calendarView.selectionBehavior = selectionBehavior
 
@@ -145,7 +145,7 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        Manager.shared.getFilteredNotifications(notifications: Manager.shared.notifications, date: Manager.shared.notificationDate ?? Date().formatted(date: .abbreviated, time: .omitted)).count
+        Manager.shared.getFilteredNotifications(date: Manager.shared.notificationDate).count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -157,14 +157,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             cell.prepareForReuse()
             self.viewModel.toggleNotificationState(index: indexPath.row)
         }
-        cell.cellTextView.delegate = cell
-
+//        cell.cellTextView.delegate = cell
         return cell
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            Manager.shared.removeNotification(notification: Manager.shared.getFilteredNotifications(notifications: Manager.shared.notifications, date: Date().formatted(date: .abbreviated, time: .omitted))[indexPath.row])
+            let notification = Manager.shared.getFilteredNotifications(date: Manager.shared.notificationDate)[indexPath.row]
+            Manager.shared.removeNotification(notification: notification)
             Manager.shared.delegate?.updateData()
         }
     }
@@ -174,7 +174,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let item = Manager.shared.getFilteredNotifications(notifications: Manager.shared.notifications, date: Date().formatted(date: .abbreviated, time: .omitted))[sourceIndexPath.row]
+        let item = Manager.shared.getFilteredNotifications(date: Date().formatted(date: .abbreviated, time: .omitted))[sourceIndexPath.row]
     }
 
     func makeConstraints() {
@@ -253,17 +253,18 @@ extension ViewController: ManagerDelegate {
 
 extension ViewController: ViewModelDelegate {
     func addNotification(notification: Notification) {
+        Manager.shared.notificationsNumber += 1
         Manager.shared.notifications.insert(notification, at: 0)
         UserDefaultsManager.shared.save()
-        print(notification)
         Manager.shared.delegate?.updateData()
     }
 }
 
 extension ViewController: UICalendarSelectionSingleDateDelegate {
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
-        Manager.shared.notificationDate = dateComponents?.date?.formatted(date: .abbreviated, time: .omitted)
+        Manager.shared.getDate(date: dateComponents?.date?.formatted(date: .abbreviated, time: .omitted) ?? "Error")
         titleLabel.text = dateComponents?.date?.formatted(date: .abbreviated, time: .omitted)
+        Manager.shared.delegate?.updateData()
         hideCalendar()
     }
 }

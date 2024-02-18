@@ -15,8 +15,8 @@ protocol ManagerDelegate: AnyObject {
 final class Manager {
     static let shared = Manager()
     weak var delegate: ManagerDelegate?
-    var notificationDate: String?
-    var notificationNumber = Int()
+    var notificationDate = String()
+    var notificationsNumber = Int()
 
     var notifications = [Notification]()
 
@@ -35,9 +35,12 @@ final class Manager {
         }
     }
     
-    func getFilteredNotifications(notifications: [Notification], date: String) -> [Notification] {
+    func getFilteredNotifications(date: String) -> [Notification] {
         let filteredNotifications = notifications.filter { $0.date == date }
-        print(date)
         return filteredNotifications
+    }
+    
+    func getDate(date: String) {
+        notificationDate = date
     }
 }

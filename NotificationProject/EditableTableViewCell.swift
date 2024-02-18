@@ -72,8 +72,9 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
     }
 
     func configure(with index: Int) {
-        let notification = Manager.shared.notifications[index]
         cellTextView.tag = index
+        let notifications = Manager.shared.getFilteredNotifications(date: Manager.shared.notificationDate)
+        let notification = notifications[index]
         if notification.state {
             cellTextView.attributedText = NSMutableAttributedString(string: notification.text)
             cellTextView.isEditable = true
@@ -99,18 +100,63 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
 
     func textViewDidEndEditing(_ textView: UITextView) {
         let index = textView.tag
-        let text = cellTextView.text ?? "is empty"
-        Manager.shared.getFilteredNotifications(notifications: Manager.shared.notifications, date: Manager.shared.notificationDate ?? "1")[index].text = text
-        print(Manager.shared.getFilteredNotifications(notifications: Manager.shared.notifications, date: Manager.shared.notificationDate ?? "1")[index].text)
-        
+        let text = cellTextView.text
+        if let firstIndex = Manager.shared.notifications.firstIndex(where: { notification in
+            notification.number == Manager.shared.getFilteredNotifications(date: Manager.shared.notificationDate)[index].number
+        }) {
+            Manager.shared.notifications[firstIndex].text = text ?? "default"
+        }
+        Manager.shared.delegate?.updateData()
+        print("textViewDidEndEditing")
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        print("textViewDidBeginEditing")
+    }
+    
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        print("textViewShouldEndEditing")
+        return true
+    }
+    
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        print("textViewDidChangeSelection")
+    }
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        print("textViewShouldBeginEditing")
+        return true
+    }
+    
+    func textView(_ textView: UITextView, willDismissEditMenuWith animator: UIEditMenuInteractionAnimating) {
+        print("willDismissEditMenuWith")
+    }
+    
+    func textView(_ textView: UITextView, willPresentEditMenuWith animator: UIEditMenuInteractionAnimating) {
+        print("willPresentEditMenuWith")
+        let index = textView.tag
+        let text = cellTextView.text
+        if let firstIndex = Manager.shared.notifications.firstIndex(where: { notification in
+            notification.number == Manager.shared.getFilteredNotifications(date: Manager.shared.notificationDate)[index].number
+        }) {
+            Manager.shared.notifications[firstIndex].text = text ?? "default"
+        }
+        Manager.shared.delegate?.updateData()
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        print("shouldChangeTextIn")
         cellTextView.snp.prepareConstraints { make in
             make.height.equalTo(textView.snp.height)
         }
-        
         cellLabel.snp.prepareConstraints { make in
             make.height.equalTo(cellTextView.snp.height)
         }
-        Manager.shared.delegate?.updateData()
+        return true
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        print("textViewDidChange")
     }
 
     func checked(text: String) -> NSMutableAttributedString {

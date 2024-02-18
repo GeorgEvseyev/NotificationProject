@@ -10,7 +10,7 @@ import Foundation
 class NetworkService {
     func sendRequest(completion: @escaping (Notification) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            completion(Notification(date: Manager.shared.notificationDate ?? "", number: Manager.shared.notificationNumber, text: "", state: true))
+            completion(Notification(date: Manager.shared.notificationDate, number: Manager.shared.notificationsNumber + 1, text: "", state: true))
         }
     }
 }
