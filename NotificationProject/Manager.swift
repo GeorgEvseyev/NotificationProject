@@ -15,15 +15,16 @@ protocol ManagerDelegate: AnyObject {
 final class Manager {
     static let shared = Manager()
     weak var delegate: ManagerDelegate?
-    var notificationDate = String()
+    var notificationDate: String?
     var notificationNumber = Int()
 
     var notifications = [Notification]()
 
-    func getFilteredNotifications() -> [Notification] {
-        let notifications = notifications.filter { $0.date == notificationDate }
-        return notifications
-    }
+//    func getFilteredNotifications(date: String) -> [Notification] {
+//        let notifications = notifications.filter { $0.date == date }
+//        print("\(notifications) + 1")
+//        return notifications
+//    }
 
     func removeNotification(notification: Notification) {
         let removeNotification = notification
@@ -32,5 +33,11 @@ final class Manager {
         }) {
             notifications.remove(at: indexNotification)
         }
+    }
+    
+    func getFilteredNotifications(notifications: [Notification], date: String) -> [Notification] {
+        let filteredNotifications = notifications.filter { $0.date == date }
+        print(date)
+        return filteredNotifications
     }
 }

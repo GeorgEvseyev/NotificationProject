@@ -75,7 +75,6 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
         let notification = Manager.shared.notifications[index]
         cellTextView.tag = index
         if notification.state {
-            print(notification.text)
             cellTextView.attributedText = NSMutableAttributedString(string: notification.text)
             cellTextView.isEditable = true
             checkButton.setImage(.uncheck, for: .normal)
@@ -101,7 +100,8 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         let index = textView.tag
         let text = cellTextView.text ?? "is empty"
-        Manager.shared.notifications[index].text = text
+        Manager.shared.getFilteredNotifications(notifications: Manager.shared.notifications, date: Manager.shared.notificationDate ?? "1")[index].text = text
+        print(Manager.shared.getFilteredNotifications(notifications: Manager.shared.notifications, date: Manager.shared.notificationDate ?? "1")[index].text)
         
         cellTextView.snp.prepareConstraints { make in
             make.height.equalTo(textView.snp.height)
