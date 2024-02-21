@@ -24,6 +24,7 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
 
     var cellTextView: UITextView = {
         let cellTextView = UITextView()
+        cellTextView.backgroundColor = .white
         cellTextView.translatesAutoresizingMaskIntoConstraints = false
         cellTextView.isScrollEnabled = false
         return cellTextView
@@ -31,6 +32,7 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
 
     var cellLabel: UILabel = {
         let label = UILabel()
+        label.backgroundColor = .white
         label.textColor = .black
         label.font = .systemFont(ofSize: 18)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -39,6 +41,7 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+
         contentView.addSubview(cellLabel)
         contentView.addSubview(checkButton)
         contentView.addSubview(cellTextView)
@@ -73,14 +76,12 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
 
     func configure(with index: Int) {
         cellTextView.tag = index
-        let notifications = Manager.shared.getFilteredNotifications(date: Manager.shared.notificationDate)
-        let notification = notifications[index]
-        if notification.state {
-            cellTextView.attributedText = NSMutableAttributedString(string: notification.text)
+        if Manager.shared.getFilteredNotifications()[index].state {
+            cellTextView.attributedText = NSMutableAttributedString(string: Manager.shared.getFilteredNotifications()[index].text)
             cellTextView.isEditable = true
             checkButton.setImage(.uncheck, for: .normal)
         } else {
-            cellTextView.attributedText = checked(text: notification.text)
+            cellTextView.attributedText = checked(text: Manager.shared.getFilteredNotifications()[index].text)
             cellTextView.isEditable = false
             checkButton.setImage(.check, for: .normal)
         }
@@ -101,62 +102,63 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         let index = textView.tag
         let text = cellTextView.text
-        if let firstIndex = Manager.shared.notifications.firstIndex(where: { notification in
-            notification.number == Manager.shared.getFilteredNotifications(date: Manager.shared.notificationDate)[index].number
+        if let firstIndex = Manager.shared.notifications[Manager.shared.notificationDate]?.firstIndex(where: { notification in
+            notification.number == Manager.shared.getFilteredNotifications()[index].number
         }) {
-            Manager.shared.notifications[firstIndex].text = text ?? "default"
+            Manager.shared.notifications[Manager.shared.notificationDate]?[firstIndex].text = text ?? "default"
         }
         Manager.shared.delegate?.updateData()
         print("textViewDidEndEditing")
     }
-    
+
     func textViewDidBeginEditing(_ textView: UITextView) {
         print("textViewDidBeginEditing")
     }
-    
+
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         print("textViewShouldEndEditing")
         return true
     }
-    
+
     func textViewDidChangeSelection(_ textView: UITextView) {
         print("textViewDidChangeSelection")
     }
-    
+
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         print("textViewShouldBeginEditing")
         return true
     }
-    
+
     func textView(_ textView: UITextView, willDismissEditMenuWith animator: UIEditMenuInteractionAnimating) {
         print("willDismissEditMenuWith")
     }
-    
+
     func textView(_ textView: UITextView, willPresentEditMenuWith animator: UIEditMenuInteractionAnimating) {
         print("willPresentEditMenuWith")
         let index = textView.tag
         let text = cellTextView.text
-        if let firstIndex = Manager.shared.notifications.firstIndex(where: { notification in
-            notification.number == Manager.shared.getFilteredNotifications(date: Manager.shared.notificationDate)[index].number
+        if let firstIndex = Manager.shared.notifications[Manager.shared.notificationDate]?.firstIndex(where: { notification in
+            notification.number == Manager.shared.getFilteredNotifications()[index].number
         }) {
-            Manager.shared.notifications[firstIndex].text = text ?? "default"
+            Manager.shared.notifications[Manager.shared.notificationDate]?[firstIndex].text = text ?? "default"
         }
         Manager.shared.delegate?.updateData()
     }
-    
+
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         print("shouldChangeTextIn")
+
+        return true
+    }
+
+    func textViewDidChange(_ textView: UITextView) {
+        print("textViewDidChange")
         cellTextView.snp.prepareConstraints { make in
             make.height.equalTo(textView.snp.height)
         }
         cellLabel.snp.prepareConstraints { make in
             make.height.equalTo(cellTextView.snp.height)
         }
-        return true
-    }
-    
-    func textViewDidChange(_ textView: UITextView) {
-        print("textViewDidChange")
     }
 
     func checked(text: String) -> NSMutableAttributedString {

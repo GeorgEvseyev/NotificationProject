@@ -18,25 +18,23 @@ final class Manager {
     var notificationDate = String()
     var notificationsNumber = Int()
 
-    var notifications = [Notification]()
+    var notifications = [String: [Notification]]()
+    
 
-//    func getFilteredNotifications(date: String) -> [Notification] {
-//        let notifications = notifications.filter { $0.date == date }
-//        print("\(notifications) + 1")
-//        return notifications
-//    }
 
     func removeNotification(notification: Notification) {
+        let date = notification.date
+        
         let removeNotification = notification
-        if let indexNotification = notifications.firstIndex(where: { notification in
+        if let indexNotification = notifications[date]?.firstIndex(where: { notification in
             notification.text == removeNotification.text
         }) {
-            notifications.remove(at: indexNotification)
+            notifications[date]?.remove(at: indexNotification)
         }
     }
     
-    func getFilteredNotifications(date: String) -> [Notification] {
-        let filteredNotifications = notifications.filter { $0.date == date }
+    func getFilteredNotifications() -> [Notification] {
+        let filteredNotifications = notifications[notificationDate]?.filter { $0.date == notificationDate } ?? []
         return filteredNotifications
     }
     

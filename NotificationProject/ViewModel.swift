@@ -23,7 +23,11 @@ class ViewModel {
     }
 
     func toggleNotificationState(index: Int) {
-        Manager.shared.notifications[index].state = !Manager.shared.notifications[index].state
+        if Manager.shared.notifications[Manager.shared.notificationDate]?[index].state == true {
+            Manager.shared.notifications[Manager.shared.notificationDate]?[index].state = false
+        } else {
+            Manager.shared.notifications[Manager.shared.notificationDate]?[index].state = true
+        }
         Manager.shared.delegate?.updateData()
     }
 }

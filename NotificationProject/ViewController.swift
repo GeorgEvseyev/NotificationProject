@@ -75,6 +75,13 @@ class ViewController: UIViewController {
         return button
     }()
 
+    let editButton: UIButton = {
+        let editButton = UIButton()
+        editButton.backgroundColor = .green
+        editButton.setImage(.actions, for: .normal)
+        return editButton
+    }()
+
     let addNotificationButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 30
@@ -120,8 +127,12 @@ class ViewController: UIViewController {
         view.addSubview(tableView)
         view.addSubview(topImageView)
         view.addSubview(menuButton)
+        view.addSubview(editButton)
         view.addSubview(titleLabel)
+
         setUpAddNotificationButton()
+        setUpEditButton()
+
         view.addSubview(visualShadowView)
         view.addSubview(menuView)
 
@@ -132,6 +143,13 @@ class ViewController: UIViewController {
         bottomPartOfCalendarView.addGestureRecognizer(tapGestureRecognizerToHideCalendarForBottomPartOfCalenarView)
         visualShadowView.addGestureRecognizer(tapGestureRecognizerToHideCalendar)
         makeConstraints()
+    }
+
+    func setUpEditButton() {
+        let action = UIAction { _ in
+            self.editTableView()
+        }
+        editButton.addAction(action, for: .touchUpInside)
     }
 
     func setUpAddNotificationButton() {
@@ -145,7 +163,7 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        Manager.shared.getFilteredNotifications(date: Manager.shared.notificationDate).count
+        Manager.shared.getFilteredNotifications().count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -157,13 +175,12 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             cell.prepareForReuse()
             self.viewModel.toggleNotificationState(index: indexPath.row)
         }
-//        cell.cellTextView.delegate = cell
         return cell
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let notification = Manager.shared.getFilteredNotifications(date: Manager.shared.notificationDate)[indexPath.row]
+            let notification = Manager.shared.getFilteredNotifications()[indexPath.row]
             Manager.shared.removeNotification(notification: notification)
             Manager.shared.delegate?.updateData()
         }
@@ -174,13 +191,31 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let item = Manager.shared.getFilteredNotifications(date: Date().formatted(date: .abbreviated, time: .omitted))[sourceIndexPath.row]
+        var filteredNotifications = Manager.shared.getFilteredNotifications()
+
+        let item = Manager.shared.getFilteredNotifications()[sourceIndexPath.row]
+
+        filteredNotifications.remove(at: sourceIndexPath.row)
+        filteredNotifications.insert(item, at: destinationIndexPath.row)
+
+        if let sourceIndex = Manager.shared.notifications[Manager.shared.notificationDate]?.firstIndex(where: { $0.number == item.number }) {
+            if let destinationIndex = Manager.shared.notifications[Manager.shared.notificationDate]?.firstIndex(where: { $0.number == filteredNotifications[destinationIndexPath.row].number }) {
+//                Manager.shared.notifications[destinationIndex].number = Manager.shared.notifications[sourceIndex].number
+//                Manager.shared.notifications[sourceIndex].number = item.number
+                Manager.shared.notifications[Manager.shared.notificationDate]?.swapAt(sourceIndex, destinationIndex)
+            }
+        }
+    }
+
+    func editTableView() {
+        tableView.setEditing(!tableView.isEditing, animated: true)
+        print(1)
     }
 
     func makeConstraints() {
         topImageView.snp.makeConstraints { make in
             make.left.right.top.equalToSuperview()
-            make.height.equalTo(60)
+            make.height.equalTo(90)
         }
 
         tableView.snp.makeConstraints { make in
@@ -194,11 +229,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         }
         menuButton.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(8)
-            make.top.equalToSuperview().offset(8)
+            make.bottom.equalTo(topImageView.snp.bottom).inset(8)
+            make.height.width.equalTo(44)
+        }
+        editButton.snp.makeConstraints { make in
+            make.right.equalToSuperview().inset(8)
+            make.bottom.equalTo(topImageView.snp.bottom).inset(8)
             make.height.width.equalTo(44)
         }
         titleLabel.snp.makeConstraints { make in
-            make.center.equalTo(topImageView.snp.center)
+            make.centerX.equalTo(topImageView.snp.centerX)
+            make.bottom.equalTo(topImageView.snp.bottom).inset(8)
         }
         visualShadowView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -253,10 +294,11 @@ extension ViewController: ManagerDelegate {
 
 extension ViewController: ViewModelDelegate {
     func addNotification(notification: Notification) {
+        Manager.shared.notifications[notification.date] = Manager.shared.notifications[notification.date] ?? [Notification]()
         Manager.shared.notificationsNumber += 1
-        Manager.shared.notifications.insert(notification, at: 0)
-        UserDefaultsManager.shared.save()
+        Manager.shared.notifications[notification.date]?.append(notification)
         Manager.shared.delegate?.updateData()
+        UserDefaultsManager.shared.save()
     }
 }
 
@@ -264,7 +306,7 @@ extension ViewController: UICalendarSelectionSingleDateDelegate {
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
         Manager.shared.getDate(date: dateComponents?.date?.formatted(date: .abbreviated, time: .omitted) ?? "Error")
         titleLabel.text = dateComponents?.date?.formatted(date: .abbreviated, time: .omitted)
-        Manager.shared.delegate?.updateData()
+//        Manager.shared.delegate?.updateData()
         hideCalendar()
     }
 }

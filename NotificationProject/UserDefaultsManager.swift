@@ -21,15 +21,15 @@ final class UserDefaultsManager {
         }
     }
     
-    func load() {
-        if let savedNotifications = UserDefaults.standard.object(forKey: "notifications") as? Data {
-
-            do {
-                Manager.shared.notifications = try JSONDecoder().decode([Notification].self, from: savedNotifications)
-                print("ok")
-            } catch {
-                print("Failed to load")
-            }
-        }
-    }
+//    func load() {
+//        if let savedNotifications = UserDefaults.standard.object(forKey: "notifications") as? Data {
+//
+//            do {
+//                Manager.shared.notifications = try JSONDecoder().decode([Notification].self, from: savedNotifications)
+//                print("ok")
+//            } catch {
+//                print("Failed to load")
+//            }
+//        }
+//    }
 }
