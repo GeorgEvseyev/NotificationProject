@@ -34,11 +34,11 @@ final class Manager {
     }
     
     func getFilteredNotifications() -> [Notification] {
-        let filteredNotifications = notifications[notificationDate]?.filter { $0.date == notificationDate } ?? []
-        return filteredNotifications
+        return notifications[notificationDate]?.filter { $0.date == notificationDate }.sorted { $0.state && !$1.state } ?? [Notification]()
     }
     
     func getDate(date: String) {
         notificationDate = date
     }
+
 }

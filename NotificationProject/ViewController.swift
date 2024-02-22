@@ -93,7 +93,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         Manager.shared.delegate = self
         viewModel.delegate = self
-//        UserDefaultsManager.shared.load()
+        UserDefaultsManager.shared.load()
         Manager.shared.getDate(date: Date().formatted(date: .abbreviated, time: .omitted))
         titleLabel.text = Manager.shared.notificationDate
         let selectionBehavior = UICalendarSelectionSingleDate(delegate: self)
@@ -191,18 +191,24 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        var filteredNotifications = Manager.shared.getFilteredNotifications()
+        var filteredNotifications = Manager.shared.notifications[Manager.shared.notificationDate] ?? [Notification]()
 
-        let item = Manager.shared.getFilteredNotifications()[sourceIndexPath.row]
+        let item = filteredNotifications[sourceIndexPath.row]
 
         filteredNotifications.remove(at: sourceIndexPath.row)
         filteredNotifications.insert(item, at: destinationIndexPath.row)
 
-        if let sourceIndex = Manager.shared.notifications[Manager.shared.notificationDate]?.firstIndex(where: { $0.number == item.number }) {
-            if let destinationIndex = Manager.shared.notifications[Manager.shared.notificationDate]?.firstIndex(where: { $0.number == filteredNotifications[destinationIndexPath.row].number }) {
-//                Manager.shared.notifications[destinationIndex].number = Manager.shared.notifications[sourceIndex].number
-//                Manager.shared.notifications[sourceIndex].number = item.number
+        if let sourceIndex = Manager.shared.notifications[item.date]?.firstIndex(where: { $0.number == item.number }) {
+            if let destinationIndex = Manager.shared.notifications[item.date]?.firstIndex(where: { $0.number == filteredNotifications[destinationIndexPath.row].number }) {
+                for notification in filteredNotifications {
+                    print(notification.text)
+                }
+                
                 Manager.shared.notifications[Manager.shared.notificationDate]?.swapAt(sourceIndex, destinationIndex)
+                Manager.shared.notifications[item.date] = filteredNotifications
+                for notification in Manager.shared.notifications[item.date]! {
+                    print(notification.text)
+                }
             }
         }
     }

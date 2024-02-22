@@ -108,33 +108,33 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
             Manager.shared.notifications[Manager.shared.notificationDate]?[firstIndex].text = text ?? "default"
         }
         Manager.shared.delegate?.updateData()
-        print("textViewDidEndEditing")
+//        print("textViewDidEndEditing")
     }
 
     func textViewDidBeginEditing(_ textView: UITextView) {
-        print("textViewDidBeginEditing")
+//        print("textViewDidBeginEditing")
     }
 
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-        print("textViewShouldEndEditing")
+//        print("textViewShouldEndEditing")
         return true
     }
 
     func textViewDidChangeSelection(_ textView: UITextView) {
-        print("textViewDidChangeSelection")
+//        print("textViewDidChangeSelection")
     }
 
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        print("textViewShouldBeginEditing")
+//        print("textViewShouldBeginEditing")
         return true
     }
 
     func textView(_ textView: UITextView, willDismissEditMenuWith animator: UIEditMenuInteractionAnimating) {
-        print("willDismissEditMenuWith")
+//        print("willDismissEditMenuWith")
     }
 
     func textView(_ textView: UITextView, willPresentEditMenuWith animator: UIEditMenuInteractionAnimating) {
-        print("willPresentEditMenuWith")
+//        print("willPresentEditMenuWith")
         let index = textView.tag
         let text = cellTextView.text
         if let firstIndex = Manager.shared.notifications[Manager.shared.notificationDate]?.firstIndex(where: { notification in
@@ -146,13 +146,13 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
     }
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        print("shouldChangeTextIn")
+//        print("shouldChangeTextIn")
 
         return true
     }
 
     func textViewDidChange(_ textView: UITextView) {
-        print("textViewDidChange")
+//        print("textViewDidChange")
         cellTextView.snp.prepareConstraints { make in
             make.height.equalTo(textView.snp.height)
         }
