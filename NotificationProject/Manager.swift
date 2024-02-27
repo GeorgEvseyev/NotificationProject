@@ -34,7 +34,13 @@ final class Manager {
     }
     
     func getFilteredNotifications() -> [Notification] {
-        return notifications[notificationDate]?.filter { $0.date == notificationDate }.sorted { $0.state && !$1.state } ?? [Notification]()
+        notifications[notificationDate]?.sort(by: { (n1, n2) -> Bool in
+            if !n1.state && !n2.state {
+                return n1.text < n2.text
+            }
+            return n1.state && !n2.state
+        })
+        return notifications[notificationDate] ?? [Notification]()
     }
     
     func getDate(date: String) {
