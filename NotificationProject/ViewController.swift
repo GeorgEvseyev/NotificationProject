@@ -8,7 +8,23 @@
 import SnapKit
 import UIKit
 
-class ViewController: UIViewController {
+private extension CGFloat {
+    static let height: CGFloat = 44
+    static let cornerRadius: CGFloat = 30
+    static let darkAlpha: CGFloat = 0.4
+    static let font: CGFloat = 24
+}
+
+private extension String {
+    static let empty: String = ""
+    static let error: String = "Error"
+}
+
+private extension Double {
+    static let defaultDuration: Double = 0.3
+}
+
+final class ViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -17,10 +33,10 @@ class ViewController: UIViewController {
 
     var viewModel = ViewModel()
 
-    let tableView: UITableView = {
+    private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 44
+        tableView.estimatedRowHeight = .height
         tableView.backgroundColor = .lightGray
         tableView.separatorColor = .orange
         return tableView
@@ -45,7 +61,7 @@ class ViewController: UIViewController {
     let visualShadowView: UIView = {
         let visualShadowView = UIView()
         visualShadowView.backgroundColor = .black
-        visualShadowView.alpha = 0.4
+        visualShadowView.alpha = .darkAlpha
         return visualShadowView
     }()
 
@@ -64,8 +80,8 @@ class ViewController: UIViewController {
     let titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.textColor = .black
-        titleLabel.font = .systemFont(ofSize: 24)
-        titleLabel.text = ""
+        titleLabel.font = .systemFont(ofSize: .font)
+        titleLabel.text = .empty
         return titleLabel
     }()
 
@@ -84,7 +100,7 @@ class ViewController: UIViewController {
 
     let addNotificationButton: UIButton = {
         let button = UIButton()
-        button.layer.cornerRadius = 30
+        button.layer.cornerRadius = .cornerRadius
         button.backgroundColor = .orange
         return button
     }()
@@ -93,32 +109,11 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         Manager.shared.delegate = self
         viewModel.delegate = self
-        UserDefaultsManager.shared.load()
-        Manager.shared.getDate(date: Date().formatted(date: .abbreviated, time: .omitted))
-        titleLabel.text = Manager.shared.notificationDate
+//        Manager.shared.load()
+        Manager.shared.setDate(date: Date().formatted(date: .abbreviated, time: .omitted))
+        titleLabel.text = Manager.shared.getDate()
         let selectionBehavior = UICalendarSelectionSingleDate(delegate: self)
         calendarView.selectionBehavior = selectionBehavior
-
-        let tapGestureRecognizer: UITapGestureRecognizer = {
-            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showCalendar))
-            return tapGestureRecognizer
-        }()
-
-        let swipeGestureRecognizer: UISwipeGestureRecognizer = {
-            let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(hideCalendar))
-            swipeRecognizer.direction = .left
-            return swipeRecognizer
-        }()
-
-        let tapGestureRecognizerToHideCalendar: UITapGestureRecognizer = {
-            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideCalendar))
-            return tapGestureRecognizer
-        }()
-
-        let tapGestureRecognizerToHideCalendarForBottomPartOfCalenarView: UITapGestureRecognizer = {
-            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideCalendar))
-            return tapGestureRecognizer
-        }()
 
         tableView.register(EditableTableViewCell.self, forCellReuseIdentifier: EditableTableViewCell.identifier)
         tableView.delegate = self
@@ -136,15 +131,16 @@ class ViewController: UIViewController {
         view.addSubview(visualShadowView)
         view.addSubview(menuView)
 
+        setupRecognizers()
+
         menuView.addSubview(bottomPartOfCalendarView)
         menuView.addSubview(calendarView)
-        menuButton.addGestureRecognizer(tapGestureRecognizer)
-        menuView.addGestureRecognizer(swipeGestureRecognizer)
-        bottomPartOfCalendarView.addGestureRecognizer(tapGestureRecognizerToHideCalendarForBottomPartOfCalenarView)
-        visualShadowView.addGestureRecognizer(tapGestureRecognizerToHideCalendar)
+
         makeConstraints()
     }
+}
 
+private extension ViewController {
     func setUpEditButton() {
         let action = UIAction { _ in
             self.editTableView()
@@ -163,24 +159,27 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        Manager.shared.getFilteredNotifications().count
+        viewModel.getFilteredNotifications().count
+        // вьюмодель.гетнотификейшнс каунт
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EditableTableViewCell.identifier, for: indexPath) as? EditableTableViewCell else { return EditableTableViewCell() }
         cell.setEditing(true, animated: false)
         cell.cellTextView.delegate = cell
-        cell.configure(with: indexPath.row)
+
+        cell.configure(notification: viewModel.getNotification(index: indexPath.row), index: indexPath.row)
         cell.configureButton {
             cell.prepareForReuse()
-            self.viewModel.toggleNotificationState(index: indexPath.row)
+            Manager.shared.toggleNotificationState(notification: self.viewModel.getNotification(index: indexPath.row))
+            print(self.viewModel.getNotification(index: indexPath.row).number)
         }
         return cell
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let notification = Manager.shared.getFilteredNotifications()[indexPath.row]
+            let notification = viewModel.getFilteredNotifications()[indexPath.row]
             Manager.shared.removeNotification(notification: notification)
             Manager.shared.delegate?.updateData()
         }
@@ -191,7 +190,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        var filteredNotifications = Manager.shared.notifications[Manager.shared.notificationDate] ?? [Notification]()
+        var filteredNotifications = Manager.shared.notifications[Manager.shared.getDate()] ?? [Notification]()
 
         let item = filteredNotifications[sourceIndexPath.row]
 
@@ -203,8 +202,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 for notification in filteredNotifications {
                     print(notification.text)
                 }
-                
-                Manager.shared.notifications[Manager.shared.notificationDate]?.swapAt(sourceIndex, destinationIndex)
+
+                Manager.shared.notifications[Manager.shared.getDate()]?.swapAt(sourceIndex, destinationIndex)
                 Manager.shared.notifications[item.date] = filteredNotifications
                 for notification in Manager.shared.notifications[item.date]! {
                     print(notification.text)
@@ -234,18 +233,18 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             make.height.width.equalTo(60)
         }
         menuButton.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(8)
-            make.bottom.equalTo(topImageView.snp.bottom).inset(8)
+            make.left.equalToSuperview().offset(Offsets.minimumOffset)
+            make.bottom.equalTo(topImageView.snp.bottom).inset(Offsets.smallOffset)
             make.height.width.equalTo(44)
         }
         editButton.snp.makeConstraints { make in
-            make.right.equalToSuperview().inset(8)
-            make.bottom.equalTo(topImageView.snp.bottom).inset(8)
+            make.right.equalToSuperview().inset(Insets.minimumInset)
+            make.bottom.equalTo(topImageView.snp.bottom).inset(Insets.minimumInset)
             make.height.width.equalTo(44)
         }
         titleLabel.snp.makeConstraints { make in
             make.centerX.equalTo(topImageView.snp.centerX)
-            make.bottom.equalTo(topImageView.snp.bottom).inset(8)
+            make.bottom.equalTo(topImageView.snp.bottom).inset(Insets.minimumInset)
         }
         visualShadowView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -267,9 +266,37 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 
+    func setupRecognizers() {
+        let tapGestureRecognizer: UITapGestureRecognizer = {
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showCalendar))
+            return tapGestureRecognizer
+        }()
+
+        let swipeGestureRecognizer: UISwipeGestureRecognizer = {
+            let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(hideCalendar))
+            swipeRecognizer.direction = .left
+            return swipeRecognizer
+        }()
+
+        let tapGestureRecognizerToHideCalendar: UITapGestureRecognizer = {
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideCalendar))
+            return tapGestureRecognizer
+        }()
+
+        let tapGestureRecognizerToHideCalendarForBottomPartOfCalenarView: UITapGestureRecognizer = {
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideCalendar))
+            return tapGestureRecognizer
+        }()
+
+        menuButton.addGestureRecognizer(tapGestureRecognizer)
+        menuView.addGestureRecognizer(swipeGestureRecognizer)
+        bottomPartOfCalendarView.addGestureRecognizer(tapGestureRecognizerToHideCalendarForBottomPartOfCalenarView)
+        visualShadowView.addGestureRecognizer(tapGestureRecognizerToHideCalendar)
+    }
+
     @objc func showCalendar() {
-        UIView.animate(withDuration: 0.3) {
-            self.visualShadowView.alpha = 0.4
+        UIView.animate(withDuration: .defaultDuration) {
+            self.visualShadowView.alpha = .darkAlpha
             self.menuView.snp.remakeConstraints { make in
                 make.right.equalTo(self.view.snp.right).inset(90)
                 make.height.width.equalToSuperview()
@@ -279,7 +306,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     @objc func hideCalendar() {
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: .defaultDuration) {
             self.visualShadowView.alpha = 0
             self.menuView.snp.remakeConstraints { make in
                 make.top.bottom.width.equalToSuperview()
@@ -293,24 +320,20 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension ViewController: ManagerDelegate {
     func updateData() {
-        UserDefaultsManager.shared.save()
+        Manager.shared.save()
         tableView.reloadData()
     }
 }
 
 extension ViewController: ViewModelDelegate {
-    func addNotification(notification: Notification) {
-        Manager.shared.notifications[notification.date] = Manager.shared.notifications[notification.date] ?? [Notification]()
-        Manager.shared.notificationsNumber += 1
-        Manager.shared.notifications[notification.date]?.append(notification)
-        Manager.shared.delegate?.updateData()
-        UserDefaultsManager.shared.save()
+    func updateView() {
+        tableView.reloadData()
     }
 }
 
 extension ViewController: UICalendarSelectionSingleDateDelegate {
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
-        Manager.shared.getDate(date: dateComponents?.date?.formatted(date: .abbreviated, time: .omitted) ?? "Error")
+        Manager.shared.setDate(date: dateComponents?.date?.formatted(date: .abbreviated, time: .omitted) ?? .error)
         titleLabel.text = dateComponents?.date?.formatted(date: .abbreviated, time: .omitted)
 //        Manager.shared.delegate?.updateData()
         hideCalendar()

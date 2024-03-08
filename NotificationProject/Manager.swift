@@ -15,11 +15,30 @@ protocol ManagerDelegate: AnyObject {
 final class Manager {
     static let shared = Manager()
     weak var delegate: ManagerDelegate?
-    var notificationDate = String()
+    private var selectedDate = ""
     var notificationsNumber = Int()
 
     var notifications = [String: [Notification]]()
     
+    
+    func save() {
+        let jsonEncoder = JSONEncoder()
+        
+        if let savedData = try? jsonEncoder.encode(notifications) {
+            UserDefaults.standard.set(savedData, forKey: "notifications")
+        } else {
+            print("Failed to save notifications")
+        }
+    }
+    
+    func load() {
+        if let savedNotifications = UserDefaults.standard.object(forKey: "notifications") as? Data {
+            do { notifications = try JSONDecoder().decode([String: [Notification]].self, from: savedNotifications)
+            } catch {
+                print("Failed to load notifications")
+            }
+        }
+    }
 
 
     func removeNotification(notification: Notification) {
@@ -32,19 +51,46 @@ final class Manager {
             notifications[date]?.remove(at: indexNotification)
         }
     }
+
     
-    func getFilteredNotifications() -> [Notification] {
-        notifications[notificationDate]?.sort(by: { (n1, n2) -> Bool in
-            if !n1.state && !n2.state {
-                return n1.text < n2.text
-            }
-            return n1.state && !n2.state
-        })
-        return notifications[notificationDate] ?? [Notification]()
+    func addNotification(notification: Notification) {
+        if notifications[selectedDate] == nil {
+            notifications[selectedDate] = []
+        }
+        notifications[selectedDate]?.append(notification)
+        setNumber()
+        print(notification.number)
+        save()
+        delegate?.updateData()
     }
     
-    func getDate(date: String) {
-        notificationDate = date
+    func toggleNotificationState(notification: Notification) {
+        print(notification.text )
+        if let firstIndex = notifications[selectedDate]?.firstIndex(where: { myNotification in
+            myNotification.text == notification.text
+        }) {
+
+            print(notifications[selectedDate]?[firstIndex].text ?? "ok")
+            notifications[selectedDate]?[firstIndex].state = !notification.state
+        }
+        save()
+        delegate?.updateData()
+    }
+    
+    func setNumber() {
+        notificationsNumber += 1
+    }
+    
+    func getNumber() -> Int {
+        notificationsNumber
+    }
+    
+    func setDate(date: String) {
+        selectedDate = date
+    }
+    
+    func getDate() -> String {
+        selectedDate
     }
 
 }

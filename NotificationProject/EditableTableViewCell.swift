@@ -8,10 +8,18 @@
 import Foundation
 import UIKit
 
-class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
+private enum Constants {
+    static let fontSize: CGFloat = 18
+    static let defaultSize: CGFloat = 44
+    static let defaultText = "default"
+}
+
+final class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
     static var identifier: String {
         return String(describing: self)
     }
+    
+    var viewModel = ViewModel()
 
     var closure: (() -> Void)?
 
@@ -34,7 +42,7 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
         let label = UILabel()
         label.backgroundColor = .white
         label.textColor = .black
-        label.font = .systemFont(ofSize: 18)
+        label.font = .systemFont(ofSize: Constants.fontSize)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -55,33 +63,33 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
 
     func setupCell() {
         cellLabel.snp.remakeConstraints { make in
-            make.top.equalTo(contentView.snp.top).offset(8)
+            make.top.equalTo(contentView.snp.top).offset(Offsets.minimumOffset)
             make.left.equalTo(contentView.snp.left).offset(60)
-            make.right.equalTo(contentView.snp.right).inset(8)
+            make.right.equalTo(contentView.snp.right).inset(Insets.minimumInset)
         }
 
         checkButton.snp.makeConstraints { make in
-            make.height.width.equalTo(44)
+            make.height.width.equalTo(Constants.defaultSize)
             make.left.equalTo(contentView.snp.left)
             make.centerY.equalTo(contentView.snp.centerY)
         }
 
         cellTextView.snp.makeConstraints { make in
-            make.top.equalTo(cellLabel.snp.bottom).offset(8)
+            make.top.equalTo(cellLabel.snp.bottom).offset(Offsets.minimumOffset)
             make.left.equalTo(contentView.snp.left).offset(60)
-            make.right.equalTo(contentView.snp.right).inset(8)
-            make.bottom.equalTo(contentView.snp.bottom).inset(8)
+            make.right.equalTo(contentView.snp.right).inset(Insets.minimumInset)
+            make.bottom.equalTo(contentView.snp.bottom).inset(Insets.minimumInset)
         }
     }
 
-    func configure(with index: Int) {
+    func configure(notification: Notification, index: Int) {
         cellTextView.tag = index
-        if Manager.shared.getFilteredNotifications()[index].state {
-            cellTextView.attributedText = NSMutableAttributedString(string: Manager.shared.getFilteredNotifications()[index].text)
+        if notification.state {
+            cellTextView.attributedText = NSMutableAttributedString(string: notification.text)
             cellTextView.isEditable = true
             checkButton.setImage(.uncheck, for: .normal)
         } else {
-            cellTextView.attributedText = checked(text: Manager.shared.getFilteredNotifications()[index].text)
+            cellTextView.attributedText = checked(text: notification.text)
             cellTextView.isEditable = false
             checkButton.setImage(.check, for: .normal)
         }
@@ -100,15 +108,13 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
-        let index = textView.tag
-        let text = cellTextView.text
-        if let firstIndex = Manager.shared.notifications[Manager.shared.notificationDate]?.firstIndex(where: { notification in
-            notification.number == Manager.shared.getFilteredNotifications()[index].number
-        }) {
-            Manager.shared.notifications[Manager.shared.notificationDate]?[firstIndex].text = text ?? "default"
-        }
-        Manager.shared.delegate?.updateData()
 //        print("textViewDidEndEditing")
+        if let firstIndex = viewModel.getNotifications().firstIndex(where: { notification in
+            notification.number == viewModel.getNotifications()[textView.tag].number
+        }) {
+            Manager.shared.notifications[Manager.shared.getDate()]?[firstIndex].text = cellTextView.text ?? Constants.defaultText
+            Manager.shared.save()
+        }
     }
 
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -135,14 +141,13 @@ class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
 
     func textView(_ textView: UITextView, willPresentEditMenuWith animator: UIEditMenuInteractionAnimating) {
 //        print("willPresentEditMenuWith")
-        let index = textView.tag
-        let text = cellTextView.text
-        if let firstIndex = Manager.shared.notifications[Manager.shared.notificationDate]?.firstIndex(where: { notification in
-            notification.number == Manager.shared.getFilteredNotifications()[index].number
+        if let firstIndex = Manager.shared.notifications[Manager.shared.getDate()]?.firstIndex(where: { notification in
+            notification.number == viewModel.getFilteredNotifications()[textView.tag].number
         }) {
-            Manager.shared.notifications[Manager.shared.notificationDate]?[firstIndex].text = text ?? "default"
+            Manager.shared.notifications[Manager.shared.getDate()]?[firstIndex].text = cellTextView.text ?? Constants.defaultText
+            Manager.shared.save()
         }
-        Manager.shared.delegate?.updateData()
+//        Manager.shared.delegate?.updateData()
     }
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
