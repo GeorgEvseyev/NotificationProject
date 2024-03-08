@@ -70,7 +70,7 @@ final class Manager {
             myNotification.text == notification.text
         }) {
 
-            print(notifications[selectedDate]?[firstIndex].text ?? "ok")
+            print(notifications[selectedDate]?[firstIndex].id ?? "ok")
             notifications[selectedDate]?[firstIndex].state = !notification.state
         }
         save()

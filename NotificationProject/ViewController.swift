@@ -172,7 +172,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         cell.configureButton {
             cell.prepareForReuse()
             Manager.shared.toggleNotificationState(notification: self.viewModel.getNotification(index: indexPath.row))
-            print(self.viewModel.getNotification(index: indexPath.row).number)
         }
         return cell
     }
@@ -197,8 +196,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         filteredNotifications.remove(at: sourceIndexPath.row)
         filteredNotifications.insert(item, at: destinationIndexPath.row)
 
-        if let sourceIndex = Manager.shared.notifications[item.date]?.firstIndex(where: { $0.number == item.number }) {
-            if let destinationIndex = Manager.shared.notifications[item.date]?.firstIndex(where: { $0.number == filteredNotifications[destinationIndexPath.row].number }) {
+        if let sourceIndex = Manager.shared.notifications[item.date]?.firstIndex(where: { $0.id == item.id }) {
+            if let destinationIndex = Manager.shared.notifications[item.date]?.firstIndex(where: { $0.id == filteredNotifications[destinationIndexPath.row].id }) {
                 for notification in filteredNotifications {
                     print(notification.text)
                 }
@@ -210,6 +209,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
         }
+        tableView.reloadData()
     }
 
     func editTableView() {

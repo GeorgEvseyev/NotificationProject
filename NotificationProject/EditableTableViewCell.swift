@@ -110,7 +110,7 @@ final class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
 //        print("textViewDidEndEditing")
         if let firstIndex = viewModel.getNotifications().firstIndex(where: { notification in
-            notification.number == viewModel.getNotifications()[textView.tag].number
+            notification.id == viewModel.getFilteredNotifications()[textView.tag].id
         }) {
             Manager.shared.notifications[Manager.shared.getDate()]?[firstIndex].text = cellTextView.text ?? Constants.defaultText
             Manager.shared.save()
@@ -142,7 +142,7 @@ final class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
     func textView(_ textView: UITextView, willPresentEditMenuWith animator: UIEditMenuInteractionAnimating) {
 //        print("willPresentEditMenuWith")
         if let firstIndex = Manager.shared.notifications[Manager.shared.getDate()]?.firstIndex(where: { notification in
-            notification.number == viewModel.getFilteredNotifications()[textView.tag].number
+            notification.id == viewModel.getFilteredNotifications()[textView.tag].id
         }) {
             Manager.shared.notifications[Manager.shared.getDate()]?[firstIndex].text = cellTextView.text ?? Constants.defaultText
             Manager.shared.save()
@@ -152,7 +152,6 @@ final class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
 //        print("shouldChangeTextIn")
-
         return true
     }
 
