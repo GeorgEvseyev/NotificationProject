@@ -109,7 +109,8 @@ final class ViewController: UIViewController {
         super.viewDidLoad()
         Manager.shared.delegate = self
         viewModel.delegate = self
-//        Manager.shared.load()
+
+        Manager.shared.load()
         Manager.shared.setDate(date: Date().formatted(date: .abbreviated, time: .omitted))
         titleLabel.text = Manager.shared.getDate()
         let selectionBehavior = UICalendarSelectionSingleDate(delegate: self)
@@ -118,6 +119,7 @@ final class ViewController: UIViewController {
         tableView.register(EditableTableViewCell.self, forCellReuseIdentifier: EditableTableViewCell.identifier)
         tableView.delegate = self
         tableView.dataSource = self
+        calendarView.delegate = self
 
         view.addSubview(tableView)
         view.addSubview(topImageView)
@@ -214,7 +216,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
     func editTableView() {
         tableView.setEditing(!tableView.isEditing, animated: true)
-        print(1)
     }
 
     func makeConstraints() {
@@ -303,6 +304,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             }
             self.view.layoutIfNeeded()
         }
+        self.calendarView.reloadData()
     }
 
     @objc func hideCalendar() {
@@ -337,5 +339,16 @@ extension ViewController: UICalendarSelectionSingleDateDelegate {
         titleLabel.text = dateComponents?.date?.formatted(date: .abbreviated, time: .omitted)
 //        Manager.shared.delegate?.updateData()
         hideCalendar()
+    }
+}
+
+extension ViewController: UICalendarViewDelegate {
+    func calendarView(_ calendarView: UICalendarView, decorationFor dateComponents: DateComponents) -> UICalendarView.Decoration? {
+        let dateString = dateComponents.date?.formatted(date: .abbreviated, time: .omitted) ?? .empty
+        if Manager.shared.notifications[dateString]?.isEmpty == false {
+            return .default(color: .red, size: .large)
+        } else {
+            return nil
+        }
     }
 }
