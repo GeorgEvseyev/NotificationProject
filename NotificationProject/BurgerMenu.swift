@@ -20,9 +20,9 @@ class BurgerMenu: UIView {
         addSubview(secondRectangle)
         addSubview(thirdRectangle)
 
-        firstRectangle.frame = CGRect(x: 0, y: 0, width: 44, height: 12)
-        secondRectangle.frame = CGRect(x: 0, y: 16, width: 44, height: 12)
-        thirdRectangle.frame = CGRect(x: 0, y: 32, width: 44, height: 12)
+        firstRectangle.frame = CGRect(x: 0, y: 0, width: 44, height: 8)
+        secondRectangle.frame = CGRect(x: 0, y: 16, width: 44, height: 8)
+        thirdRectangle.frame = CGRect(x: 0, y: 32, width: 44, height: 8)
     }
 
     required init?(coder: NSCoder) {

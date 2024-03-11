@@ -94,7 +94,7 @@ final class ViewController: UIViewController {
     let editButton: UIButton = {
         let editButton = UIButton()
         editButton.backgroundColor = .green
-        editButton.setImage(.actions, for: .normal)
+        editButton.setImage(UIImage(systemName: "square.split.1x2"), for: .normal)
         return editButton
     }()
 

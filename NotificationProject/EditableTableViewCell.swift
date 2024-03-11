@@ -87,11 +87,11 @@ final class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
         if notification.state {
             cellTextView.attributedText = NSMutableAttributedString(string: notification.text)
             cellTextView.isEditable = true
-            checkButton.setImage(.uncheck, for: .normal)
+            checkButton.setImage(UIImage(systemName: "rectangle.ratio.4.to.3"), for: .normal)
         } else {
             cellTextView.attributedText = checked(text: notification.text)
             cellTextView.isEditable = false
-            checkButton.setImage(.check, for: .normal)
+            checkButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
         }
     }
 
