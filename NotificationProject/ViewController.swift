@@ -175,6 +175,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             cell.prepareForReuse()
             Manager.shared.toggleNotificationState(notification: self.viewModel.getNotification(index: indexPath.row))
         }
+        cell.configureDetailButton {
+            self.moveDetailViewController()
+        }
         return cell
     }
 
@@ -304,7 +307,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             }
             self.view.layoutIfNeeded()
         }
-        self.calendarView.reloadData()
+//        self.calendarView.reloadData()
     }
 
     @objc func hideCalendar() {
@@ -317,6 +320,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             self.view.layoutIfNeeded()
             Manager.shared.delegate?.updateData()
         }
+    }
+    
+    func moveDetailViewController() {
+        let vc = DetailViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

@@ -29,6 +29,13 @@ final class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
         checkButton.imageView?.contentMode = .scaleAspectFit
         return checkButton
     }()
+    
+    var detailButton: UIButton = {
+        let detailButton = UIButton()
+        detailButton.translatesAutoresizingMaskIntoConstraints = false
+        detailButton.setImage(UIImage(systemName: "pencil"), for: .normal)
+       return detailButton
+    }()
 
     var cellTextView: UITextView = {
         let cellTextView = UITextView()
@@ -53,6 +60,7 @@ final class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
         contentView.addSubview(cellLabel)
         contentView.addSubview(checkButton)
         contentView.addSubview(cellTextView)
+        contentView.addSubview(detailButton)
         cellTextView.delegate = self
         setupCell()
     }
@@ -72,6 +80,12 @@ final class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
             make.height.width.equalTo(Constants.defaultSize)
             make.left.equalTo(contentView.snp.left)
             make.centerY.equalTo(contentView.snp.centerY)
+        }
+        
+        detailButton.snp.makeConstraints { make in
+            make.height.width.equalTo(Constants.defaultSize)
+            make.right.equalTo(contentView.snp.right).inset(Insets.minimumInset)
+            
         }
 
         cellTextView.snp.makeConstraints { make in
@@ -106,7 +120,19 @@ final class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
     func checkButtonTapped() {
         closure?()
     }
-
+    
+    func configureDetailButton(with closure: @escaping () -> Void) {
+        self.closure = closure
+        let action = UIAction { _ in
+            self.detailButtonTapped()
+        }
+        detailButton.addAction(action, for: .touchUpInside)
+    }
+    
+    func detailButtonTapped() {
+        closure?()
+    }
+    
     func textViewDidEndEditing(_ textView: UITextView) {
 //        print("textViewDidEndEditing")
         if let firstIndex = viewModel.getNotifications().firstIndex(where: { notification in
