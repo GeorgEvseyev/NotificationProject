@@ -57,6 +57,12 @@ final class ViewController: UIViewController {
         calendarView.calendar = Calendar.current
         return calendarView
     }()
+    
+    let buttonView: UIView = {
+        let buttonView = UIView()
+        buttonView.backgroundColor = .blue
+        return buttonView
+    }()
 
     let visualShadowView: UIView = {
         let visualShadowView = UIView()
@@ -105,6 +111,30 @@ final class ViewController: UIViewController {
         return button
     }()
 
+    let userLabel: UILabel = {
+        let userLabel = UILabel()
+        userLabel.backgroundColor = .red
+        return userLabel
+    }()
+
+    let userButton: UIButton = {
+        let userButton = UIButton()
+        userButton.backgroundColor = .green
+        return userButton
+    }()
+    
+    let inclineButton: UIButton = {
+       let inclineButton = UIButton()
+        inclineButton.backgroundColor = .darkGray
+        return inclineButton
+    }()
+    
+    let expensesButton: UIButton = {
+       let expensesButton = UIButton()
+        expensesButton.backgroundColor = .darkGray
+        return expensesButton
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         Manager.shared.delegate = self
@@ -129,14 +159,20 @@ final class ViewController: UIViewController {
 
         setUpAddNotificationButton()
         setUpEditButton()
+        setupUserButton()
+        setupInclineButton()
+        setupExpensesButton()
 
         view.addSubview(visualShadowView)
         view.addSubview(menuView)
+        view.addSubview(buttonView)
 
         setupRecognizers()
 
         menuView.addSubview(bottomPartOfCalendarView)
         menuView.addSubview(calendarView)
+        menuView.addSubview(userLabel)
+//        menuView.addSubview(userButton)
 
         makeConstraints()
     }
@@ -157,12 +193,36 @@ private extension ViewController {
         addNotificationButton.addAction(action, for: .touchUpInside)
         view.addSubview(addNotificationButton)
     }
+    
+    func setupUserButton() {
+        let action = UIAction { _ in
+            self.moveToUserViewController()
+        }
+        userButton.addAction(action, for: .touchUpInside)
+        menuView.addSubview(userButton)
+    }
+    
+    func setupInclineButton() {
+        let action = UIAction { _ in
+            self.moveToInclineViewController()
+        }
+        inclineButton.addAction(action, for: .touchUpInside)
+        buttonView.addSubview(inclineButton)
+    }
+    
+    func setupExpensesButton() {
+        let action = UIAction { _ in
+            self.moveToExpensesViewController()
+        }
+        expensesButton.addAction(action, for: .touchUpInside)
+        buttonView.addSubview(expensesButton)
+    }
+    
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.getFilteredNotifications().count
-        // вьюмодель.гетнотификейшнс каунт
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -259,12 +319,42 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             make.height.width.equalToSuperview()
             make.right.equalTo(view.snp.left)
         }
+        buttonView.snp.makeConstraints { make in
+            make.width.height.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.top.equalTo(view.snp.bottom)
+        }
+        
+        inclineButton.snp.makeConstraints { make in
+            make.height.width.equalTo(44)
+            make.top.equalTo(buttonView.snp.top).offset(16)
+            make.centerX.equalTo(buttonView.snp.centerX).inset(80)
+        }
+        
+        expensesButton.snp.makeConstraints { make in
+            make.height.width.equalTo(44)
+            make.top.equalTo(buttonView.snp.top).offset(16)
+            make.centerX.equalTo(buttonView.snp.centerX).offset(80)
+        }
+        
         bottomPartOfCalendarView.snp.makeConstraints { make in
             make.bottom.left.right.equalTo(menuView)
             make.height.equalTo(menuView.snp.height).dividedBy(3)
         }
-        calendarView.snp.makeConstraints { make in
+        userLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(60)
+            make.right.equalToSuperview().inset(160)
+            make.height.equalTo(44)
+            make.width.equalTo(120)
+        }
+        userButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(60)
+            make.left.equalTo(userLabel.snp.right)
+            make.height.equalTo(44)
+            make.width.equalTo(44)
+        }
+        calendarView.snp.makeConstraints { make in
+            make.top.equalTo(userLabel.snp.bottom).offset(Offsets.defaultOffset)
             make.right.equalToSuperview().inset(25)
             make.width.equalTo(240)
         }
@@ -291,7 +381,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideCalendar))
             return tapGestureRecognizer
         }()
+        
+        let tapGestureRecognizerToView: UITapGestureRecognizer = {
+            let tapGestureRecognizerToView = UITapGestureRecognizer(target: self, action: #selector(showButtonView))
+            return tapGestureRecognizerToView
+        }()
 
+        view.addGestureRecognizer(tapGestureRecognizerToView)
         menuButton.addGestureRecognizer(tapGestureRecognizer)
         menuView.addGestureRecognizer(swipeGestureRecognizer)
         bottomPartOfCalendarView.addGestureRecognizer(tapGestureRecognizerToHideCalendarForBottomPartOfCalenarView)
@@ -307,7 +403,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             }
             self.view.layoutIfNeeded()
         }
-//        self.calendarView.reloadData()
     }
 
     @objc func hideCalendar() {
@@ -322,9 +417,41 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    @objc func showButtonView() {
+        UIView.animate(withDuration: .defaultDuration) {
+            self.buttonView.snp.remakeConstraints { make in
+                make.top.equalTo(self.view.snp.bottom).inset(80)
+            }
+        }
+        
+    }
+    
+    @objc func hideButtonView() {
+        UIView.animate(withDuration: .defaultDuration) {
+            self.buttonView.snp.remakeConstraints { make in
+                make.top.equalTo(self.view.snp.bottom)
+            }
+        }
+    }
+
     func moveDetailViewController() {
         let vc = DetailViewController()
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func moveToUserViewController() {
+        let vc = UserViewController()
+        navigationController?.present(vc, animated: true)
+    }
+    
+    func moveToInclineViewController() {
+        let vc = InclineViewController()
+        navigationController?.present(vc, animated: true)
+    }
+    
+    func moveToExpensesViewController() {
+        let vc = ExpensesViewController()
+        navigationController?.present(vc, animated: true)
     }
 }
 
@@ -352,6 +479,12 @@ extension ViewController: UICalendarSelectionSingleDateDelegate {
 
 extension ViewController: UICalendarViewDelegate {
     func calendarView(_ calendarView: UICalendarView, decorationFor dateComponents: DateComponents) -> UICalendarView.Decoration? {
+        var dateComponentsForReloading: [DateComponents] = []
+        dateComponentsForReloading.append(dateComponents)
+        DispatchQueue.main.async {
+            calendarView.reloadDecorations(forDateComponents: dateComponentsForReloading, animated: true)
+        }
+
         let dateString = dateComponents.date?.formatted(date: .abbreviated, time: .omitted) ?? .empty
         if Manager.shared.notifications[dateString]?.isEmpty == false {
             return .default(color: .red, size: .large)
