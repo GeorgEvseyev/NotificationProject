@@ -23,7 +23,7 @@ final class DetailViewController: UIViewController {
 
     let textView: UITextView = {
         let textView = UITextView()
-        textView.backgroundColor = .yellow
+        textView.backgroundColor = .white
         return textView
     }()
 

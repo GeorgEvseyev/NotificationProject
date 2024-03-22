@@ -6,13 +6,11 @@
 //
 
 import Foundation
-
 import UIKit
 
 class InclineViewController: UIViewController {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        view.backgroundColor = .white
     }
 }

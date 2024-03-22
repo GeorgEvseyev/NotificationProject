@@ -69,12 +69,10 @@ final class Manager {
         if let firstIndex = notifications[selectedDate]?.firstIndex(where: { myNotification in
             myNotification.text == notification.text
         }) {
-
             print(notifications[selectedDate]?[firstIndex].id ?? "ok")
             notifications[selectedDate]?[firstIndex].state = !notification.state
         }
         save()
-        delegate?.updateData()
     }
     
     func setNumber() {

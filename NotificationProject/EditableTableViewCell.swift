@@ -21,7 +21,9 @@ final class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
     
     var viewModel = ViewModel()
 
-    var closure: (() -> Void)?
+    var checkButtonClosure: (() -> Void)?
+    
+    var detailButtonClosure: (() -> Void)?
 
     var checkButton: UIButton = {
         let checkButton = UIButton()
@@ -58,8 +60,8 @@ final class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         contentView.addSubview(cellLabel)
-        contentView.addSubview(checkButton)
         contentView.addSubview(cellTextView)
+        contentView.addSubview(checkButton)
         contentView.addSubview(detailButton)
         cellTextView.delegate = self
         setupCell()
@@ -85,7 +87,7 @@ final class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
         detailButton.snp.makeConstraints { make in
             make.height.width.equalTo(Constants.defaultSize)
             make.right.equalTo(contentView.snp.right).inset(Insets.minimumInset)
-            
+            make.centerY.equalTo(contentView.snp.centerY)
         }
 
         cellTextView.snp.makeConstraints { make in
@@ -98,39 +100,41 @@ final class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
 
     func configure(notification: Notification, index: Int) {
         cellTextView.tag = index
-        if notification.state {
-            cellTextView.attributedText = NSMutableAttributedString(string: notification.text)
+        if notification.state == true {
+            checkButton.setImage(UIImage(systemName: "circle"), for: .normal)
             cellTextView.isEditable = true
-            checkButton.setImage(.uncheck, for: .normal)
+            cellTextView.attributedText = NSMutableAttributedString(string: notification.text)
         } else {
-            cellTextView.attributedText = checked(text: notification.text)
             cellTextView.isEditable = false
-            checkButton.setImage(.check, for: .normal)
+            checkButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
+            cellTextView.attributedText = checked(text: notification.text)
         }
     }
 
     func configureButton(with closure: @escaping () -> Void) {
-        self.closure = closure
+        self.checkButtonClosure = closure
+        checkButton.removeTarget(nil, action: nil, for: .allEvents)
         let action = UIAction { _ in
             self.checkButtonTapped()
         }
         checkButton.addAction(action, for: .touchUpInside)
     }
-
-    func checkButtonTapped() {
-        closure?()
-    }
     
     func configureDetailButton(with closure: @escaping () -> Void) {
-        self.closure = closure
+        self.detailButtonClosure = closure
+        detailButton.removeTarget(nil, action: nil, for: .allEvents)
         let action = UIAction { _ in
             self.detailButtonTapped()
         }
         detailButton.addAction(action, for: .touchUpInside)
     }
     
+    func checkButtonTapped() {
+        checkButtonClosure?()
+    }
+    
     func detailButtonTapped() {
-        closure?()
+        detailButtonClosure?()
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -202,7 +206,14 @@ final class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
     override func prepareForReuse() {
         super.prepareForReuse()
         cellTextView.text = nil
+        cellTextView.isEditable = true
+        cellTextView.attributedText = nil
         checkButton.setImage(nil, for: .normal)
-        closure = nil
+        detailButton.setImage(UIImage(systemName: "pencil"), for: .normal)
+        checkButtonClosure = nil
+        detailButtonClosure = nil
+        cellTextView.delegate = nil
+        isSelected = false
+        isHighlighted = false
     }
 }

@@ -22,6 +22,7 @@ private extension String {
 
 private extension Double {
     static let defaultDuration: Double = 0.3
+    static let longDuration: Double = 1
 }
 
 final class ViewController: UIViewController {
@@ -30,6 +31,8 @@ final class ViewController: UIViewController {
     }
 
     var date: String?
+
+    private var isButtonViewVisible = false
 
     var viewModel = ViewModel()
 
@@ -57,10 +60,12 @@ final class ViewController: UIViewController {
         calendarView.calendar = Calendar.current
         return calendarView
     }()
-    
+
     let buttonView: UIView = {
         let buttonView = UIView()
-        buttonView.backgroundColor = .blue
+        buttonView.translatesAutoresizingMaskIntoConstraints = false
+        buttonView.backgroundColor = .gray
+        buttonView.alpha = 1.0
         return buttonView
     }()
 
@@ -90,12 +95,19 @@ final class ViewController: UIViewController {
         titleLabel.text = .empty
         return titleLabel
     }()
-
-    let menuButton: UIView = {
-        let button = BurgerMenu()
-        button.backgroundColor = .green
-        return button
+    
+    let menuButton: UIButton = {
+    let button = UIButton()
+    let largeConfig = UIImage.SymbolConfiguration(pointSize: 44, weight: .regular, scale: .default)
+    button.setImage(UIImage(systemName: "line.horizontal.3", withConfiguration: largeConfig), for: .normal)
+    return button
     }()
+
+//    let menuButton: UIButton = {
+//        let button = UIButton()
+//        button.setImage(UIImage(systemName: "line.horizontal.3"), for: .normal)
+//        return button
+//    }()
 
     let editButton: UIButton = {
         let editButton = UIButton()
@@ -106,33 +118,48 @@ final class ViewController: UIViewController {
 
     let addNotificationButton: UIButton = {
         let button = UIButton()
-        button.layer.cornerRadius = .cornerRadius
-        button.backgroundColor = .orange
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 44, weight: .regular, scale: .default)
+        button.setImage(UIImage(systemName: "plus.circle", withConfiguration: largeConfig), for: .normal)
         return button
     }()
 
     let userLabel: UILabel = {
         let userLabel = UILabel()
-        userLabel.backgroundColor = .red
+        userLabel.text = "Username"
+        userLabel.textAlignment = .right
         return userLabel
     }()
 
     let userButton: UIButton = {
         let userButton = UIButton()
-        userButton.backgroundColor = .green
+        userButton.setImage(UIImage(systemName: "chevron.down"), for: .normal)
         return userButton
     }()
-    
+
     let inclineButton: UIButton = {
-       let inclineButton = UIButton()
-        inclineButton.backgroundColor = .darkGray
+        let inclineButton = UIButton()
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 44, weight: .regular, scale: .default)
+        inclineButton.setImage(UIImage(systemName: "arrow.down.right.and.arrow.up.left.circle", withConfiguration: largeConfig), for: .normal)
         return inclineButton
     }()
     
+    let inclineLabel: UILabel = {
+       let inclineLabel = UILabel()
+        inclineLabel.text = "Incline"
+        return inclineLabel
+    }()
+
     let expensesButton: UIButton = {
-       let expensesButton = UIButton()
-        expensesButton.backgroundColor = .darkGray
+        let expensesButton = UIButton()
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 44, weight: .regular, scale: .default)
+        expensesButton.setImage(UIImage(systemName: "arrow.up.left.and.arrow.down.right.circle", withConfiguration: largeConfig), for: .normal)
         return expensesButton
+    }()
+    
+    let expensesLabel: UILabel = {
+       let expensesLabel = UILabel()
+        expensesLabel.text = "Expenses"
+        return expensesLabel
     }()
 
     override func viewDidLoad() {
@@ -156,6 +183,9 @@ final class ViewController: UIViewController {
         view.addSubview(menuButton)
         view.addSubview(editButton)
         view.addSubview(titleLabel)
+        view.addSubview(visualShadowView)
+        view.addSubview(menuView)
+        view.addSubview(buttonView)
 
         setUpAddNotificationButton()
         setUpEditButton()
@@ -163,16 +193,14 @@ final class ViewController: UIViewController {
         setupInclineButton()
         setupExpensesButton()
 
-        view.addSubview(visualShadowView)
-        view.addSubview(menuView)
-        view.addSubview(buttonView)
-
         setupRecognizers()
 
         menuView.addSubview(bottomPartOfCalendarView)
         menuView.addSubview(calendarView)
         menuView.addSubview(userLabel)
-//        menuView.addSubview(userButton)
+        
+        buttonView.addSubview(inclineLabel)
+        buttonView.addSubview(expensesLabel)
 
         makeConstraints()
     }
@@ -193,7 +221,7 @@ private extension ViewController {
         addNotificationButton.addAction(action, for: .touchUpInside)
         view.addSubview(addNotificationButton)
     }
-    
+
     func setupUserButton() {
         let action = UIAction { _ in
             self.moveToUserViewController()
@@ -201,7 +229,7 @@ private extension ViewController {
         userButton.addAction(action, for: .touchUpInside)
         menuView.addSubview(userButton)
     }
-    
+
     func setupInclineButton() {
         let action = UIAction { _ in
             self.moveToInclineViewController()
@@ -209,7 +237,7 @@ private extension ViewController {
         inclineButton.addAction(action, for: .touchUpInside)
         buttonView.addSubview(inclineButton)
     }
-    
+
     func setupExpensesButton() {
         let action = UIAction { _ in
             self.moveToExpensesViewController()
@@ -217,7 +245,6 @@ private extension ViewController {
         expensesButton.addAction(action, for: .touchUpInside)
         buttonView.addSubview(expensesButton)
     }
-    
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
@@ -232,8 +259,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
         cell.configure(notification: viewModel.getNotification(index: indexPath.row), index: indexPath.row)
         cell.configureButton {
-            cell.prepareForReuse()
             Manager.shared.toggleNotificationState(notification: self.viewModel.getNotification(index: indexPath.row))
+            self.tableView.reloadData()
         }
         cell.configureDetailButton {
             self.moveDetailViewController()
@@ -319,24 +346,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             make.height.width.equalToSuperview()
             make.right.equalTo(view.snp.left)
         }
-        buttonView.snp.makeConstraints { make in
-            make.width.height.equalToSuperview()
-            make.centerX.equalToSuperview()
-            make.top.equalTo(view.snp.bottom)
-        }
-        
-        inclineButton.snp.makeConstraints { make in
-            make.height.width.equalTo(44)
-            make.top.equalTo(buttonView.snp.top).offset(16)
-            make.centerX.equalTo(buttonView.snp.centerX).inset(80)
-        }
-        
-        expensesButton.snp.makeConstraints { make in
-            make.height.width.equalTo(44)
-            make.top.equalTo(buttonView.snp.top).offset(16)
-            make.centerX.equalTo(buttonView.snp.centerX).offset(80)
-        }
-        
+
         bottomPartOfCalendarView.snp.makeConstraints { make in
             make.bottom.left.right.equalTo(menuView)
             make.height.equalTo(menuView.snp.height).dividedBy(3)
@@ -357,6 +367,34 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             make.top.equalTo(userLabel.snp.bottom).offset(Offsets.defaultOffset)
             make.right.equalToSuperview().inset(25)
             make.width.equalTo(240)
+        }
+
+        buttonView.snp.makeConstraints { make in
+            make.width.height.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.top.equalTo(view.snp.bottom)
+        }
+
+        inclineButton.snp.makeConstraints { make in
+            make.height.width.equalTo(44)
+            make.top.equalTo(buttonView.snp.top).offset(16)
+            make.left.equalTo(topImageView.snp.left).offset(80)
+        }
+        
+        inclineLabel.snp.makeConstraints { make in
+            make.top.equalTo(inclineButton.snp.bottom)
+            make.centerX.equalTo(inclineButton.snp.centerX)
+        }
+
+        expensesButton.snp.makeConstraints { make in
+            make.height.width.equalTo(44)
+            make.top.equalTo(buttonView.snp.top).offset(16)
+            make.right.equalTo(topImageView.snp.right).inset(80)
+        }
+        
+        expensesLabel.snp.makeConstraints { make in
+            make.top.equalTo(expensesButton.snp.bottom)
+            make.centerX.equalTo(expensesButton.snp.centerX)
         }
     }
 
@@ -381,9 +419,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideCalendar))
             return tapGestureRecognizer
         }()
-        
+
         let tapGestureRecognizerToView: UITapGestureRecognizer = {
-            let tapGestureRecognizerToView = UITapGestureRecognizer(target: self, action: #selector(showButtonView))
+            let tapGestureRecognizerToView = UITapGestureRecognizer(target: self, action: #selector(toggleButtonView))
+            tapGestureRecognizerToView.delegate = self
             return tapGestureRecognizerToView
         }()
 
@@ -416,21 +455,51 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             Manager.shared.delegate?.updateData()
         }
     }
-    
+
+    @objc func toggleButtonView() {
+        if isButtonViewVisible == false {
+            showButtonView()
+        } else {
+            hideButtonView()
+        }
+        isButtonViewVisible.toggle()
+    }
+
     @objc func showButtonView() {
         UIView.animate(withDuration: .defaultDuration) {
-            self.buttonView.snp.remakeConstraints { make in
+            self.buttonView.snp.makeConstraints { make in
+                make.width.height.equalToSuperview()
+                make.centerX.equalToSuperview()
                 make.top.equalTo(self.view.snp.bottom).inset(80)
+                self.buttonView.alpha = 1
             }
+            self.addNotificationButton.snp.remakeConstraints { make in
+                make.right.equalToSuperview().inset(50)
+                make.bottom.equalToSuperview().inset(130)
+                make.height.width.equalTo(60)
+                self.addNotificationButton.alpha = 0
+                self.addNotificationButton.isEnabled = false
+            }
+            self.view.layoutIfNeeded()
         }
-        
     }
-    
+
     @objc func hideButtonView() {
         UIView.animate(withDuration: .defaultDuration) {
             self.buttonView.snp.remakeConstraints { make in
+                make.width.height.equalToSuperview()
+                make.centerX.equalToSuperview()
                 make.top.equalTo(self.view.snp.bottom)
+                self.buttonView.alpha = 0
             }
+            self.addNotificationButton.snp.remakeConstraints { make in
+                make.right.equalToSuperview().inset(50)
+                make.bottom.equalToSuperview().inset(50)
+                make.height.width.equalTo(60)
+                self.addNotificationButton.alpha = 1
+                self.addNotificationButton.isEnabled = true
+            }
+            self.view.layoutIfNeeded()
         }
     }
 
@@ -438,17 +507,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         let vc = DetailViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
-    
+
     func moveToUserViewController() {
         let vc = UserViewController()
         navigationController?.present(vc, animated: true)
     }
-    
+
     func moveToInclineViewController() {
         let vc = InclineViewController()
         navigationController?.present(vc, animated: true)
     }
-    
+
     func moveToExpensesViewController() {
         let vc = ExpensesViewController()
         navigationController?.present(vc, animated: true)
@@ -491,5 +560,14 @@ extension ViewController: UICalendarViewDelegate {
         } else {
             return nil
         }
+    }
+}
+
+extension ViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if touch.view?.isDescendant(of: menuView) == true {
+            return false
+        }
+        return true
     }
 }
