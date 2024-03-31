@@ -26,6 +26,7 @@
 		56A7B8692B1F984E0022FC86 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A7B8682B1F984E0022FC86 /* Notification.swift */; };
 		56A7B86D2B1F99180022FC86 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A7B86C2B1F99180022FC86 /* Manager.swift */; };
 		56A7B86F2B2238E70022FC86 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A7B86E2B2238E70022FC86 /* MenuViewController.swift */; };
+		56C3F7762BB94E7D005D3AD2 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C3F7752BB94E7D005D3AD2 /* RegisterViewController.swift */; };
 		56CFDFDA2B25A7BC00FC4F98 /* EditableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CFDFD92B25A7BC00FC4F98 /* EditableTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		56A7B8682B1F984E0022FC86 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		56A7B86C2B1F99180022FC86 /* Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
 		56A7B86E2B2238E70022FC86 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		56C3F7752BB94E7D005D3AD2 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		56CFDFD92B25A7BC00FC4F98 /* EditableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableTableViewCell.swift; sourceTree = "<group>"; };
 		749444232832201744575B9A /* Pods_NotificationProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8373792C668F335596919346 /* Pods-NotificationProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationProject.release.xcconfig"; path = "Target Support Files/Pods-NotificationProject/Pods-NotificationProject.release.xcconfig"; sourceTree = "<group>"; };
@@ -118,9 +120,10 @@
 				56A7B8522B1E557F0022FC86 /* AppDelegate.swift */,
 				56A7B8542B1E557F0022FC86 /* SceneDelegate.swift */,
 				56CFDFD92B25A7BC00FC4F98 /* EditableTableViewCell.swift */,
+				56C3F7752BB94E7D005D3AD2 /* RegisterViewController.swift */,
 				56A7B8562B1E557F0022FC86 /* ViewController.swift */,
-				56217BE92BA6D99600843672 /* DetailViewController.swift */,
 				56217BEB2BAB516F00843672 /* UserViewController.swift */,
+				56217BE92BA6D99600843672 /* DetailViewController.swift */,
 				56217BED2BACA74D00843672 /* InclineViewController.swift */,
 				56217BEF2BACA76000843672 /* ExpensesViewController.swift */,
 				56A7B86E2B2238E70022FC86 /* MenuViewController.swift */,
@@ -261,6 +264,7 @@
 				5662AC582B663F6000B42751 /* ViewModel.swift in Sources */,
 				5662AC5A2B66407600B42751 /* NetWorkService.swift in Sources */,
 				56217BEE2BACA74D00843672 /* InclineViewController.swift in Sources */,
+				56C3F7762BB94E7D005D3AD2 /* RegisterViewController.swift in Sources */,
 				563C03CF2B3B5C24009F2811 /* Rectangle.swift in Sources */,
 				56CFDFDA2B25A7BC00FC4F98 /* EditableTableViewCell.swift in Sources */,
 				56A7B86F2B2238E70022FC86 /* MenuViewController.swift in Sources */,

@@ -96,7 +96,7 @@ final class ViewController: UIViewController {
         return titleLabel
     }()
     
-    let menuButton: UIButton = {
+    private let menuButton: UIButton = {
     let button = UIButton()
     let largeConfig = UIImage.SymbolConfiguration(pointSize: 44, weight: .regular, scale: .default)
     button.setImage(UIImage(systemName: "line.horizontal.3", withConfiguration: largeConfig), for: .normal)
@@ -564,6 +564,7 @@ extension ViewController: UICalendarViewDelegate {
 }
 
 extension ViewController: UIGestureRecognizerDelegate {
+    //menuView without gesturerecognizer
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if touch.view?.isDescendant(of: menuView) == true {
             return false

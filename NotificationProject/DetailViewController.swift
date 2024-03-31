@@ -84,3 +84,4 @@ final class DetailViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
 }
+
