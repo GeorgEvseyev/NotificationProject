@@ -2,13 +2,18 @@
 //  DetailViewController.swift
 //  NotificationProject
 //
-//  Created by Георгий Евсеев on 17.03.24.
+//  Created by Георгий Евсеев on 15.04.24.
 //
 
 import UIKit
 
 
+protocol IDetailController: AnyObject {
+    func setLabelText(_ text: String)
+}
+
 final class DetailViewController: UIViewController {
+    
     let bottomPartofView: UIView = {
         let bottomPartofView = UIView()
         bottomPartofView.backgroundColor = .opaqueSeparator
@@ -32,31 +37,55 @@ final class DetailViewController: UIViewController {
         picker.backgroundColor = .brown
         return picker
     }()
+    
+    private let presenter: IDetailPresenter
+
+    init(presenter: IDetailPresenter) {
+        self.presenter = presenter
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .gray
-        view.addSubview(bottomPartofView)
-        view.addSubview(textField)
-        view.addSubview(textView)
-        view.addSubview(picker)
-        makeConstraints()
-        addRecognizer()
-    }
 
-    func makeConstraints() {
+        setupUI()
+    }
+    
+    func setupUI() {
+        view.backgroundColor = .gray
+        
+        view.addSubview(bottomPartofView)
         bottomPartofView.snp.makeConstraints { make in
             make.left.right.bottom.equalToSuperview()
             make.height.equalToSuperview().dividedBy(3)
         }
+        let tapRecognizer: UITapGestureRecognizer = {
+            let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(moveFirstScreenController))
+            return tapRecognizer
+        }()
+        bottomPartofView.addGestureRecognizer(tapRecognizer)
         
+        view.addSubview(textField)
+        textField.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(Offsets.defaultOffset)
+            make.height.equalTo(44)
+            make.bottom.equalTo(bottomPartofView.snp.top)
+        }
+        
+        view.addSubview(textView)
         textView.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(Offsets.defaultOffset)
             make.right.equalToSuperview().inset(Offsets.defaultOffset)
             make.height.equalToSuperview().dividedBy(3)
             make.bottom.equalTo(textField.snp.top)
         }
-
+        
+        view.addSubview(picker)
         picker.snp.makeConstraints { make in
             make.left.equalTo(textField.snp.right).offset(Offsets.defaultOffset)
             make.right.equalToSuperview().inset(Insets.defaultInset)
@@ -64,24 +93,16 @@ final class DetailViewController: UIViewController {
             make.bottom.equalTo(textField.snp.bottom)
             make.height.equalTo(textField.snp.height)
         }
-
-        textField.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(Offsets.defaultOffset)
-            make.height.equalTo(44)
-            make.bottom.equalTo(bottomPartofView.snp.top)
-        }
     }
 
-    func addRecognizer() {
-        let tapRecognizer: UITapGestureRecognizer = {
-            let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(moveViewController))
-            return tapRecognizer
-        }()
-        bottomPartofView.addGestureRecognizer(tapRecognizer)
-    }
 
-    @objc func moveViewController() {
+    @objc func moveFirstScreenController() {
         navigationController?.popViewController(animated: true)
     }
 }
 
+extension DetailViewController: IDetailController {
+    func setLabelText(_ text: String) {
+
+    }
+}

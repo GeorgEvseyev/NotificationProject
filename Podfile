@@ -6,4 +6,7 @@ target 'NotificationProject' do
   use_frameworks!
 
   pod 'SnapKit'
+pod 'FirebaseCore', :modular_headers => true
+pod 'Firebase/Database'
+pod 'FirebaseAuth'
 end
