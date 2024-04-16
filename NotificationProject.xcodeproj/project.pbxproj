@@ -143,11 +143,11 @@
 			path = FirstScreen/DetailScreen;
 			sourceTree = "<group>";
 		};
-		565A2BBA2BCE7FCF006EEC1D /* New Group */ = {
+		565A2BBA2BCE7FCF006EEC1D /* RegistrationScreen */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = "New Group";
+			path = RegistrationScreen;
 			sourceTree = "<group>";
 		};
 		56A4F39D2B9324F9003D0668 /* Constants */ = {
@@ -180,7 +180,7 @@
 		56A7B8512B1E557F0022FC86 /* NotificationProject */ = {
 			isa = PBXGroup;
 			children = (
-				565A2BBA2BCE7FCF006EEC1D /* New Group */,
+				565A2BBA2BCE7FCF006EEC1D /* RegistrationScreen */,
 				564D89B32BBF1EC9002B14DF /* Services */,
 				564D89CB2BBF24BA002B14DF /* AppCoordinator */,
 				564D89B62BBF1F45002B14DF /* FirstScreen */,
