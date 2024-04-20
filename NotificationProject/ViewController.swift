@@ -4,10 +4,10 @@
 //
 //  Created by Георгий Евсеев on 4.12.23.
 //
-
-import SnapKit
-import UIKit
-
+//
+//import SnapKit
+//import UIKit
+//
 //private extension CGFloat {
 //    static let height: CGFloat = 44
 //    static let cornerRadius: CGFloat = 30
@@ -24,17 +24,17 @@ import UIKit
 //    static let defaultDuration: Double = 0.3
 //    static let longDuration: Double = 1
 //}
-
-final class ViewController: UIViewController {
+//
+//final class ViewController: UIViewController {
 //    override var prefersStatusBarHidden: Bool {
 //        return true
 //    }
-
-    var date: String?
-
-    private var isButtonViewVisible = false
-
-    var viewModel = ViewModel()
+//
+//    var date: String?
+//
+//    private var isButtonViewVisible = false
+//
+//    var viewModel = ViewModel()
 
 //    private let tableView: UITableView = {
 //        let tableView = UITableView()
@@ -161,17 +161,17 @@ final class ViewController: UIViewController {
 //        expensesLabel.text = "Expenses"
 //        return expensesLabel
 //    }()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        Manager.shared.delegate = self
-        viewModel.delegate = self
-
-        Manager.shared.load()
-        Manager.shared.setDate(date: Date().formatted(date: .abbreviated, time: .omitted))
-        titleLabel.text = Manager.shared.getDate()
-        let selectionBehavior = UICalendarSelectionSingleDate(delegate: self)
-        calendarView.selectionBehavior = selectionBehavior
+//
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        Manager.shared.delegate = self
+//        viewModel.delegate = self
+//
+//        Manager.shared.load()
+//        Manager.shared.setDate(date: Date().formatted(date: .abbreviated, time: .omitted))
+//        titleLabel.text = Manager.shared.getDate()
+//        let selectionBehavior = UICalendarSelectionSingleDate(delegate: self)
+//        calendarView.selectionBehavior = selectionBehavior
 
 //        tableView.register(EditableTableViewCell.self, forCellReuseIdentifier: EditableTableViewCell.identifier)
 //        tableView.delegate = self
@@ -192,8 +192,8 @@ final class ViewController: UIViewController {
 //        setupUserButton()
 //        setupInclineButton()
 //        setupExpensesButton()
-
-        setupRecognizers()
+//
+//        setupRecognizers()
 
 //        menuView.addSubview(calendarView)
 //        menuView.addSubview(bottomPartOfCalendarView)
@@ -201,12 +201,12 @@ final class ViewController: UIViewController {
 //        
 //        buttonView.addSubview(inclineLabel)
 //        buttonView.addSubview(expensesLabel)
-
-        makeConstraints()
-    }
-}
-
-private extension ViewController {
+//
+//        makeConstraints()
+//    }
+//}
+//
+//private extension ViewController {
 //    func setUpEditButton() {
 //        let action = UIAction { _ in
 //            self.editTableView()
@@ -245,9 +245,9 @@ private extension ViewController {
 //        expensesButton.addAction(action, for: .touchUpInside)
 //        buttonView.addSubview(expensesButton)
 //    }
-}
-
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+//}
+//
+//extension ViewController: UITableViewDelegate, UITableViewDataSource {
 //    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        viewModel.getFilteredNotifications().count
 //    }
@@ -307,8 +307,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 //    func editTableView() {
 //        tableView.setEditing(!tableView.isEditing, animated: true)
 //    }
-
-    func makeConstraints() {
+//
+//    func makeConstraints() {
 //        topImageView.snp.makeConstraints { make in
 //            make.left.right.top.equalToSuperview()
 //            make.height.equalTo(90)
@@ -396,9 +396,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 //            make.top.equalTo(expensesButton.snp.bottom)
 //            make.centerX.equalTo(expensesButton.snp.centerX)
 //        }
-    }
-
-    func setupRecognizers() {
+//    }
+//
+//    func setupRecognizers() {
 //        let tapGestureRecognizer: UITapGestureRecognizer = {
 //            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showCalendar))
 //            return tapGestureRecognizer
@@ -431,111 +431,111 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 //        menuView.addGestureRecognizer(swipeGestureRecognizer)
 //        bottomPartOfCalendarView.addGestureRecognizer(tapGestureRecognizerToHideCalendarForBottomPartOfCalenarView)
 //        visualShadowView.addGestureRecognizer(tapGestureRecognizerToHideCalendar)
-    }
-
-    @objc func showCalendar() {
-        UIView.animate(withDuration: .defaultDuration) {
-            self.visualShadowView.alpha = .darkAlpha
-            self.menuView.snp.remakeConstraints { make in
-                make.right.equalTo(self.view.snp.right).inset(90)
-                make.height.width.equalToSuperview()
-            }
-            self.view.layoutIfNeeded()
-        }
-    }
-
-    @objc func hideCalendar() {
-        UIView.animate(withDuration: .defaultDuration) {
-            self.visualShadowView.alpha = 0
-            self.menuView.snp.remakeConstraints { make in
-                make.top.bottom.width.equalToSuperview()
-                make.right.equalTo(self.view.snp.left)
-            }
-            self.view.layoutIfNeeded()
-            Manager.shared.delegate?.updateData()
-        }
-    }
-
-    @objc func toggleButtonView() {
-        if isButtonViewVisible == false {
-            showButtonView()
-        } else {
-            hideButtonView()
-        }
-        isButtonViewVisible.toggle()
-    }
-
-    @objc func showButtonView() {
-        UIView.animate(withDuration: .defaultDuration) {
-            self.buttonView.snp.makeConstraints { make in
-                make.width.height.equalToSuperview()
-                make.centerX.equalToSuperview()
-                make.top.equalTo(self.view.snp.bottom).inset(80)
-                self.buttonView.alpha = 1
-            }
-            self.addNotificationButton.snp.remakeConstraints { make in
-                make.right.equalToSuperview().inset(50)
-                make.bottom.equalToSuperview().inset(130)
-                make.height.width.equalTo(60)
-                self.addNotificationButton.alpha = 0
-                self.addNotificationButton.isEnabled = false
-            }
-            self.view.layoutIfNeeded()
-        }
-    }
-
-    @objc func hideButtonView() {
-        UIView.animate(withDuration: .defaultDuration) {
-            self.buttonView.snp.remakeConstraints { make in
-                make.width.height.equalToSuperview()
-                make.centerX.equalToSuperview()
-                make.top.equalTo(self.view.snp.bottom)
-                self.buttonView.alpha = 0
-            }
-            self.addNotificationButton.snp.remakeConstraints { make in
-                make.right.equalToSuperview().inset(50)
-                make.bottom.equalToSuperview().inset(50)
-                make.height.width.equalTo(60)
-                self.addNotificationButton.alpha = 1
-                self.addNotificationButton.isEnabled = true
-            }
-            self.view.layoutIfNeeded()
-        }
-    }
-
-    func moveDetailViewController() {
-        let vc = DetailViewController()
-        navigationController?.pushViewController(vc, animated: true)
-    }
-
-    func moveToUserViewController() {
-        let vc = UserViewController()
-        navigationController?.present(vc, animated: true)
-    }
-
-    func moveToInclineViewController() {
-        let vc = InclineViewController()
-        navigationController?.present(vc, animated: true)
-    }
-
-    func moveToExpensesViewController() {
-        let vc = ExpensesViewController()
-        navigationController?.present(vc, animated: true)
-    }
-}
-
-extension ViewController: ManagerDelegate {
-    func updateData() {
-        Manager.shared.save()
-        tableView.reloadData()
-    }
-}
-
-extension ViewController: ViewModelDelegate {
-    func updateView() {
-        tableView.reloadData()
-    }
-}
+//    }
+//
+//    @objc func showCalendar() {
+//        UIView.animate(withDuration: .defaultDuration) {
+//            self.visualShadowView.alpha = .darkAlpha
+//            self.menuView.snp.remakeConstraints { make in
+//                make.right.equalTo(self.view.snp.right).inset(90)
+//                make.height.width.equalToSuperview()
+//            }
+//            self.view.layoutIfNeeded()
+//        }
+//    }
+//
+//    @objc func hideCalendar() {
+//        UIView.animate(withDuration: .defaultDuration) {
+//            self.visualShadowView.alpha = 0
+//            self.menuView.snp.remakeConstraints { make in
+//                make.top.bottom.width.equalToSuperview()
+//                make.right.equalTo(self.view.snp.left)
+//            }
+//            self.view.layoutIfNeeded()
+//            Manager.shared.delegate?.updateData()
+//        }
+//    }
+//
+//    @objc func toggleButtonView() {
+//        if isButtonViewVisible == false {
+//            showButtonView()
+//        } else {
+//            hideButtonView()
+//        }
+//        isButtonViewVisible.toggle()
+//    }
+//
+//    @objc func showButtonView() {
+//        UIView.animate(withDuration: .defaultDuration) {
+//            self.buttonView.snp.makeConstraints { make in
+//                make.width.height.equalToSuperview()
+//                make.centerX.equalToSuperview()
+//                make.top.equalTo(self.view.snp.bottom).inset(80)
+//                self.buttonView.alpha = 1
+//            }
+//            self.addNotificationButton.snp.remakeConstraints { make in
+//                make.right.equalToSuperview().inset(50)
+//                make.bottom.equalToSuperview().inset(130)
+//                make.height.width.equalTo(60)
+//                self.addNotificationButton.alpha = 0
+//                self.addNotificationButton.isEnabled = false
+//            }
+//            self.view.layoutIfNeeded()
+//        }
+//    }
+//
+//    @objc func hideButtonView() {
+//        UIView.animate(withDuration: .defaultDuration) {
+//            self.buttonView.snp.remakeConstraints { make in
+//                make.width.height.equalToSuperview()
+//                make.centerX.equalToSuperview()
+//                make.top.equalTo(self.view.snp.bottom)
+//                self.buttonView.alpha = 0
+//            }
+//            self.addNotificationButton.snp.remakeConstraints { make in
+//                make.right.equalToSuperview().inset(50)
+//                make.bottom.equalToSuperview().inset(50)
+//                make.height.width.equalTo(60)
+//                self.addNotificationButton.alpha = 1
+//                self.addNotificationButton.isEnabled = true
+//            }
+//            self.view.layoutIfNeeded()
+//        }
+//    }
+//
+//    func moveDetailViewController() {
+//        let vc = DetailScreenViewController()
+//        navigationController?.pushViewController(vc, animated: true)
+//    }
+//
+//    func moveToUserViewController() {
+//        let vc = UserViewController()
+//        navigationController?.present(vc, animated: true)
+//    }
+//
+//    func moveToInclineViewController() {
+//        let vc = InclineViewController()
+//        navigationController?.present(vc, animated: true)
+//    }
+//
+//    func moveToExpensesViewController() {
+//        let vc = ExpensesViewController()
+//        navigationController?.present(vc, animated: true)
+//    }
+//}
+//
+//extension ViewController: ManagerDelegate {
+//    func updateData() {
+//        Manager.shared.save()
+//        tableView.reloadData()
+//    }
+//}
+//
+//extension ViewController: ViewModelDelegate {
+//    func updateView() {
+//        tableView.reloadData()
+//    }
+//}
 
 //extension ViewController: UICalendarSelectionSingleDateDelegate {
 //    func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {

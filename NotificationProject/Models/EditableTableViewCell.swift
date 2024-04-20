@@ -59,10 +59,6 @@ final class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        contentView.addSubview(cellLabel)
-        contentView.addSubview(cellTextView)
-        contentView.addSubview(checkButton)
-        contentView.addSubview(detailButton)
         cellTextView.delegate = self
         setupCell()
     }
@@ -72,24 +68,29 @@ final class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
     }
 
     func setupCell() {
+        
+        contentView.addSubview(cellLabel)
         cellLabel.snp.remakeConstraints { make in
             make.top.equalTo(contentView.snp.top).offset(Offsets.minimumOffset)
             make.left.equalTo(contentView.snp.left).offset(60)
             make.right.equalTo(contentView.snp.right).inset(Insets.minimumInset)
         }
 
+        contentView.addSubview(checkButton)
         checkButton.snp.makeConstraints { make in
             make.height.width.equalTo(Constants.defaultSize)
             make.left.equalTo(contentView.snp.left)
             make.centerY.equalTo(contentView.snp.centerY)
         }
         
+        contentView.addSubview(detailButton)
         detailButton.snp.makeConstraints { make in
             make.height.width.equalTo(Constants.defaultSize)
             make.right.equalTo(contentView.snp.right).inset(Insets.minimumInset)
             make.centerY.equalTo(contentView.snp.centerY)
         }
 
+        contentView.addSubview(cellTextView)
         cellTextView.snp.makeConstraints { make in
             make.top.equalTo(cellLabel.snp.bottom).offset(Offsets.minimumOffset)
             make.left.equalTo(contentView.snp.left).offset(60)
@@ -143,7 +144,7 @@ final class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
             notification.id == viewModel.getFilteredNotifications()[textView.tag].id
         }) {
             Manager.shared.notifications[Manager.shared.getDate()]?[firstIndex].text = cellTextView.text ?? Constants.defaultText
-            Manager.shared.save()
+            StorageService().saveNotification()
         }
     }
 
@@ -175,7 +176,7 @@ final class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
             notification.id == viewModel.getFilteredNotifications()[textView.tag].id
         }) {
             Manager.shared.notifications[Manager.shared.getDate()]?[firstIndex].text = cellTextView.text ?? Constants.defaultText
-            Manager.shared.save()
+            StorageService().saveNotification()
         }
 //        Manager.shared.delegate?.updateData()
     }

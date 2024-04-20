@@ -11,17 +11,19 @@ protocol ViewModelDelegate: AnyObject {
     func updateView()
 }
 
+protocol IViewModel: AnyObject {
+    func getNotifications() -> [Notification]
+    func getNotification(index: Int) -> Notification
+    func getFilteredNotifications() -> [Notification]
+    func addNotificationButtonPressed()
+}
+
 class ViewModel {
     weak var delegate: ViewModelDelegate?
-    var netWorkService = NetworkService()
 
-    func addNotificationButtonPressed() {
+}
 
-        let notification = Notification(date: Manager.shared.getDate(), number: Manager.shared.getNumber(), text: "", state: true)
-        Manager.shared.addNotification(notification: notification)
-        delegate?.updateView()
-    }
-
+extension ViewModel: IViewModel {
     func getNotifications() -> [Notification] {
         let notifications = Manager.shared.notifications[Manager.shared.getDate()] ?? []
         return notifications
@@ -31,7 +33,6 @@ class ViewModel {
         return getNotifications()[index]
     }
     
-    
     func getFilteredNotifications() -> [Notification] {
         Manager.shared.notifications[Manager.shared.getDate()]?.sort(by: { (n1, n2) -> Bool in
             if !n1.state && !n2.state {
@@ -40,5 +41,11 @@ class ViewModel {
             return n1.state && !n2.state
         })
         return Manager.shared.notifications[Manager.shared.getDate()] ?? [Notification]()
+    }
+    
+    func addNotificationButtonPressed() {
+        let notification = Notification(date: Manager.shared.getDate(), number: Manager.shared.getNumber(), text: "", state: true)
+        Manager.shared.addNotification(notification: notification)
+        delegate?.updateView()
     }
 }

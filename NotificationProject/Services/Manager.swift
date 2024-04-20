@@ -21,24 +21,24 @@ final class Manager {
     var notifications = [String: [Notification]]()
     
     
-    func save() {
-        let jsonEncoder = JSONEncoder()
-        
-        if let savedData = try? jsonEncoder.encode(notifications) {
-            UserDefaults.standard.set(savedData, forKey: "notifications")
-        } else {
-            print("Failed to save notifications")
-        }
-    }
-    
-    func load() {
-        if let savedNotifications = UserDefaults.standard.object(forKey: "notifications") as? Data {
-            do { notifications = try JSONDecoder().decode([String: [Notification]].self, from: savedNotifications)
-            } catch {
-                print("Failed to load notifications")
-            }
-        }
-    }
+//    func save() {
+//        let jsonEncoder = JSONEncoder()
+//        
+//        if let savedData = try? jsonEncoder.encode(notifications) {
+//            UserDefaults.standard.set(savedData, forKey: "notifications")
+//        } else {
+//            print("Failed to save notifications")
+//        }
+//    }
+//    
+//    func load() {
+//        if let savedNotifications = UserDefaults.standard.object(forKey: "notifications") as? Data {
+//            do { notifications = try JSONDecoder().decode([String: [Notification]].self, from: savedNotifications)
+//            } catch {
+//                print("Failed to load notifications")
+//            }
+//        }
+//    }
 
 
     func removeNotification(notification: Notification) {
@@ -60,7 +60,7 @@ final class Manager {
         notifications[selectedDate]?.append(notification)
         setNumber()
         print(notification.number)
-        save()
+        StorageService().saveNotification()
         delegate?.updateData()
     }
     
@@ -72,7 +72,7 @@ final class Manager {
             print(notifications[selectedDate]?[firstIndex].id ?? "ok")
             notifications[selectedDate]?[firstIndex].state = !notification.state
         }
-        save()
+        StorageService().saveNotification()
     }
     
     func setNumber() {

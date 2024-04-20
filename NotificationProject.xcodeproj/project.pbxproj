@@ -10,21 +10,32 @@
 		358FDF1D5DBFDCCDB10EDEFA /* Pods_NotificationProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 749444232832201744575B9A /* Pods_NotificationProject.framework */; };
 		56217BE62B9325AB00843672 /* Offsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56217BE52B9325AB00843672 /* Offsets.swift */; };
 		56217BE82B94763800843672 /* Insets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56217BE72B94763800843672 /* Insets.swift */; };
-		56217BEC2BAB516F00843672 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56217BEB2BAB516F00843672 /* UserViewController.swift */; };
-		56217BEE2BACA74D00843672 /* InclineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56217BED2BACA74D00843672 /* InclineViewController.swift */; };
-		56217BF02BACA76000843672 /* ExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56217BEF2BACA76000843672 /* ExpensesViewController.swift */; };
+		56217BEC2BAB516F00843672 /* UserScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56217BEB2BAB516F00843672 /* UserScreenViewController.swift */; };
+		56217BEE2BACA74D00843672 /* InclineScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56217BED2BACA74D00843672 /* InclineScreenViewController.swift */; };
+		56217BF02BACA76000843672 /* ExpensesScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56217BEF2BACA76000843672 /* ExpensesScreenViewController.swift */; };
 		5622BF8A2BCDA36C00946446 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5622BF892BCDA36C00946446 /* AppDelegate.swift */; };
 		563C03CF2B3B5C24009F2811 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563C03CE2B3B5C24009F2811 /* Rectangle.swift */; };
 		563C03D12B3B5CC9009F2811 /* BurgerMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563C03D02B3B5CC9009F2811 /* BurgerMenu.swift */; };
 		564D89B92BBF229B002B14DF /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564D89B82BBF229B002B14DF /* StorageService.swift */; };
-		564D89BD2BBF2401002B14DF /* FirstScreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564D89BC2BBF2401002B14DF /* FirstScreenCoordinator.swift */; };
-		564D89BF2BBF240A002B14DF /* FirstScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564D89BE2BBF240A002B14DF /* FirstScreenAssembly.swift */; };
-		564D89C12BBF2410002B14DF /* FirstScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564D89C02BBF2410002B14DF /* FirstScreenController.swift */; };
-		564D89C32BBF2416002B14DF /* FirstScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564D89C22BBF2416002B14DF /* FirstScreenPresenter.swift */; };
+		564D89BD2BBF2401002B14DF /* MainScreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564D89BC2BBF2401002B14DF /* MainScreenCoordinator.swift */; };
+		564D89BF2BBF240A002B14DF /* MainScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564D89BE2BBF240A002B14DF /* MainScreenAssembly.swift */; };
+		564D89C12BBF2410002B14DF /* MainScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564D89C02BBF2410002B14DF /* MainScreenController.swift */; };
+		564D89C32BBF2416002B14DF /* MainScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564D89C22BBF2416002B14DF /* MainScreenPresenter.swift */; };
 		564D89CD2BCAB289002B14DF /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564D89CC2BCAB289002B14DF /* AppCoordinator.swift */; };
-		565A2BB52BCDB288006EEC1D /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565A2BB02BCDB288006EEC1D /* DetailPresenter.swift */; };
-		565A2BB62BCDB288006EEC1D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565A2BB12BCDB288006EEC1D /* DetailViewController.swift */; };
-		565A2BB72BCDB288006EEC1D /* DetailScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565A2BB22BCDB288006EEC1D /* DetailScreenAssembly.swift */; };
+		565A2BC12BCE83D1006EEC1D /* UserScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565A2BC02BCE83D1006EEC1D /* UserScreenAssembly.swift */; };
+		565A2BC32BCE83D9006EEC1D /* UserScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565A2BC22BCE83D9006EEC1D /* UserScreenPresenter.swift */; };
+		565A2BC52BCE83F8006EEC1D /* ExpensesScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565A2BC42BCE83F8006EEC1D /* ExpensesScreenAssembly.swift */; };
+		565A2BC72BCE8400006EEC1D /* ExpensesScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565A2BC62BCE8400006EEC1D /* ExpensesScreenPresenter.swift */; };
+		565A2BC92BCE840B006EEC1D /* InclineScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565A2BC82BCE840B006EEC1D /* InclineScreenAssembly.swift */; };
+		565A2BCB2BCE8410006EEC1D /* InclineScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565A2BCA2BCE8410006EEC1D /* InclineScreenPresenter.swift */; };
+		565A2BCD2BCE841B006EEC1D /* MenuScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565A2BCC2BCE841B006EEC1D /* MenuScreenAssembly.swift */; };
+		565A2BCF2BCE8424006EEC1D /* MenuScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565A2BCE2BCE8424006EEC1D /* MenuScreenPresenter.swift */; };
+		565A2BD12BCE87FE006EEC1D /* RegistrationScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565A2BD02BCE87FE006EEC1D /* RegistrationScreenAssembly.swift */; };
+		565A2BD32BCE8807006EEC1D /* RegistrationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565A2BD22BCE8807006EEC1D /* RegistrationPresenter.swift */; };
+		565A2BD52BCE8C3C006EEC1D /* RegistrationScreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565A2BD42BCE8C3C006EEC1D /* RegistrationScreenCoordinator.swift */; };
+		565A2BDC2BCFD5FF006EEC1D /* DetailScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565A2BD62BCFD5FF006EEC1D /* DetailScreenPresenter.swift */; };
+		565A2BDD2BCFD5FF006EEC1D /* DetailScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565A2BD72BCFD5FF006EEC1D /* DetailScreenAssembly.swift */; };
+		565A2BDE2BCFD5FF006EEC1D /* DetailScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565A2BD82BCFD5FF006EEC1D /* DetailScreenViewController.swift */; };
 		5662AC582B663F6000B42751 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5662AC572B663F6000B42751 /* ViewModel.swift */; };
 		5662AC5A2B66407600B42751 /* NetWorkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5662AC592B66407600B42751 /* NetWorkService.swift */; };
 		56A7B8552B1E557F0022FC86 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A7B8542B1E557F0022FC86 /* SceneDelegate.swift */; };
@@ -42,21 +53,32 @@
 /* Begin PBXFileReference section */
 		56217BE52B9325AB00843672 /* Offsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Offsets.swift; sourceTree = "<group>"; };
 		56217BE72B94763800843672 /* Insets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Insets.swift; sourceTree = "<group>"; };
-		56217BEB2BAB516F00843672 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
-		56217BED2BACA74D00843672 /* InclineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InclineViewController.swift; sourceTree = "<group>"; };
-		56217BEF2BACA76000843672 /* ExpensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesViewController.swift; sourceTree = "<group>"; };
+		56217BEB2BAB516F00843672 /* UserScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserScreenViewController.swift; sourceTree = "<group>"; };
+		56217BED2BACA74D00843672 /* InclineScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InclineScreenViewController.swift; sourceTree = "<group>"; };
+		56217BEF2BACA76000843672 /* ExpensesScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesScreenViewController.swift; sourceTree = "<group>"; };
 		5622BF892BCDA36C00946446 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		563C03CE2B3B5C24009F2811 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 		563C03D02B3B5CC9009F2811 /* BurgerMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurgerMenu.swift; sourceTree = "<group>"; };
 		564D89B82BBF229B002B14DF /* StorageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
-		564D89BC2BBF2401002B14DF /* FirstScreenCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstScreenCoordinator.swift; sourceTree = "<group>"; };
-		564D89BE2BBF240A002B14DF /* FirstScreenAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstScreenAssembly.swift; sourceTree = "<group>"; };
-		564D89C02BBF2410002B14DF /* FirstScreenController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstScreenController.swift; sourceTree = "<group>"; };
-		564D89C22BBF2416002B14DF /* FirstScreenPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstScreenPresenter.swift; sourceTree = "<group>"; };
+		564D89BC2BBF2401002B14DF /* MainScreenCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreenCoordinator.swift; sourceTree = "<group>"; };
+		564D89BE2BBF240A002B14DF /* MainScreenAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreenAssembly.swift; sourceTree = "<group>"; };
+		564D89C02BBF2410002B14DF /* MainScreenController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreenController.swift; sourceTree = "<group>"; };
+		564D89C22BBF2416002B14DF /* MainScreenPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreenPresenter.swift; sourceTree = "<group>"; };
 		564D89CC2BCAB289002B14DF /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
-		565A2BB02BCDB288006EEC1D /* DetailPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
-		565A2BB12BCDB288006EEC1D /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		565A2BB22BCDB288006EEC1D /* DetailScreenAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailScreenAssembly.swift; sourceTree = "<group>"; };
+		565A2BC02BCE83D1006EEC1D /* UserScreenAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserScreenAssembly.swift; sourceTree = "<group>"; };
+		565A2BC22BCE83D9006EEC1D /* UserScreenPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserScreenPresenter.swift; sourceTree = "<group>"; };
+		565A2BC42BCE83F8006EEC1D /* ExpensesScreenAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpensesScreenAssembly.swift; sourceTree = "<group>"; };
+		565A2BC62BCE8400006EEC1D /* ExpensesScreenPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpensesScreenPresenter.swift; sourceTree = "<group>"; };
+		565A2BC82BCE840B006EEC1D /* InclineScreenAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InclineScreenAssembly.swift; sourceTree = "<group>"; };
+		565A2BCA2BCE8410006EEC1D /* InclineScreenPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InclineScreenPresenter.swift; sourceTree = "<group>"; };
+		565A2BCC2BCE841B006EEC1D /* MenuScreenAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuScreenAssembly.swift; sourceTree = "<group>"; };
+		565A2BCE2BCE8424006EEC1D /* MenuScreenPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuScreenPresenter.swift; sourceTree = "<group>"; };
+		565A2BD02BCE87FE006EEC1D /* RegistrationScreenAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationScreenAssembly.swift; sourceTree = "<group>"; };
+		565A2BD22BCE8807006EEC1D /* RegistrationPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationPresenter.swift; sourceTree = "<group>"; };
+		565A2BD42BCE8C3C006EEC1D /* RegistrationScreenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationScreenCoordinator.swift; sourceTree = "<group>"; };
+		565A2BD62BCFD5FF006EEC1D /* DetailScreenPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailScreenPresenter.swift; sourceTree = "<group>"; };
+		565A2BD72BCFD5FF006EEC1D /* DetailScreenAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailScreenAssembly.swift; sourceTree = "<group>"; };
+		565A2BD82BCFD5FF006EEC1D /* DetailScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailScreenViewController.swift; sourceTree = "<group>"; };
 		5662AC572B663F6000B42751 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		5662AC592B66407600B42751 /* NetWorkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorkService.swift; sourceTree = "<group>"; };
 		56A7B84F2B1E557F0022FC86 /* NotificationProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotificationProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,20 +130,22 @@
 		564D89B32BBF1EC9002B14DF /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				56A7B86C2B1F99180022FC86 /* Manager.swift */,
+				5662AC592B66407600B42751 /* NetWorkService.swift */,
 				564D89B82BBF229B002B14DF /* StorageService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
 		};
-		564D89B62BBF1F45002B14DF /* FirstScreen */ = {
+		564D89B62BBF1F45002B14DF /* MainScreen */ = {
 			isa = PBXGroup;
 			children = (
-				564D89C22BBF2416002B14DF /* FirstScreenPresenter.swift */,
-				564D89C02BBF2410002B14DF /* FirstScreenController.swift */,
-				564D89BE2BBF240A002B14DF /* FirstScreenAssembly.swift */,
-				564D89BC2BBF2401002B14DF /* FirstScreenCoordinator.swift */,
+				564D89BC2BBF2401002B14DF /* MainScreenCoordinator.swift */,
+				564D89BE2BBF240A002B14DF /* MainScreenAssembly.swift */,
+				564D89C02BBF2410002B14DF /* MainScreenController.swift */,
+				564D89C22BBF2416002B14DF /* MainScreenPresenter.swift */,
 			);
-			path = FirstScreen;
+			path = MainScreen;
 			sourceTree = "<group>";
 		};
 		564D89CB2BBF24BA002B14DF /* AppCoordinator */ = {
@@ -132,22 +156,77 @@
 			path = AppCoordinator;
 			sourceTree = "<group>";
 		};
-		565A2BB42BCDB288006EEC1D /* DetailScreen */ = {
-			isa = PBXGroup;
-			children = (
-				565A2BB02BCDB288006EEC1D /* DetailPresenter.swift */,
-				565A2BB12BCDB288006EEC1D /* DetailViewController.swift */,
-				565A2BB22BCDB288006EEC1D /* DetailScreenAssembly.swift */,
-			);
-			name = DetailScreen;
-			path = FirstScreen/DetailScreen;
-			sourceTree = "<group>";
-		};
 		565A2BBA2BCE7FCF006EEC1D /* RegistrationScreen */ = {
 			isa = PBXGroup;
 			children = (
+				565A2BD42BCE8C3C006EEC1D /* RegistrationScreenCoordinator.swift */,
+				565A2BD02BCE87FE006EEC1D /* RegistrationScreenAssembly.swift */,
+				56C3F7752BB94E7D005D3AD2 /* RegisterViewController.swift */,
+				565A2BD22BCE8807006EEC1D /* RegistrationPresenter.swift */,
 			);
 			path = RegistrationScreen;
+			sourceTree = "<group>";
+		};
+		565A2BBB2BCE8295006EEC1D /* MenuScreen */ = {
+			isa = PBXGroup;
+			children = (
+				565A2BCC2BCE841B006EEC1D /* MenuScreenAssembly.swift */,
+				56A7B86E2B2238E70022FC86 /* MenuViewController.swift */,
+				565A2BCE2BCE8424006EEC1D /* MenuScreenPresenter.swift */,
+			);
+			path = MenuScreen;
+			sourceTree = "<group>";
+		};
+		565A2BBC2BCE82D6006EEC1D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				56CFDFD92B25A7BC00FC4F98 /* EditableTableViewCell.swift */,
+				5662AC572B663F6000B42751 /* ViewModel.swift */,
+				563C03CE2B3B5C24009F2811 /* Rectangle.swift */,
+				563C03D02B3B5CC9009F2811 /* BurgerMenu.swift */,
+				56A7B8682B1F984E0022FC86 /* Notification.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		565A2BBD2BCE8315006EEC1D /* InclineScreen */ = {
+			isa = PBXGroup;
+			children = (
+				565A2BC82BCE840B006EEC1D /* InclineScreenAssembly.swift */,
+				56217BED2BACA74D00843672 /* InclineScreenViewController.swift */,
+				565A2BCA2BCE8410006EEC1D /* InclineScreenPresenter.swift */,
+			);
+			path = InclineScreen;
+			sourceTree = "<group>";
+		};
+		565A2BBE2BCE8324006EEC1D /* ExpensesScreen */ = {
+			isa = PBXGroup;
+			children = (
+				565A2BC42BCE83F8006EEC1D /* ExpensesScreenAssembly.swift */,
+				56217BEF2BACA76000843672 /* ExpensesScreenViewController.swift */,
+				565A2BC62BCE8400006EEC1D /* ExpensesScreenPresenter.swift */,
+			);
+			path = ExpensesScreen;
+			sourceTree = "<group>";
+		};
+		565A2BBF2BCE8341006EEC1D /* UserScreen */ = {
+			isa = PBXGroup;
+			children = (
+				565A2BC02BCE83D1006EEC1D /* UserScreenAssembly.swift */,
+				56217BEB2BAB516F00843672 /* UserScreenViewController.swift */,
+				565A2BC22BCE83D9006EEC1D /* UserScreenPresenter.swift */,
+			);
+			path = UserScreen;
+			sourceTree = "<group>";
+		};
+		565A2BDB2BCFD5FF006EEC1D /* DetailScreen */ = {
+			isa = PBXGroup;
+			children = (
+				565A2BD62BCFD5FF006EEC1D /* DetailScreenPresenter.swift */,
+				565A2BD72BCFD5FF006EEC1D /* DetailScreenAssembly.swift */,
+				565A2BD82BCFD5FF006EEC1D /* DetailScreenViewController.swift */,
+			);
+			path = DetailScreen;
 			sourceTree = "<group>";
 		};
 		56A4F39D2B9324F9003D0668 /* Constants */ = {
@@ -180,26 +259,19 @@
 		56A7B8512B1E557F0022FC86 /* NotificationProject */ = {
 			isa = PBXGroup;
 			children = (
-				565A2BBA2BCE7FCF006EEC1D /* RegistrationScreen */,
-				564D89B32BBF1EC9002B14DF /* Services */,
-				564D89CB2BBF24BA002B14DF /* AppCoordinator */,
-				564D89B62BBF1F45002B14DF /* FirstScreen */,
-				565A2BB42BCDB288006EEC1D /* DetailScreen */,
-				56A7B8542B1E557F0022FC86 /* SceneDelegate.swift */,
-				56CFDFD92B25A7BC00FC4F98 /* EditableTableViewCell.swift */,
-				56C3F7752BB94E7D005D3AD2 /* RegisterViewController.swift */,
-				56A7B8562B1E557F0022FC86 /* ViewController.swift */,
-				56217BEB2BAB516F00843672 /* UserViewController.swift */,
 				5622BF892BCDA36C00946446 /* AppDelegate.swift */,
-				56217BED2BACA74D00843672 /* InclineViewController.swift */,
-				56217BEF2BACA76000843672 /* ExpensesViewController.swift */,
-				56A7B86E2B2238E70022FC86 /* MenuViewController.swift */,
-				56A7B8682B1F984E0022FC86 /* Notification.swift */,
-				56A7B86C2B1F99180022FC86 /* Manager.swift */,
-				5662AC572B663F6000B42751 /* ViewModel.swift */,
-				5662AC592B66407600B42751 /* NetWorkService.swift */,
-				563C03CE2B3B5C24009F2811 /* Rectangle.swift */,
-				563C03D02B3B5CC9009F2811 /* BurgerMenu.swift */,
+				56A7B8542B1E557F0022FC86 /* SceneDelegate.swift */,
+				564D89B32BBF1EC9002B14DF /* Services */,
+				565A2BBC2BCE82D6006EEC1D /* Models */,
+				564D89CB2BBF24BA002B14DF /* AppCoordinator */,
+				565A2BBA2BCE7FCF006EEC1D /* RegistrationScreen */,
+				564D89B62BBF1F45002B14DF /* MainScreen */,
+				565A2BDB2BCFD5FF006EEC1D /* DetailScreen */,
+				565A2BBB2BCE8295006EEC1D /* MenuScreen */,
+				565A2BBF2BCE8341006EEC1D /* UserScreen */,
+				565A2BBE2BCE8324006EEC1D /* ExpensesScreen */,
+				565A2BBD2BCE8315006EEC1D /* InclineScreen */,
+				56A7B8562B1E557F0022FC86 /* ViewController.swift */,
 				56A4F39D2B9324F9003D0668 /* Constants */,
 				56A7B85B2B1E55810022FC86 /* Assets.xcassets */,
 				56A7B85D2B1E55810022FC86 /* LaunchScreen.storyboard */,
@@ -325,30 +397,41 @@
 			buildActionMask = 2147483647;
 			files = (
 				56A7B8572B1E557F0022FC86 /* ViewController.swift in Sources */,
-				56217BEC2BAB516F00843672 /* UserViewController.swift in Sources */,
-				565A2BB62BCDB288006EEC1D /* DetailViewController.swift in Sources */,
+				56217BEC2BAB516F00843672 /* UserScreenViewController.swift in Sources */,
 				56A7B8692B1F984E0022FC86 /* Notification.swift in Sources */,
-				56217BF02BACA76000843672 /* ExpensesViewController.swift in Sources */,
-				565A2BB72BCDB288006EEC1D /* DetailScreenAssembly.swift in Sources */,
+				565A2BCB2BCE8410006EEC1D /* InclineScreenPresenter.swift in Sources */,
+				56217BF02BACA76000843672 /* ExpensesScreenViewController.swift in Sources */,
 				56217BE82B94763800843672 /* Insets.swift in Sources */,
+				565A2BD32BCE8807006EEC1D /* RegistrationPresenter.swift in Sources */,
 				564D89B92BBF229B002B14DF /* StorageService.swift in Sources */,
+				565A2BC72BCE8400006EEC1D /* ExpensesScreenPresenter.swift in Sources */,
 				564D89CD2BCAB289002B14DF /* AppCoordinator.swift in Sources */,
+				565A2BD12BCE87FE006EEC1D /* RegistrationScreenAssembly.swift in Sources */,
+				565A2BC12BCE83D1006EEC1D /* UserScreenAssembly.swift in Sources */,
+				565A2BCF2BCE8424006EEC1D /* MenuScreenPresenter.swift in Sources */,
 				5662AC582B663F6000B42751 /* ViewModel.swift in Sources */,
-				564D89BF2BBF240A002B14DF /* FirstScreenAssembly.swift in Sources */,
+				564D89BF2BBF240A002B14DF /* MainScreenAssembly.swift in Sources */,
 				5662AC5A2B66407600B42751 /* NetWorkService.swift in Sources */,
-				56217BEE2BACA74D00843672 /* InclineViewController.swift in Sources */,
-				565A2BB52BCDB288006EEC1D /* DetailPresenter.swift in Sources */,
+				56217BEE2BACA74D00843672 /* InclineScreenViewController.swift in Sources */,
 				56C3F7762BB94E7D005D3AD2 /* RegisterViewController.swift in Sources */,
+				565A2BDE2BCFD5FF006EEC1D /* DetailScreenViewController.swift in Sources */,
 				563C03CF2B3B5C24009F2811 /* Rectangle.swift in Sources */,
-				564D89C32BBF2416002B14DF /* FirstScreenPresenter.swift in Sources */,
-				564D89C12BBF2410002B14DF /* FirstScreenController.swift in Sources */,
-				564D89BD2BBF2401002B14DF /* FirstScreenCoordinator.swift in Sources */,
+				564D89C32BBF2416002B14DF /* MainScreenPresenter.swift in Sources */,
+				564D89C12BBF2410002B14DF /* MainScreenController.swift in Sources */,
+				564D89BD2BBF2401002B14DF /* MainScreenCoordinator.swift in Sources */,
 				56CFDFDA2B25A7BC00FC4F98 /* EditableTableViewCell.swift in Sources */,
 				56A7B86F2B2238E70022FC86 /* MenuViewController.swift in Sources */,
+				565A2BDD2BCFD5FF006EEC1D /* DetailScreenAssembly.swift in Sources */,
+				565A2BCD2BCE841B006EEC1D /* MenuScreenAssembly.swift in Sources */,
+				565A2BD52BCE8C3C006EEC1D /* RegistrationScreenCoordinator.swift in Sources */,
 				5622BF8A2BCDA36C00946446 /* AppDelegate.swift in Sources */,
 				563C03D12B3B5CC9009F2811 /* BurgerMenu.swift in Sources */,
+				565A2BC52BCE83F8006EEC1D /* ExpensesScreenAssembly.swift in Sources */,
+				565A2BC92BCE840B006EEC1D /* InclineScreenAssembly.swift in Sources */,
+				565A2BC32BCE83D9006EEC1D /* UserScreenPresenter.swift in Sources */,
 				56217BE62B9325AB00843672 /* Offsets.swift in Sources */,
 				56A7B86D2B1F99180022FC86 /* Manager.swift in Sources */,
+				565A2BDC2BCFD5FF006EEC1D /* DetailScreenPresenter.swift in Sources */,
 				56A7B8552B1E557F0022FC86 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

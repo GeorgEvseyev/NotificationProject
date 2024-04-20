@@ -8,11 +8,11 @@
 import UIKit
 
 
-protocol IDetailController: AnyObject {
+protocol IDetailScreenController: AnyObject {
     func setLabelText(_ text: String)
 }
 
-final class DetailViewController: UIViewController {
+final class DetailScreenViewController: UIViewController {
     
     let bottomPartofView: UIView = {
         let bottomPartofView = UIView()
@@ -38,9 +38,9 @@ final class DetailViewController: UIViewController {
         return picker
     }()
     
-    private let presenter: IDetailPresenter
+    private let presenter: IDetailScreenPresenter
 
-    init(presenter: IDetailPresenter) {
+    init(presenter: IDetailScreenPresenter) {
         self.presenter = presenter
 
         super.init(nibName: nil, bundle: nil)
@@ -101,7 +101,7 @@ final class DetailViewController: UIViewController {
     }
 }
 
-extension DetailViewController: IDetailController {
+extension DetailScreenViewController: IDetailScreenController {
     func setLabelText(_ text: String) {
 
     }

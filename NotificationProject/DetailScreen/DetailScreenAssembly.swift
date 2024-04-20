@@ -9,10 +9,10 @@ import UIKit
 
 final class DetailScreenAssembly {
 
-    func assemble(output: SecondPresenterOutput) -> UIViewController {
+    func assemble(output: DetailScreenPresenterOutput) -> UIViewController {
 
-        let presenter = SecondPresenter(output: output)
-        let controller = SecondViewController(presenter: presenter)
+        let presenter = DetailScreenPresenter(output: output)
+        let controller = DetailScreenViewController(presenter: presenter)
         presenter.view = controller
 
         return controller

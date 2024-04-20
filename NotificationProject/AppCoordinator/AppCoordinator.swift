@@ -11,7 +11,7 @@ import UIKit
 final class AppCoordinator {
 
     func start(in window: UIWindow) {
-        let coordinator = FirstScreenCoordinator()
+        let coordinator = RegistrationScreenCoordinator()
         coordinator.start(in: window)
     }
 }

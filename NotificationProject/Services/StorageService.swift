@@ -15,10 +15,22 @@ protocol IStorageService {
 final class StorageService: IStorageService {
 
     func getNotification() {
-
+        if let savedNotifications = UserDefaults.standard.object(forKey: "notifications") as? Data {
+            do { Manager.shared.notifications = try JSONDecoder().decode([String: [Notification]].self, from: savedNotifications)
+            } catch {
+                print("Failed to load notifications")
+            }
+        }
+        
+        
     }
 
     func saveNotification() {
-        
+        let jsonEncoder = JSONEncoder()
+        if let savedData = try? jsonEncoder.encode(Manager.shared.notifications) {
+            UserDefaults.standard.set(savedData, forKey: "notifications")
+        } else {
+            print("Failed to save notifications")
+        }
     }
 }

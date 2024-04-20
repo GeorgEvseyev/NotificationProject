@@ -7,22 +7,22 @@
 
 import Foundation
 
-protocol IDetailPresenter {
+protocol IDetailScreenPresenter {
     func buttonPressed()
 }
 
-final class DetailPresenter: IDetailPresenter {
+final class DetailScreenPresenter: IDetailScreenPresenter {
     
-    private let output: DetailPresenterOutput
-    weak var view: IDetailController?
+    private let output: DetailScreenPresenterOutput
+    weak var view: IDetailScreenController?
 
-    init(output: DetailPresenterOutput) {
+    init(output: DetailScreenPresenterOutput) {
         self.output = output
     }
 
     func buttonPressed() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.output.backButtonPressed()
+            self.output.detailScreenBackButtonPressed()
         }
     }
 }
