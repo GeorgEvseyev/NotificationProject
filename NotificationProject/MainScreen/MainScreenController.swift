@@ -30,6 +30,7 @@ private extension CGFloat {
     static let menuViewLabelHeight: CGFloat = 120
     static let insetForUserButton: CGFloat = 60
     static let expensesButtonInset: CGFloat = 80
+    static let visualShadowViewInset: CGFloat = 90
 }
 
 private extension String {
@@ -387,7 +388,7 @@ final class MainScreenController: UIViewController {
         UIView.animate(withDuration: .defaultDuration) {
             self.visualShadowView.alpha = .darkAlpha
             self.menuView.snp.remakeConstraints { make in
-                make.right.equalTo(self.view.snp.right).inset(90)
+                make.right.equalTo(self.view.snp.right).inset(CGFloat.visualShadowViewInset)
                 make.height.width.equalToSuperview()
             }
             self.view.layoutIfNeeded()
