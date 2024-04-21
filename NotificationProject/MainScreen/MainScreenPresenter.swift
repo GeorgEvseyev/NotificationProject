@@ -15,6 +15,8 @@ protocol IMainScreenPresenter {
     func getNotification(index: Int) -> Notification
     func getFilteredNotifications()-> [Notification]
     func addNotificationButtonPressed()
+    func setDate(date: String)
+    func getDate() -> String
 }
 
 final class MainScreenPresenter: IMainScreenPresenter {
@@ -61,5 +63,13 @@ final class MainScreenPresenter: IMainScreenPresenter {
     
     func addNotificationButtonPressed() {
         viewModel.addNotificationButtonPressed()
+    }
+    
+    func setDate(date: String) {
+        Manager.shared.selectedDate = date
+    }
+    
+    func getDate() -> String {
+        Manager.shared.selectedDate
     }
 }

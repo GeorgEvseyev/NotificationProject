@@ -12,4 +12,5 @@ enum Insets {
     static let smallInset: CGFloat = 8
     static let defaultInset: CGFloat = 16
     static let largeInset: CGFloat = 32
+    static let maximumInset: CGFloat = 50
 }

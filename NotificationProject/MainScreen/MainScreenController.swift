@@ -11,7 +11,25 @@ private extension CGFloat {
     static let height: CGFloat = 44
     static let cornerRadius: CGFloat = 30
     static let darkAlpha: CGFloat = 0.4
+    static let standardAlpha: CGFloat = 1.0
+    static let nonAlpha: CGFloat = 0
+    static let standardPointSize: CGFloat = 44
+    static let standardButtonSize: CGFloat = 44
+    static let largeButtonSize: CGFloat = 60
     static let font: CGFloat = 24
+    static let heightTopImageView: CGFloat = 90
+    static let offsetForUserLabel: CGFloat = 60
+    static let rightInsetForUserLabel: CGFloat = 160
+    static let calendarWidth: CGFloat = 240
+    static let defaultOffset: CGFloat = 25
+    static let minimumOffset: CGFloat = 10
+    static let smallOffset: CGFloat = 20
+    static let maximumInset: CGFloat = 50
+    static let buttonOffset: CGFloat = 80
+    static let thirdOfHeight: CGFloat = 3
+    static let menuViewLabelHeight: CGFloat = 120
+    static let insetForUserButton: CGFloat = 60
+    static let expensesButtonInset: CGFloat = 80
 }
 
 private extension String {
@@ -64,7 +82,7 @@ final class MainScreenController: UIViewController {
         let buttonView = UIView()
         buttonView.translatesAutoresizingMaskIntoConstraints = false
         buttonView.backgroundColor = .gray
-        buttonView.alpha = 1.0
+        buttonView.alpha = .standardAlpha
         return buttonView
     }()
 
@@ -97,7 +115,7 @@ final class MainScreenController: UIViewController {
 
     private let menuButton: UIButton = {
         let button = UIButton()
-        let largeConfig = UIImage.SymbolConfiguration(pointSize: 44, weight: .regular, scale: .default)
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: .standardPointSize, weight: .regular, scale: .default)
         button.setImage(UIImage(systemName: "line.horizontal.3", withConfiguration: largeConfig), for: .normal)
         return button
     }()
@@ -111,7 +129,7 @@ final class MainScreenController: UIViewController {
 
     let addNotificationButton: UIButton = {
         let button = UIButton()
-        let largeConfig = UIImage.SymbolConfiguration(pointSize: 44, weight: .regular, scale: .default)
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: .standardPointSize, weight: .regular, scale: .default)
         button.setImage(UIImage(systemName: "plus.circle", withConfiguration: largeConfig), for: .normal)
         return button
     }()
@@ -131,7 +149,7 @@ final class MainScreenController: UIViewController {
 
     let inclineButton: UIButton = {
         let inclineButton = UIButton()
-        let largeConfig = UIImage.SymbolConfiguration(pointSize: 44, weight: .regular, scale: .default)
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: .standardPointSize, weight: .regular, scale: .default)
         inclineButton.setImage(UIImage(systemName: "arrow.down.right.and.arrow.up.left.circle", withConfiguration: largeConfig), for: .normal)
         return inclineButton
     }()
@@ -144,7 +162,7 @@ final class MainScreenController: UIViewController {
 
     let expensesButton: UIButton = {
         let expensesButton = UIButton()
-        let largeConfig = UIImage.SymbolConfiguration(pointSize: 44, weight: .regular, scale: .default)
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: .standardPointSize, weight: .regular, scale: .default)
         expensesButton.setImage(UIImage(systemName: "arrow.up.left.and.arrow.down.right.circle", withConfiguration: largeConfig), for: .normal)
         return expensesButton
     }()
@@ -170,6 +188,10 @@ final class MainScreenController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        StorageService().getNotification()
+        presenter.setDate(date: Date().formatted(date: .abbreviated, time: .omitted))
+        titleLabel.text = presenter.getDate()
+
         tableView.register(EditableTableViewCell.self, forCellReuseIdentifier: EditableTableViewCell.identifier)
         tableView.delegate = self
         tableView.dataSource = self
@@ -192,7 +214,7 @@ final class MainScreenController: UIViewController {
         view.addSubview(topImageView)
         topImageView.snp.makeConstraints { make in
             make.left.right.top.equalToSuperview()
-            make.height.equalTo(90)
+            make.height.equalTo(CGFloat.heightTopImageView)
         }
 
         view.addSubview(tableView)
@@ -208,16 +230,16 @@ final class MainScreenController: UIViewController {
         }
         addNotificationButton.addAction(addNotificationButtonAction, for: .touchUpInside)
         addNotificationButton.snp.makeConstraints { make in
-            make.right.equalToSuperview().inset(50)
-            make.bottom.equalToSuperview().inset(50)
-            make.height.width.equalTo(60)
+            make.right.equalToSuperview().inset(Insets.maximumInset)
+            make.bottom.equalToSuperview().inset(Insets.maximumInset)
+            make.height.width.equalTo(CGFloat.largeButtonSize)
         }
 
         view.addSubview(menuButton)
         menuButton.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(Offsets.minimumOffset)
             make.bottom.equalTo(topImageView.snp.bottom).inset(Offsets.smallOffset)
-            make.height.width.equalTo(44)
+            make.height.width.equalTo(CGFloat.standardButtonSize)
         }
         let tapGestureRecognizer: UITapGestureRecognizer = {
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showCalendar))
@@ -233,7 +255,7 @@ final class MainScreenController: UIViewController {
         editButton.snp.makeConstraints { make in
             make.right.equalToSuperview().inset(Insets.minimumInset)
             make.bottom.equalTo(topImageView.snp.bottom).inset(Insets.minimumInset)
-            make.height.width.equalTo(44)
+            make.height.width.equalTo(CGFloat.standardButtonSize)
         }
 
         view.addSubview(titleLabel)
@@ -246,7 +268,7 @@ final class MainScreenController: UIViewController {
         visualShadowView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        visualShadowView.alpha = 0
+        visualShadowView.alpha = .nonAlpha
         let tapGestureRecognizerToHideCalendar: UITapGestureRecognizer = {
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideCalendar))
             return tapGestureRecognizer
@@ -268,7 +290,7 @@ final class MainScreenController: UIViewController {
         menuView.addSubview(bottomPartOfCalendarView)
         bottomPartOfCalendarView.snp.makeConstraints { make in
             make.bottom.left.right.equalTo(menuView)
-            make.height.equalTo(menuView.snp.height).dividedBy(3)
+            make.height.equalTo(menuView.snp.height).dividedBy(CGFloat.thirdOfHeight)
         }
         let tapGestureRecognizerToHideCalendarForBottomPartOfCalenarView: UITapGestureRecognizer = {
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideCalendar))
@@ -278,10 +300,10 @@ final class MainScreenController: UIViewController {
 
         menuView.addSubview(userLabel)
         userLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(60)
-            make.right.equalToSuperview().inset(160)
-            make.height.equalTo(44)
-            make.width.equalTo(120)
+            make.top.equalToSuperview().inset(CGFloat.offsetForUserLabel)
+            make.right.equalToSuperview().inset(CGFloat.rightInsetForUserLabel)
+            make.height.equalTo(CGFloat.standardButtonSize)
+            make.width.equalTo(CGFloat.menuViewLabelHeight)
         }
 
         menuView.addSubview(userButton)
@@ -290,17 +312,17 @@ final class MainScreenController: UIViewController {
         }
         userButton.addAction(userButtonAction, for: .touchUpInside)
         userButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(60)
+            make.top.equalToSuperview().inset(CGFloat.insetForUserButton)
             make.left.equalTo(userLabel.snp.right)
-            make.height.equalTo(44)
-            make.width.equalTo(44)
+            make.height.equalTo(CGFloat.standardButtonSize)
+            make.width.equalTo(CGFloat.standardButtonSize)
         }
 
         menuView.addSubview(calendarView)
         calendarView.snp.makeConstraints { make in
-            make.top.equalTo(userLabel.snp.bottom).offset(Offsets.defaultOffset)
-            make.right.equalToSuperview().inset(25)
-            make.width.equalTo(240)
+            make.top.equalTo(userLabel.snp.bottom).offset(CGFloat.defaultOffset)
+            make.right.equalToSuperview().inset(CGFloat.defaultOffset)
+            make.width.equalTo(CGFloat.calendarWidth)
         }
 
         view.addSubview(buttonView)
@@ -316,9 +338,9 @@ final class MainScreenController: UIViewController {
         }
         inclineButton.addAction(inclineButtonAction, for: .touchUpInside)
         inclineButton.snp.makeConstraints { make in
-            make.height.width.equalTo(44)
-            make.top.equalTo(buttonView.snp.top).offset(16)
-            make.left.equalTo(topImageView.snp.left).offset(80)
+            make.height.width.equalTo(CGFloat.standardButtonSize)
+            make.top.equalTo(buttonView.snp.top).offset(Offsets.defaultOffset)
+            make.left.equalTo(topImageView.snp.left).offset(CGFloat.buttonOffset)
         }
 
         buttonView.addSubview(inclineLabel)
@@ -333,9 +355,9 @@ final class MainScreenController: UIViewController {
         }
         expensesButton.addAction(expensesButtonAction, for: .touchUpInside)
         expensesButton.snp.makeConstraints { make in
-            make.height.width.equalTo(44)
-            make.top.equalTo(buttonView.snp.top).offset(16)
-            make.right.equalTo(topImageView.snp.right).inset(80)
+            make.height.width.equalTo(CGFloat.standardButtonSize)
+            make.top.equalTo(buttonView.snp.top).offset(Insets.defaultInset)
+            make.right.equalTo(topImageView.snp.right).inset(CGFloat.expensesButtonInset)
         }
 
         buttonView.addSubview(expensesLabel)
@@ -374,7 +396,7 @@ final class MainScreenController: UIViewController {
 
     @objc func hideCalendar() {
         UIView.animate(withDuration: .defaultDuration) {
-            self.visualShadowView.alpha = 0
+            self.visualShadowView.alpha = .nonAlpha
             self.menuView.snp.remakeConstraints { make in
                 make.top.bottom.width.equalToSuperview()
                 make.right.equalTo(self.view.snp.left)
@@ -402,10 +424,10 @@ final class MainScreenController: UIViewController {
                 self.buttonView.alpha = 1
             }
             self.addNotificationButton.snp.remakeConstraints { make in
-                make.right.equalToSuperview().inset(50)
+                make.right.equalToSuperview().inset(Insets.maximumInset)
                 make.bottom.equalToSuperview().inset(130)
-                make.height.width.equalTo(60)
-                self.addNotificationButton.alpha = 0
+                make.height.width.equalTo(CGFloat.largeButtonSize)
+                self.addNotificationButton.alpha = .nonAlpha
                 self.addNotificationButton.isEnabled = false
             }
             self.view.layoutIfNeeded()
@@ -418,13 +440,13 @@ final class MainScreenController: UIViewController {
                 make.width.height.equalToSuperview()
                 make.centerX.equalToSuperview()
                 make.top.equalTo(self.view.snp.bottom)
-                self.buttonView.alpha = 0
+                self.buttonView.alpha = .nonAlpha
             }
             self.addNotificationButton.snp.remakeConstraints { make in
-                make.right.equalToSuperview().inset(50)
-                make.bottom.equalToSuperview().inset(50)
-                make.height.width.equalTo(60)
-                self.addNotificationButton.alpha = 1
+                make.right.equalToSuperview().inset(Insets.maximumInset)
+                make.bottom.equalToSuperview().inset(Insets.maximumInset)
+                make.height.width.equalTo(CGFloat.largeButtonSize)
+                self.addNotificationButton.alpha = .standardAlpha
                 self.addNotificationButton.isEnabled = true
             }
             self.view.layoutIfNeeded()
@@ -498,7 +520,7 @@ extension MainScreenController: UICalendarSelectionSingleDateDelegate {
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
         Manager.shared.setDate(date: dateComponents?.date?.formatted(date: .abbreviated, time: .omitted) ?? .error)
         titleLabel.text = dateComponents?.date?.formatted(date: .abbreviated, time: .omitted)
-        self.tableView.reloadData()
+        tableView.reloadData()
         hideCalendar()
     }
 }
