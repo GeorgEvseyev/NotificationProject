@@ -12,6 +12,16 @@ protocol ManagerDelegate: AnyObject {
     func updateData()
 }
 
+protocol IManager {
+    func removeNotification(notification: Notification)
+    func addNotification(notification: Notification)
+    func toggleNotificationState(notification: Notification)
+    func setNumber()
+    func getNumber() -> Int
+    func setDate(date: String)
+    func getDate() -> String
+}
+
 final class Manager {
     static let shared = Manager()
     weak var delegate: ManagerDelegate?

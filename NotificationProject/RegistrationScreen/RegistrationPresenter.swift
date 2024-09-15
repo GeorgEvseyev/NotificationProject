@@ -23,8 +23,9 @@ final class RegistrationScreenPresenter: IRegistrationScreenPresenter {
     }
 
     func buttonPressed() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.output.enterButtonPressed()
-        }
+        output.enterButtonPressed()
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//            self.output.enterButtonPressed()
+//        }
     }
 }

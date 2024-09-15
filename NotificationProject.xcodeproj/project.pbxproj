@@ -48,7 +48,58 @@
 		56B6935A2BB972E1004D99C0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 56B693592BB972E1004D99C0 /* GoogleService-Info.plist */; };
 		56C3F7762BB94E7D005D3AD2 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C3F7752BB94E7D005D3AD2 /* RegisterViewController.swift */; };
 		56CFDFDA2B25A7BC00FC4F98 /* EditableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CFDFD92B25A7BC00FC4F98 /* EditableTableViewCell.swift */; };
+		56E99BCD2C80D236002F1FD8 /* MainViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99BCC2C80D236002F1FD8 /* MainViewControllerMock.swift */; };
+		56E99BCF2C80D8FC002F1FD8 /* MainScreenCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99BCE2C80D8FC002F1FD8 /* MainScreenCoordinatorMock.swift */; };
+		56E99BD12C80D9D2002F1FD8 /* ViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99BD02C80D9D2002F1FD8 /* ViewModelMock.swift */; };
+		56E99BD32C80E1A9002F1FD8 /* StorageServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99BD22C80E1A9002F1FD8 /* StorageServiceMock.swift */; };
+		56E99BD52C80EF68002F1FD8 /* MainScreenPresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99BD42C80EF68002F1FD8 /* MainScreenPresenterMock.swift */; };
+		56E99BD72C8227C9002F1FD8 /* MainScreenPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99BD62C8227C9002F1FD8 /* MainScreenPresenterTests.swift */; };
+		56E99BD92C82284E002F1FD8 /* DetailScreenPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99BD82C82284E002F1FD8 /* DetailScreenPresenterTests.swift */; };
+		56E99BDB2C82286A002F1FD8 /* MenuScreenPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99BDA2C82286A002F1FD8 /* MenuScreenPresenterTests.swift */; };
+		56E99BDD2C822896002F1FD8 /* UserScreenPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99BDC2C822896002F1FD8 /* UserScreenPresenterTests.swift */; };
+		56E99BDF2C8228B8002F1FD8 /* ExpensesScreenPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99BDE2C8228B8002F1FD8 /* ExpensesScreenPresenterTests.swift */; };
+		56E99BE12C8228CD002F1FD8 /* IncomeScreenPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99BE02C8228CD002F1FD8 /* IncomeScreenPresenterTests.swift */; };
+		56E99BE32C82290D002F1FD8 /* RegistrationScreenPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99BE22C82290C002F1FD8 /* RegistrationScreenPresenterTests.swift */; };
+		56E99BE52C82294C002F1FD8 /* RegistrationScreenCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99BE42C82294C002F1FD8 /* RegistrationScreenCoordinatorTests.swift */; };
+		56E99BE72C822963002F1FD8 /* MainScreenCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99BE62C822963002F1FD8 /* MainScreenCoordinatorTests.swift */; };
+		56E99BED2C822C52002F1FD8 /* RegistrationScreenCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99BEC2C822C52002F1FD8 /* RegistrationScreenCoordinatorMock.swift */; };
+		56E99BF32C88B073002F1FD8 /* RegistrationScreenAssemblyMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99BF22C88B073002F1FD8 /* RegistrationScreenAssemblyMock.swift */; };
+		56E99BF52C88B3C2002F1FD8 /* RegistrationScreenControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99BF42C88B3C2002F1FD8 /* RegistrationScreenControllerMock.swift */; };
+		56E99BF72C88DC3C002F1FD8 /* RegistarationScreenAssemblyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99BF62C88DC3C002F1FD8 /* RegistarationScreenAssemblyTests.swift */; };
+		56E99BF92C88DCEF002F1FD8 /* RegistrationScreenPresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99BF82C88DCEF002F1FD8 /* RegistrationScreenPresenterMock.swift */; };
+		56E99BFB2C8C75F7002F1FD8 /* ManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99BFA2C8C75F7002F1FD8 /* ManagerMock.swift */; };
+		56E99BFD2C8DF9FF002F1FD8 /* MyClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99BFC2C8DF9FF002F1FD8 /* MyClass.swift */; };
+		56E99BFF2C8E0275002F1FD8 /* SomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99BFE2C8E0275002F1FD8 /* SomePresenter.swift */; };
+		56E99C012C8E03C7002F1FD8 /* SomePresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99C002C8E03C7002F1FD8 /* SomePresenterMock.swift */; };
+		56E99C032C956FCE002F1FD8 /* EditableTableViewCellMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99C022C956FCE002F1FD8 /* EditableTableViewCellMock.swift */; };
+		56E99C052C970D3B002F1FD8 /* AppCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99C042C970D3B002F1FD8 /* AppCoordinatorMock.swift */; };
+		56E99C072C972B2D002F1FD8 /* MainScreenAssemblyMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99C062C972B2D002F1FD8 /* MainScreenAssemblyMock.swift */; };
+		56E99C092C973846002F1FD8 /* DetailScreenPresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99C082C973846002F1FD8 /* DetailScreenPresenterMock.swift */; };
+		56E99C0B2C973861002F1FD8 /* DetailScreenAssemblyMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99C0A2C973861002F1FD8 /* DetailScreenAssemblyMock.swift */; };
+		56E99C0D2C973877002F1FD8 /* DetailViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99C0C2C973877002F1FD8 /* DetailViewControllerMock.swift */; };
+		56E99C0F2C973898002F1FD8 /* MenuScreenAssemblyMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99C0E2C973898002F1FD8 /* MenuScreenAssemblyMock.swift */; };
+		56E99C112C9738A8002F1FD8 /* MenuViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99C102C9738A8002F1FD8 /* MenuViewControllerMock.swift */; };
+		56E99C132C9738B7002F1FD8 /* MenuScreenPresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99C122C9738B7002F1FD8 /* MenuScreenPresenterMock.swift */; };
+		56E99C152C9738CE002F1FD8 /* UserScreenAssemblyMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99C142C9738CE002F1FD8 /* UserScreenAssemblyMock.swift */; };
+		56E99C172C9738DE002F1FD8 /* UserScreenViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99C162C9738DE002F1FD8 /* UserScreenViewControllerMock.swift */; };
+		56E99C192C9738EF002F1FD8 /* UserScreenPresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99C182C9738EF002F1FD8 /* UserScreenPresenterMock.swift */; };
+		56E99C1B2C973912002F1FD8 /* ExpensesScreenAssemblyMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99C1A2C973912002F1FD8 /* ExpensesScreenAssemblyMock.swift */; };
+		56E99C1D2C973927002F1FD8 /* ExpensesScreenViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99C1C2C973927002F1FD8 /* ExpensesScreenViewControllerMock.swift */; };
+		56E99C1F2C973938002F1FD8 /* ExpensesScreenPresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99C1E2C973938002F1FD8 /* ExpensesScreenPresenterMock.swift */; };
+		56E99C212C973951002F1FD8 /* InclineScreenAssemblyMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99C202C973951002F1FD8 /* InclineScreenAssemblyMock.swift */; };
+		56E99C232C97396C002F1FD8 /* InclineScreenViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99C222C97396C002F1FD8 /* InclineScreenViewControllerMock.swift */; };
+		56E99C252C973981002F1FD8 /* InclineScreenPresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99C242C973981002F1FD8 /* InclineScreenPresenterMock.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		56E99BC62C80D1D4002F1FD8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 56A7B8472B1E557F0022FC86 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 56A7B84E2B1E557F0022FC86;
+			remoteInfo = NotificationProject;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		56217BE52B9325AB00843672 /* Offsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Offsets.swift; sourceTree = "<group>"; };
@@ -93,6 +144,48 @@
 		56B693592BB972E1004D99C0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		56C3F7752BB94E7D005D3AD2 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		56CFDFD92B25A7BC00FC4F98 /* EditableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableTableViewCell.swift; sourceTree = "<group>"; };
+		56E99BC22C80D1D4002F1FD8 /* NotificationProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NotificationProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		56E99BCC2C80D236002F1FD8 /* MainViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerMock.swift; sourceTree = "<group>"; };
+		56E99BCE2C80D8FC002F1FD8 /* MainScreenCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenCoordinatorMock.swift; sourceTree = "<group>"; };
+		56E99BD02C80D9D2002F1FD8 /* ViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelMock.swift; sourceTree = "<group>"; };
+		56E99BD22C80E1A9002F1FD8 /* StorageServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageServiceMock.swift; sourceTree = "<group>"; };
+		56E99BD42C80EF68002F1FD8 /* MainScreenPresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenPresenterMock.swift; sourceTree = "<group>"; };
+		56E99BD62C8227C9002F1FD8 /* MainScreenPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenPresenterTests.swift; sourceTree = "<group>"; };
+		56E99BD82C82284E002F1FD8 /* DetailScreenPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScreenPresenterTests.swift; sourceTree = "<group>"; };
+		56E99BDA2C82286A002F1FD8 /* MenuScreenPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuScreenPresenterTests.swift; sourceTree = "<group>"; };
+		56E99BDC2C822896002F1FD8 /* UserScreenPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserScreenPresenterTests.swift; sourceTree = "<group>"; };
+		56E99BDE2C8228B8002F1FD8 /* ExpensesScreenPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesScreenPresenterTests.swift; sourceTree = "<group>"; };
+		56E99BE02C8228CD002F1FD8 /* IncomeScreenPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeScreenPresenterTests.swift; sourceTree = "<group>"; };
+		56E99BE22C82290C002F1FD8 /* RegistrationScreenPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationScreenPresenterTests.swift; sourceTree = "<group>"; };
+		56E99BE42C82294C002F1FD8 /* RegistrationScreenCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationScreenCoordinatorTests.swift; sourceTree = "<group>"; };
+		56E99BE62C822963002F1FD8 /* MainScreenCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenCoordinatorTests.swift; sourceTree = "<group>"; };
+		56E99BEC2C822C52002F1FD8 /* RegistrationScreenCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationScreenCoordinatorMock.swift; sourceTree = "<group>"; };
+		56E99BF22C88B073002F1FD8 /* RegistrationScreenAssemblyMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationScreenAssemblyMock.swift; sourceTree = "<group>"; };
+		56E99BF42C88B3C2002F1FD8 /* RegistrationScreenControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationScreenControllerMock.swift; sourceTree = "<group>"; };
+		56E99BF62C88DC3C002F1FD8 /* RegistarationScreenAssemblyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistarationScreenAssemblyTests.swift; sourceTree = "<group>"; };
+		56E99BF82C88DCEF002F1FD8 /* RegistrationScreenPresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationScreenPresenterMock.swift; sourceTree = "<group>"; };
+		56E99BFA2C8C75F7002F1FD8 /* ManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerMock.swift; sourceTree = "<group>"; };
+		56E99BFC2C8DF9FF002F1FD8 /* MyClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClass.swift; sourceTree = "<group>"; };
+		56E99BFE2C8E0275002F1FD8 /* SomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomePresenter.swift; sourceTree = "<group>"; };
+		56E99C002C8E03C7002F1FD8 /* SomePresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomePresenterMock.swift; sourceTree = "<group>"; };
+		56E99C022C956FCE002F1FD8 /* EditableTableViewCellMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableTableViewCellMock.swift; sourceTree = "<group>"; };
+		56E99C042C970D3B002F1FD8 /* AppCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinatorMock.swift; sourceTree = "<group>"; };
+		56E99C062C972B2D002F1FD8 /* MainScreenAssemblyMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenAssemblyMock.swift; sourceTree = "<group>"; };
+		56E99C082C973846002F1FD8 /* DetailScreenPresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScreenPresenterMock.swift; sourceTree = "<group>"; };
+		56E99C0A2C973861002F1FD8 /* DetailScreenAssemblyMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScreenAssemblyMock.swift; sourceTree = "<group>"; };
+		56E99C0C2C973877002F1FD8 /* DetailViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewControllerMock.swift; sourceTree = "<group>"; };
+		56E99C0E2C973898002F1FD8 /* MenuScreenAssemblyMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuScreenAssemblyMock.swift; sourceTree = "<group>"; };
+		56E99C102C9738A8002F1FD8 /* MenuViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewControllerMock.swift; sourceTree = "<group>"; };
+		56E99C122C9738B7002F1FD8 /* MenuScreenPresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuScreenPresenterMock.swift; sourceTree = "<group>"; };
+		56E99C142C9738CE002F1FD8 /* UserScreenAssemblyMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserScreenAssemblyMock.swift; sourceTree = "<group>"; };
+		56E99C162C9738DE002F1FD8 /* UserScreenViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserScreenViewControllerMock.swift; sourceTree = "<group>"; };
+		56E99C182C9738EF002F1FD8 /* UserScreenPresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserScreenPresenterMock.swift; sourceTree = "<group>"; };
+		56E99C1A2C973912002F1FD8 /* ExpensesScreenAssemblyMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesScreenAssemblyMock.swift; sourceTree = "<group>"; };
+		56E99C1C2C973927002F1FD8 /* ExpensesScreenViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesScreenViewControllerMock.swift; sourceTree = "<group>"; };
+		56E99C1E2C973938002F1FD8 /* ExpensesScreenPresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesScreenPresenterMock.swift; sourceTree = "<group>"; };
+		56E99C202C973951002F1FD8 /* InclineScreenAssemblyMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InclineScreenAssemblyMock.swift; sourceTree = "<group>"; };
+		56E99C222C97396C002F1FD8 /* InclineScreenViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InclineScreenViewControllerMock.swift; sourceTree = "<group>"; };
+		56E99C242C973981002F1FD8 /* InclineScreenPresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InclineScreenPresenterMock.swift; sourceTree = "<group>"; };
 		749444232832201744575B9A /* Pods_NotificationProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8373792C668F335596919346 /* Pods-NotificationProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationProject.release.xcconfig"; path = "Target Support Files/Pods-NotificationProject/Pods-NotificationProject.release.xcconfig"; sourceTree = "<group>"; };
 		EE0DDAF84218D8E038FA6783 /* Pods-NotificationProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationProject.debug.xcconfig"; path = "Target Support Files/Pods-NotificationProject/Pods-NotificationProject.debug.xcconfig"; sourceTree = "<group>"; };
@@ -104,6 +197,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				358FDF1D5DBFDCCDB10EDEFA /* Pods_NotificationProject.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		56E99BBF2C80D1D4002F1FD8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,6 +233,8 @@
 				56A7B86C2B1F99180022FC86 /* Manager.swift */,
 				5662AC592B66407600B42751 /* NetWorkService.swift */,
 				564D89B82BBF229B002B14DF /* StorageService.swift */,
+				56E99BFC2C8DF9FF002F1FD8 /* MyClass.swift */,
+				56E99BFE2C8E0275002F1FD8 /* SomePresenter.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -222,9 +324,9 @@
 		565A2BDB2BCFD5FF006EEC1D /* DetailScreen */ = {
 			isa = PBXGroup;
 			children = (
-				565A2BD62BCFD5FF006EEC1D /* DetailScreenPresenter.swift */,
 				565A2BD72BCFD5FF006EEC1D /* DetailScreenAssembly.swift */,
 				565A2BD82BCFD5FF006EEC1D /* DetailScreenViewController.swift */,
+				565A2BD62BCFD5FF006EEC1D /* DetailScreenPresenter.swift */,
 			);
 			path = DetailScreen;
 			sourceTree = "<group>";
@@ -242,6 +344,7 @@
 			isa = PBXGroup;
 			children = (
 				56A7B8512B1E557F0022FC86 /* NotificationProject */,
+				56E99BC32C80D1D4002F1FD8 /* NotificationProjectTests */,
 				56A7B8502B1E557F0022FC86 /* Products */,
 				431935CB6964AD7B1552EDF5 /* Pods */,
 				42751079999985672FD703D5 /* Frameworks */,
@@ -252,6 +355,7 @@
 			isa = PBXGroup;
 			children = (
 				56A7B84F2B1E557F0022FC86 /* NotificationProject.app */,
+				56E99BC22C80D1D4002F1FD8 /* NotificationProjectTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -281,6 +385,92 @@
 			path = NotificationProject;
 			sourceTree = "<group>";
 		};
+		56E99BC32C80D1D4002F1FD8 /* NotificationProjectTests */ = {
+			isa = PBXGroup;
+			children = (
+				56E99BCB2C80D20E002F1FD8 /* Mocks */,
+				56E99BEF2C877A4A002F1FD8 /* RegistrationScreen */,
+				56E99BF02C877A4F002F1FD8 /* MainScreen */,
+				56E99BEE2C877A3C002F1FD8 /* MenuScreen */,
+				56E99BF12C877AC9002F1FD8 /* DetailScreen */,
+				56E99BDC2C822896002F1FD8 /* UserScreenPresenterTests.swift */,
+				56E99BDE2C8228B8002F1FD8 /* ExpensesScreenPresenterTests.swift */,
+				56E99BE02C8228CD002F1FD8 /* IncomeScreenPresenterTests.swift */,
+			);
+			path = NotificationProjectTests;
+			sourceTree = "<group>";
+		};
+		56E99BCB2C80D20E002F1FD8 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				56E99C002C8E03C7002F1FD8 /* SomePresenterMock.swift */,
+				56E99BFA2C8C75F7002F1FD8 /* ManagerMock.swift */,
+				56E99BD22C80E1A9002F1FD8 /* StorageServiceMock.swift */,
+				56E99C022C956FCE002F1FD8 /* EditableTableViewCellMock.swift */,
+				56E99BD02C80D9D2002F1FD8 /* ViewModelMock.swift */,
+				56E99C042C970D3B002F1FD8 /* AppCoordinatorMock.swift */,
+				56E99BEC2C822C52002F1FD8 /* RegistrationScreenCoordinatorMock.swift */,
+				56E99BF22C88B073002F1FD8 /* RegistrationScreenAssemblyMock.swift */,
+				56E99BF42C88B3C2002F1FD8 /* RegistrationScreenControllerMock.swift */,
+				56E99BF82C88DCEF002F1FD8 /* RegistrationScreenPresenterMock.swift */,
+				56E99BCE2C80D8FC002F1FD8 /* MainScreenCoordinatorMock.swift */,
+				56E99C062C972B2D002F1FD8 /* MainScreenAssemblyMock.swift */,
+				56E99BCC2C80D236002F1FD8 /* MainViewControllerMock.swift */,
+				56E99BD42C80EF68002F1FD8 /* MainScreenPresenterMock.swift */,
+				56E99C0A2C973861002F1FD8 /* DetailScreenAssemblyMock.swift */,
+				56E99C0C2C973877002F1FD8 /* DetailViewControllerMock.swift */,
+				56E99C082C973846002F1FD8 /* DetailScreenPresenterMock.swift */,
+				56E99C0E2C973898002F1FD8 /* MenuScreenAssemblyMock.swift */,
+				56E99C102C9738A8002F1FD8 /* MenuViewControllerMock.swift */,
+				56E99C122C9738B7002F1FD8 /* MenuScreenPresenterMock.swift */,
+				56E99C142C9738CE002F1FD8 /* UserScreenAssemblyMock.swift */,
+				56E99C162C9738DE002F1FD8 /* UserScreenViewControllerMock.swift */,
+				56E99C182C9738EF002F1FD8 /* UserScreenPresenterMock.swift */,
+				56E99C1A2C973912002F1FD8 /* ExpensesScreenAssemblyMock.swift */,
+				56E99C1C2C973927002F1FD8 /* ExpensesScreenViewControllerMock.swift */,
+				56E99C1E2C973938002F1FD8 /* ExpensesScreenPresenterMock.swift */,
+				56E99C202C973951002F1FD8 /* InclineScreenAssemblyMock.swift */,
+				56E99C222C97396C002F1FD8 /* InclineScreenViewControllerMock.swift */,
+				56E99C242C973981002F1FD8 /* InclineScreenPresenterMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		56E99BEE2C877A3C002F1FD8 /* MenuScreen */ = {
+			isa = PBXGroup;
+			children = (
+				56E99BDA2C82286A002F1FD8 /* MenuScreenPresenterTests.swift */,
+			);
+			path = MenuScreen;
+			sourceTree = "<group>";
+		};
+		56E99BEF2C877A4A002F1FD8 /* RegistrationScreen */ = {
+			isa = PBXGroup;
+			children = (
+				56E99BE42C82294C002F1FD8 /* RegistrationScreenCoordinatorTests.swift */,
+				56E99BE22C82290C002F1FD8 /* RegistrationScreenPresenterTests.swift */,
+				56E99BF62C88DC3C002F1FD8 /* RegistarationScreenAssemblyTests.swift */,
+			);
+			path = RegistrationScreen;
+			sourceTree = "<group>";
+		};
+		56E99BF02C877A4F002F1FD8 /* MainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				56E99BE62C822963002F1FD8 /* MainScreenCoordinatorTests.swift */,
+				56E99BD62C8227C9002F1FD8 /* MainScreenPresenterTests.swift */,
+			);
+			path = MainScreen;
+			sourceTree = "<group>";
+		};
+		56E99BF12C877AC9002F1FD8 /* DetailScreen */ = {
+			isa = PBXGroup;
+			children = (
+				56E99BD82C82284E002F1FD8 /* DetailScreenPresenterTests.swift */,
+			);
+			path = DetailScreen;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -303,6 +493,24 @@
 			productReference = 56A7B84F2B1E557F0022FC86 /* NotificationProject.app */;
 			productType = "com.apple.product-type.application";
 		};
+		56E99BC12C80D1D4002F1FD8 /* NotificationProjectTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 56E99BC82C80D1D4002F1FD8 /* Build configuration list for PBXNativeTarget "NotificationProjectTests" */;
+			buildPhases = (
+				56E99BBE2C80D1D4002F1FD8 /* Sources */,
+				56E99BBF2C80D1D4002F1FD8 /* Frameworks */,
+				56E99BC02C80D1D4002F1FD8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				56E99BC72C80D1D4002F1FD8 /* PBXTargetDependency */,
+			);
+			name = NotificationProjectTests;
+			productName = NotificationProjectTests;
+			productReference = 56E99BC22C80D1D4002F1FD8 /* NotificationProjectTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -310,11 +518,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1500;
+				LastSwiftUpdateCheck = 1540;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					56A7B84E2B1E557F0022FC86 = {
 						CreatedOnToolsVersion = 15.0.1;
+					};
+					56E99BC12C80D1D4002F1FD8 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 56A7B84E2B1E557F0022FC86;
 					};
 				};
 			};
@@ -332,6 +544,7 @@
 			projectRoot = "";
 			targets = (
 				56A7B84E2B1E557F0022FC86 /* NotificationProject */,
+				56E99BC12C80D1D4002F1FD8 /* NotificationProjectTests */,
 			);
 		};
 /* End PBXProject section */
@@ -344,6 +557,13 @@
 				56A7B85F2B1E55810022FC86 /* LaunchScreen.storyboard in Resources */,
 				56A7B85C2B1E55810022FC86 /* Assets.xcassets in Resources */,
 				56B6935A2BB972E1004D99C0 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		56E99BC02C80D1D4002F1FD8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,6 +630,7 @@
 				565A2BC12BCE83D1006EEC1D /* UserScreenAssembly.swift in Sources */,
 				565A2BCF2BCE8424006EEC1D /* MenuScreenPresenter.swift in Sources */,
 				5662AC582B663F6000B42751 /* ViewModel.swift in Sources */,
+				56E99BFD2C8DF9FF002F1FD8 /* MyClass.swift in Sources */,
 				564D89BF2BBF240A002B14DF /* MainScreenAssembly.swift in Sources */,
 				5662AC5A2B66407600B42751 /* NetWorkService.swift in Sources */,
 				56217BEE2BACA74D00843672 /* InclineScreenViewController.swift in Sources */,
@@ -425,6 +646,7 @@
 				565A2BCD2BCE841B006EEC1D /* MenuScreenAssembly.swift in Sources */,
 				565A2BD52BCE8C3C006EEC1D /* RegistrationScreenCoordinator.swift in Sources */,
 				5622BF8A2BCDA36C00946446 /* AppDelegate.swift in Sources */,
+				56E99BFF2C8E0275002F1FD8 /* SomePresenter.swift in Sources */,
 				563C03D12B3B5CC9009F2811 /* BurgerMenu.swift in Sources */,
 				565A2BC52BCE83F8006EEC1D /* ExpensesScreenAssembly.swift in Sources */,
 				565A2BC92BCE840B006EEC1D /* InclineScreenAssembly.swift in Sources */,
@@ -436,7 +658,61 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		56E99BBE2C80D1D4002F1FD8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				56E99C252C973981002F1FD8 /* InclineScreenPresenterMock.swift in Sources */,
+				56E99C152C9738CE002F1FD8 /* UserScreenAssemblyMock.swift in Sources */,
+				56E99C212C973951002F1FD8 /* InclineScreenAssemblyMock.swift in Sources */,
+				56E99BF72C88DC3C002F1FD8 /* RegistarationScreenAssemblyTests.swift in Sources */,
+				56E99BFB2C8C75F7002F1FD8 /* ManagerMock.swift in Sources */,
+				56E99C1F2C973938002F1FD8 /* ExpensesScreenPresenterMock.swift in Sources */,
+				56E99BE32C82290D002F1FD8 /* RegistrationScreenPresenterTests.swift in Sources */,
+				56E99C0D2C973877002F1FD8 /* DetailViewControllerMock.swift in Sources */,
+				56E99BE52C82294C002F1FD8 /* RegistrationScreenCoordinatorTests.swift in Sources */,
+				56E99C112C9738A8002F1FD8 /* MenuViewControllerMock.swift in Sources */,
+				56E99BE72C822963002F1FD8 /* MainScreenCoordinatorTests.swift in Sources */,
+				56E99C0F2C973898002F1FD8 /* MenuScreenAssemblyMock.swift in Sources */,
+				56E99C232C97396C002F1FD8 /* InclineScreenViewControllerMock.swift in Sources */,
+				56E99C012C8E03C7002F1FD8 /* SomePresenterMock.swift in Sources */,
+				56E99BDB2C82286A002F1FD8 /* MenuScreenPresenterTests.swift in Sources */,
+				56E99C1D2C973927002F1FD8 /* ExpensesScreenViewControllerMock.swift in Sources */,
+				56E99C032C956FCE002F1FD8 /* EditableTableViewCellMock.swift in Sources */,
+				56E99BF32C88B073002F1FD8 /* RegistrationScreenAssemblyMock.swift in Sources */,
+				56E99BDD2C822896002F1FD8 /* UserScreenPresenterTests.swift in Sources */,
+				56E99C1B2C973912002F1FD8 /* ExpensesScreenAssemblyMock.swift in Sources */,
+				56E99C132C9738B7002F1FD8 /* MenuScreenPresenterMock.swift in Sources */,
+				56E99BF52C88B3C2002F1FD8 /* RegistrationScreenControllerMock.swift in Sources */,
+				56E99BDF2C8228B8002F1FD8 /* ExpensesScreenPresenterTests.swift in Sources */,
+				56E99BD12C80D9D2002F1FD8 /* ViewModelMock.swift in Sources */,
+				56E99BD72C8227C9002F1FD8 /* MainScreenPresenterTests.swift in Sources */,
+				56E99C072C972B2D002F1FD8 /* MainScreenAssemblyMock.swift in Sources */,
+				56E99BD92C82284E002F1FD8 /* DetailScreenPresenterTests.swift in Sources */,
+				56E99C052C970D3B002F1FD8 /* AppCoordinatorMock.swift in Sources */,
+				56E99BE12C8228CD002F1FD8 /* IncomeScreenPresenterTests.swift in Sources */,
+				56E99BED2C822C52002F1FD8 /* RegistrationScreenCoordinatorMock.swift in Sources */,
+				56E99BCD2C80D236002F1FD8 /* MainViewControllerMock.swift in Sources */,
+				56E99C172C9738DE002F1FD8 /* UserScreenViewControllerMock.swift in Sources */,
+				56E99C092C973846002F1FD8 /* DetailScreenPresenterMock.swift in Sources */,
+				56E99BD52C80EF68002F1FD8 /* MainScreenPresenterMock.swift in Sources */,
+				56E99C0B2C973861002F1FD8 /* DetailScreenAssemblyMock.swift in Sources */,
+				56E99BD32C80E1A9002F1FD8 /* StorageServiceMock.swift in Sources */,
+				56E99C192C9738EF002F1FD8 /* UserScreenPresenterMock.swift in Sources */,
+				56E99BF92C88DCEF002F1FD8 /* RegistrationScreenPresenterMock.swift in Sources */,
+				56E99BCF2C80D8FC002F1FD8 /* MainScreenCoordinatorMock.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		56E99BC72C80D1D4002F1FD8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 56A7B84E2B1E557F0022FC86 /* NotificationProject */;
+			targetProxy = 56E99BC62C80D1D4002F1FD8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		56A7B85D2B1E55810022FC86 /* LaunchScreen.storyboard */ = {
@@ -631,6 +907,46 @@
 			};
 			name = Release;
 		};
+		56E99BC92C80D1D4002F1FD8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 35V8V5JVYK;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.NotificationProjectTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NotificationProject.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NotificationProject";
+			};
+			name = Debug;
+		};
+		56E99BCA2C80D1D4002F1FD8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 35V8V5JVYK;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.NotificationProjectTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NotificationProject.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NotificationProject";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -648,6 +964,15 @@
 			buildConfigurations = (
 				56A7B8642B1E55810022FC86 /* Debug */,
 				56A7B8652B1E55810022FC86 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		56E99BC82C80D1D4002F1FD8 /* Build configuration list for PBXNativeTarget "NotificationProjectTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				56E99BC92C80D1D4002F1FD8 /* Debug */,
+				56E99BCA2C80D1D4002F1FD8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

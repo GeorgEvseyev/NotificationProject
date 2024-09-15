@@ -39,7 +39,7 @@ final class MainScreenPresenter: IMainScreenPresenter {
     }
     
     func cellButtonPressed() {
-//        detailButtonPressed()
+        output.detailButtonPressed()
     }
     
     func userButtonPressed() {

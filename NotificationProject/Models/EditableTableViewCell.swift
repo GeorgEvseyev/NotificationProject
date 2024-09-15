@@ -14,6 +14,16 @@ private enum Constants {
     static let defaultText = "default"
 }
 
+protocol IEditableTableViewCell {
+    func setupCell()
+    func configure(notification: Notification, index: Int)
+    func configureButton(with closure: @escaping () -> Void)
+    func configureDetailButton(with closure: @escaping () -> Void)
+    func checkButtonTapped()
+    func detailButtonTapped()
+    func checked(text: String) -> NSMutableAttributedString
+}
+
 final class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
     static var identifier: String {
         return String(describing: self)

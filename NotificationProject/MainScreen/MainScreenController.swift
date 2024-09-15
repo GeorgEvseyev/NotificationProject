@@ -175,9 +175,12 @@ final class MainScreenController: UIViewController {
     }()
 
     private let presenter: IMainScreenPresenter
+    private let storageService: IStorageService
 
-    init(presenter: IMainScreenPresenter) {
+    init(presenter: IMainScreenPresenter, storageService: IStorageService) {
         self.presenter = presenter
+        self.storageService = storageService
+        
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -189,7 +192,7 @@ final class MainScreenController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        StorageService().getNotification()
+        storageService.getNotification()
         presenter.setDate(date: Date().formatted(date: .abbreviated, time: .omitted))
         titleLabel.text = presenter.getDate()
 

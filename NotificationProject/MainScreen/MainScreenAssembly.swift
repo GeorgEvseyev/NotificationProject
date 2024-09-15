@@ -14,7 +14,7 @@ final class MainScreenAssembly {
         let storageService = StorageService()
         let viewModel = ViewModel()
         let presenter = MainScreenPresenter(output: output, viewModel: viewModel)
-        let controller = MainScreenController(presenter: presenter)
+        let controller = MainScreenController(presenter: presenter, storageService: storageService)
         presenter.view = controller
 
         return controller
