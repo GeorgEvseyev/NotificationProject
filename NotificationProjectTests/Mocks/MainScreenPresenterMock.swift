@@ -37,10 +37,10 @@ class ManScreenPresenterMock: IMainScreenPresenter {
     
     var invokedGetNotifications = false
     var invokedGetNotificationsCount = 0
-    var stubbedGetNotificationsResult: [NotificationProject.Notification]! = []
+    var stubbedGetNotificationsResult: [NotificationProject.MyNotification]! = []
     
     
-    func getNotifications() -> [NotificationProject.Notification] {
+    func getNotifications() -> [NotificationProject.MyNotification] {
         invokedGetNotifications = true
         invokedGetNotificationsCount += 1
         return stubbedGetNotificationsResult
@@ -50,10 +50,10 @@ class ManScreenPresenterMock: IMainScreenPresenter {
     var invokedGetNotificationCount = 0
     var invokedGetNotificationParameter: Int!
     var invokedGetNotificationParameterList: [Int]! = []
-    var stubbedGHetNotificationResult: NotificationProject.Notification!
+    var stubbedGHetNotificationResult: NotificationProject.MyNotification!
     
     
-    func getNotification(index: Int) -> NotificationProject.Notification {
+    func getNotification(index: Int) -> NotificationProject.MyNotification {
         invokedGetNotification = true
         invokedGetNotificationCount += 1
         invokedGetNotificationParameter = index
@@ -63,9 +63,9 @@ class ManScreenPresenterMock: IMainScreenPresenter {
     
     var invokedGetFilteredNotifications = false
     var invokedGetFilteredNotificationsCount = 0
-    var stubbedGetFilteredNotificationsResult: [NotificationProject.Notification]! = []
+    var stubbedGetFilteredNotificationsResult: [NotificationProject.MyNotification]! = []
     
-    func getFilteredNotifications() -> [NotificationProject.Notification] {
+    func getFilteredNotifications() -> [NotificationProject.MyNotification] {
         invokedGetFilteredNotifications = true
         invokedGetFilteredNotificationsCount += 1
         return stubbedGetFilteredNotificationsResult

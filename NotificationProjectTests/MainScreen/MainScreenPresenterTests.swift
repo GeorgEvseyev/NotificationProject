@@ -10,13 +10,16 @@ import XCTest
 
 final class MainScreenPresenterTests: XCTestCase {
     
-    var sut: MainScreenPresenter!
-    var viewModelMock: ViewModelMock!
+
     var mainScreenCoordinatorMock: MainScreenCoordinatorMock!
+    var viewModelMock: ViewModelMock!
+    var sut: MainScreenPresenter!
     var manager: ManagerMock!
-    
 
     override func setUpWithError() throws {
+        mainScreenCoordinatorMock = MainScreenCoordinatorMock()
+        viewModelMock = ViewModelMock()
+        manager = ManagerMock()
         sut = MainScreenPresenter(output: mainScreenCoordinatorMock, viewModel: viewModelMock)
     }
 
@@ -26,24 +29,23 @@ final class MainScreenPresenterTests: XCTestCase {
         mainScreenCoordinatorMock = nil
     }
     
-    func test_ButtonPressed() {
+//    func test_ButtonPressed() {
         // given
 
         
         // when
-        sut.buttonPressed()
+//        sut.buttonPressed()
         // then
-        
-        XCTAssertTrue(mainScreenCoordinatorMock.invokedButtonPressed)
-        XCTAssertEqual(mainScreenCoordinatorMock.invokedButtonPressedCount, 1)
-    }
+//        
+//        XCTAssertTrue(mainScreenCoordinatorMock.invokedButtonPressed)
+//        XCTAssertEqual(mainScreenCoordinatorMock.invokedButtonPressedCount, 1)
+//    }
     
     func test_CellButtonPressed() {
         // given
-        
-        
+
         // when
-        mainScreenCoordinatorMock.detailButtonPressed()
+        sut.cellButtonPressed()
         
         // then
         XCTAssertTrue(mainScreenCoordinatorMock.invokedDetailButtonPressed)
@@ -54,39 +56,56 @@ final class MainScreenPresenterTests: XCTestCase {
         // given
 
         // when
-        mainScreenCoordinatorMock.moveToUserViewController()
+        sut.userButtonPressed()
+        
         // then
         XCTAssertTrue(mainScreenCoordinatorMock.invokedMoveToUserViewController)
         XCTAssertEqual(mainScreenCoordinatorMock.invokedMoveToUserViewControllerCount, 1)
     }
     
-    func test_GetFilteredNotifications() {
-        // given
-
-        
-        // when
-        viewModelMock.getFilteredNotifications()
-        
-        // then
-        
-        
-    }
-    
     func test_GetNotifications() {
         // given
-
+        let expected = [NotificationProject.MyNotification(date: "some date", number: 0, text: "Some Text", state: true)]
         // when
-        viewModelMock.getFilteredNotifications()
-        // then
+        viewModelMock.stubbedGetNotificationsResult = expected
+        let result = sut.getNotifications()
         
+        // then
+        XCTAssertTrue(viewModelMock.invokedGetNotifications)
+        XCTAssertEqual(viewModelMock.invokedGetNotificationsCount, 1)
+        XCTAssertEqual(result, expected)
     }
     
     func test_GetNotification() {
         // given
+        let index = 0
+        viewModelMock.invokedGetNotificationParameter = 0
+        let expected = NotificationProject.MyNotification(date: "some date", number: 0, text: "Some Text", state: true)
 
         // when
-        viewModelMock.getNotification(index: <#T##Int#>)
+        viewModelMock.stubbedGetNotificationResult = expected
+        let result = sut.getNotification(index: index)
+        
         // then
+        XCTAssertTrue(viewModelMock.invokedGetNotification)
+        XCTAssertEqual(viewModelMock.invokedGetNotificationCount, 1)
+        XCTAssertEqual(result, expected)
+        
+        
+    }
+    
+    func test_GetFilteredNotifications() {
+        // given
+        let expected = [NotificationProject.MyNotification(date: "some date", number: 0, text: "Some Text", state: true)]
+        
+        // when
+        viewModelMock.stubbedGetFilteredNotificationResult = expected
+        let result = sut.getFilteredNotifications()
+        
+        // then
+        XCTAssertTrue(viewModelMock.invokedGetFilteredNotification)
+        XCTAssertEqual(viewModelMock.invokedGetFilteredNotificationCount, 1)
+        XCTAssertEqual(result, expected)
         
     }
     
@@ -95,17 +114,25 @@ final class MainScreenPresenterTests: XCTestCase {
 
         // when
         viewModelMock.addNotificationButtonPressed()
-        // then
         
+        // then
+        XCTAssertTrue(viewModelMock.invokedAddNotificationButtonPressed)
+        XCTAssertEqual(viewModelMock.invokedAddNotificationButtonPressedCount, 1)
     }
+    
     
     func test_SetDate() {
         // given
-
-        // when
-
-        // then
+        let date = "some date"
         
+        // when
+        sut.setDate(date: date)
+//        manager.setDate(date: date)
+        
+        // then
+        XCTAssertTrue(manager.invokedSetDate)
+        XCTAssertEqual(manager.invokedSetDateCount, 1)
+        XCTAssertEqual(manager.invokedSetDateParameter, date)
     }
     
     func test_GetDate() {

@@ -32,12 +32,12 @@ final class EditableTableViewCellMock: IEditableTableViewCell {
     
     var invokedConfigure = false
     var invokedConfigureCount = 0
-    var invokedConfigureNotificationParameter: NotificationProject.Notification!
-    var invokedConfigureNotificationParameterList: [NotificationProject.Notification] = []
+    var invokedConfigureNotificationParameter: NotificationProject.MyNotification!
+    var invokedConfigureNotificationParameterList: [NotificationProject.MyNotification] = []
     var invokedConfigureIndexParameter: Int!
     var invokedConfigureIndexParameterList: [Int] = []
     
-    func configure(notification: NotificationProject.Notification, index: Int) {
+    func configure(notification: NotificationProject.MyNotification, index: Int) {
         invokedConfigure = true
         invokedConfigureCount += 1
         invokedConfigureNotificationParameter = notification

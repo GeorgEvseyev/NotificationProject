@@ -5,31 +5,63 @@
 //  Created by Георгий Евсеев on 30.08.24.
 //
 
+@testable import NotificationProject
 import XCTest
 
 final class MainScreenCoordinatorTests: XCTestCase {
+    
+    var sut: MainScreenCoordinator!
+    var navigationController: UINavigationController!
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        navigationController = UINavigationController()
+        sut = MainScreenCoordinator(navigationController: navigationController)
+
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        sut = nil
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    func test_detailButtonPressed() {
+        sut.detailButtonPressed()
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func test_moveToMenuViewController() {
+        sut.moveToMenuViewController()
     }
+    
+    func test_moveToUserViewController() {
+        sut.moveToUserViewController()
+    }
+    
+    func test_moveToInclineViewController() {
+        sut.moveToInclineViewController()
+    }
+    
+    func test_moveToExpensesViewController() {
+        sut.moveToExpensesViewController()
+    }
+    
+    func test_detailScreenBackButtonPressed() {
+        sut.detailScreenBackButtonPressed()
+    }
+    
+    func test_menuScreenBackButtonPressed() {
+        sut.menuScreenBackButtonPressed()
+    }
+    
+    func test_userScreenBackButtonPressed() {
+        sut.userScreenBackButtonPressed()
+    }
+    
+    func test_inclineScreenBackButtonPressed() {
+        sut.inclineScreenBackButtonPressed()
+    }
+    
+    func test_expensesScreenBackButtonPressed() {
+        sut.expensesScreenBackButtonPressed()
+    }
+    
 
 }

@@ -12,10 +12,10 @@ final class ManagerMock: IManager  {
     
     var invokedRemoveNotification = false
     var invokedRemoveNotificationCount = 0
-    var invokedRemoveNotificationParameter: NotificationProject.Notification!
-    var invokedRemoveNotificationParameterList: [NotificationProject.Notification] = []
+    var invokedRemoveNotificationParameter: NotificationProject.MyNotification!
+    var invokedRemoveNotificationParameterList: [NotificationProject.MyNotification] = []
     
-    func removeNotification(notification: NotificationProject.Notification) {
+    func removeNotification(notification: NotificationProject.MyNotification) {
         invokedRemoveNotification = true
         invokedRemoveNotificationCount += 1
         invokedRemoveNotificationParameter = notification
@@ -24,10 +24,10 @@ final class ManagerMock: IManager  {
 
     var invokedAddNotification = false
     var invokedAddNotificationCount = 0
-    var invokedAddNotificationParameter: NotificationProject.Notification!
-    var invokedAddNotificationParameterList: [NotificationProject.Notification] = []
+    var invokedAddNotificationParameter: NotificationProject.MyNotification!
+    var invokedAddNotificationParameterList: [NotificationProject.MyNotification] = []
     
-    func addNotification(notification: NotificationProject.Notification) {
+    func addNotification(notification: NotificationProject.MyNotification) {
         invokedAddNotification = false
         invokedAddNotificationCount += 1
         invokedAddNotificationParameter = notification
@@ -36,10 +36,10 @@ final class ManagerMock: IManager  {
     
     var invokedToggleNotificationState = false
     var invokedToggleNotificationStateCount = 0
-    var invokedToggleNotificationStateParameter: NotificationProject.Notification!
-    var invokedToggleNotificationStateParameterList: [NotificationProject.Notification] = []
+    var invokedToggleNotificationStateParameter: NotificationProject.MyNotification!
+    var invokedToggleNotificationStateParameterList: [NotificationProject.MyNotification] = []
     
-    func toggleNotificationState(notification: NotificationProject.Notification) {
+    func toggleNotificationState(notification: NotificationProject.MyNotification) {
         invokedToggleNotificationState = true
         invokedToggleNotificationStateCount += 1
         invokedAddNotificationParameter = notification

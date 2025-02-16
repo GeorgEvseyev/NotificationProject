@@ -23,7 +23,7 @@ final class StorageService: IStorageService {
 //        }
         
         if let savedNotifications = UserDefaults.standard.object(forKey: "notifications") as? Data {
-            do { Manager.shared.notifications = try JSONDecoder().decode([String: [Notification]].self, from: savedNotifications)
+            do { Manager.shared.notifications = try JSONDecoder().decode([String: [MyNotification]].self, from: savedNotifications)
             } catch {
                 print("Failed to load notifications")
             }

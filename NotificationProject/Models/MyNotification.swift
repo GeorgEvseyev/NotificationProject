@@ -8,9 +8,8 @@
 import Foundation
 
 //final class Notification: NSObject, NSCoding {
-final class Notification: Codable {
+class MyNotification: Codable {
 
-    
     var date: String
     var number: Int
     var id: UUID
@@ -39,5 +38,11 @@ final class Notification: Codable {
         id = aDecoder.decodeObject(forKey: "id") as? UUID ?? UUID()
         text = aDecoder.decodeObject(forKey: "text") as? String ?? ""
         state = aDecoder.decodeBool(forKey: "state")
+    }
+}
+
+extension MyNotification: Equatable {
+    static func == (lhs: MyNotification, rhs: MyNotification) -> Bool {
+        lhs.state == rhs.state && lhs.text == rhs.text && lhs.id == rhs.id && lhs.date == rhs.date
     }
 }

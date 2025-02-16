@@ -16,7 +16,7 @@ private enum Constants {
 
 protocol IEditableTableViewCell {
     func setupCell()
-    func configure(notification: Notification, index: Int)
+    func configure(notification: MyNotification, index: Int)
     func configureButton(with closure: @escaping () -> Void)
     func configureDetailButton(with closure: @escaping () -> Void)
     func checkButtonTapped()
@@ -109,7 +109,7 @@ final class EditableTableViewCell: UITableViewCell, UITextViewDelegate {
         }
     }
 
-    func configure(notification: Notification, index: Int) {
+    func configure(notification: MyNotification, index: Int) {
         cellTextView.tag = index
         if notification.state == true {
             checkButton.setImage(UIImage(systemName: "circle"), for: .normal)

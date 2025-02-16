@@ -11,9 +11,9 @@ protocol IMainScreenPresenter {
     func buttonPressed()
     func cellButtonPressed()
     func userButtonPressed()
-    func getNotifications() -> [Notification]
-    func getNotification(index: Int) -> Notification
-    func getFilteredNotifications()-> [Notification]
+    func getNotifications() -> [MyNotification]
+    func getNotification(index: Int) -> MyNotification
+    func getFilteredNotifications()-> [MyNotification]
     func addNotificationButtonPressed()
     func setDate(date: String)
     func getDate() -> String
@@ -46,17 +46,17 @@ final class MainScreenPresenter: IMainScreenPresenter {
         output.moveToUserViewController()
     }
     
-    func getFilteredNotifications() -> [Notification] {
+    func getFilteredNotifications() -> [MyNotification] {
         let filteredNotifications = viewModel.getFilteredNotifications()
         return filteredNotifications
     }
     
-    func getNotifications() -> [Notification] {
+    func getNotifications() -> [MyNotification] {
         let notifications = viewModel.getNotifications()
         return notifications
     }
     
-    func getNotification(index: Int) -> Notification {
+    func getNotification(index: Int) -> MyNotification {
         let notification = viewModel.getNotification(index: index)
         return notification
     }

@@ -12,9 +12,9 @@ class ViewModelMock: IViewModel {
     
     var invokedGetNotifications = false
     var invokedGetNotificationsCount = 0
-    var stubbedGetNotificationsResult: [NotificationProject.Notification]!
+    var stubbedGetNotificationsResult: [NotificationProject.MyNotification]!
     
-    func getNotifications() -> [NotificationProject.Notification] {
+    func getNotifications() -> [NotificationProject.MyNotification] {
         invokedGetNotifications = true
         invokedGetNotificationsCount += 1
         return stubbedGetNotificationsResult
@@ -22,8 +22,10 @@ class ViewModelMock: IViewModel {
     
     var invokedGetNotification = false
     var invokedGetNotificationCount = 0
-    var stubbedGetNotificationResult: NotificationProject.Notification!
-    func getNotification(index: Int) -> NotificationProject.Notification {
+    var invokedGetNotificationParameter: Int!
+    var invokedPGetNotificationarameterList: [Int] = []
+    var stubbedGetNotificationResult: NotificationProject.MyNotification!
+    func getNotification(index: Int) -> NotificationProject.MyNotification {
         invokedGetNotification = true
         invokedGetNotificationCount += 1
         return stubbedGetNotificationResult
@@ -31,8 +33,8 @@ class ViewModelMock: IViewModel {
     
     var invokedGetFilteredNotification = false
     var invokedGetFilteredNotificationCount = 0
-    var stubbedGetFilteredNotificationResult: [NotificationProject.Notification]!
-    func getFilteredNotifications() -> [NotificationProject.Notification] {
+    var stubbedGetFilteredNotificationResult: [NotificationProject.MyNotification] = []
+    func getFilteredNotifications() -> [NotificationProject.MyNotification] {
         invokedGetFilteredNotification = true
         invokedGetFilteredNotificationCount += 1
         return stubbedGetFilteredNotificationResult

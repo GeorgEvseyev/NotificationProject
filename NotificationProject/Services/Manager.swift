@@ -13,24 +13,28 @@ protocol ManagerDelegate: AnyObject {
 }
 
 protocol IManager {
-    func removeNotification(notification: Notification)
-    func addNotification(notification: Notification)
-    func toggleNotificationState(notification: Notification)
+    func removeNotification(notification: MyNotification)
+    func addNotification(notification: MyNotification)
+    func toggleNotificationState(notification: MyNotification)
     func setNumber()
     func getNumber() -> Int
     func setDate(date: String)
     func getDate() -> String
 }
 
-final class Manager {
+final class Manager: IManager {
     static let shared = Manager()
     weak var delegate: ManagerDelegate?
-    var selectedDate = ""
+    private var storageService: IStorageService
+    var selectedDate: String = ""
     var notificationsNumber = Int()
+    var notifications = [String: [MyNotification]]()
+    
+    init(storageService: IStorageService = StorageService()){
+        self.storageService = storageService
+    }
 
-    var notifications = [String: [Notification]]()
-
-    func removeNotification(notification: Notification) {
+    func removeNotification(notification: MyNotification) {
         let date = notification.date
         
         let removeNotification = notification
@@ -42,7 +46,7 @@ final class Manager {
         }
     }
 
-    func addNotification(notification: Notification) {
+    func addNotification(notification: MyNotification) {
         if notifications[selectedDate] == nil {
             notifications[selectedDate] = []
         }
@@ -52,7 +56,7 @@ final class Manager {
         delegate?.updateData()
     }
     
-    func toggleNotificationState(notification: Notification) {
+    func toggleNotificationState(notification: MyNotification) {
         if let firstIndex = notifications[selectedDate]?.firstIndex(where: { myNotification in
             myNotification.text == notification.text
         }) {

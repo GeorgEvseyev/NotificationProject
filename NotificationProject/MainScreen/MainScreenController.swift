@@ -492,7 +492,7 @@ extension MainScreenController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        var filteredNotifications = Manager.shared.notifications[Manager.shared.getDate()] ?? [Notification]()
+        var filteredNotifications = Manager.shared.notifications[Manager.shared.getDate()] ?? [MyNotification]()
 
         let item = filteredNotifications[sourceIndexPath.row]
 

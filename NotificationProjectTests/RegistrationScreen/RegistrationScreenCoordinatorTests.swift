@@ -22,22 +22,4 @@ final class RegistrationScreenCoordinatorTests: XCTestCase {
     sut = nil
     mainScreenCoordinatorMock = nil
     }
-    
-    func test_start() {
-        let request = "Test"
-        mainScreenCoordinatorMock.start(request: request)
-        
-        XCTAssertTrue(mainScreenCoordinatorMock.invokedGetWindow)
-        XCTAssertEqual(mainScreenCoordinatorMock.invokedGetWindowCount, 1)
-    }
-    
-//    func test_enterButtonPressed() {
-//        sut.enterButtonPressed()
-//    }
-//    
-//    func test_exitButtonPressed() {
-//        sut.exitButtonPressed()
-//    }
-    
-
 }

@@ -27,8 +27,13 @@ final class RegistarationScreenAssemblyTests: XCTestCase {
         output = nil
     }
     
+    //?
+    
     func test_assemble() {
+        let expected = RegistrationScreenController(presenter: presenter)
+        let result = sut.assemble(output: output)
         
+        XCTAssertEqual(result, expected)
     }
 
 }
