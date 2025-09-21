@@ -11,32 +11,29 @@ import XCTest
 final class ManagerTests: XCTestCase {
     
     var sut: Manager!
-    var manager: ManagerMock!
     var storageService: StorageServiceMock!
-    var notifications: [String: [NotificationProject.MyNotification]]!
+    var notifications: [String: [MyNotification]]!
 
     override func setUpWithError() throws {
         sut = Manager()
-        manager = ManagerMock()
         storageService = StorageServiceMock()
         notifications = [:]
     }
 
     override func tearDownWithError() throws {
         sut = nil
-        manager = nil
         storageService = nil
-    }
-    
-    func test_Add_Notification() {
-//        let notification = Notification(date: "Date", number: 1, text: "Text", state: true)
-//        notifications.
-//        let result = sut.removeNotification(notification: notification)
+        notifications = nil
     }
     
     func test_RemoveNotification() {
-//        let notification = Notification(date: "Date", number: 1, text: "Text", state: true)
-//        let result = sut.removeNotification(notification: notification)
+        let notification = MyNotification(date: "Date", number: 1, text: "Text", state: true)
+        let result = sut.removeNotification(notification: notification)
+    }
+    
+    func test_Add_Notification() {
+        let notification = MyNotification(date: "Date", number: 1, text: "Text", state: true)
+        notifications["My Notification"] = [notification]
     }
     
     func test_ToggleNotificationState() {
