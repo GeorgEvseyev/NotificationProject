@@ -13,8 +13,17 @@ protocol OnboardingViewControllerDelegate: AnyObject {
     func onboardingDidFinish()
 }
 
-final class OnboardingViewController: UIViewController {
-    weak var delegate: OnboardingViewControllerDelegate?
+final class OnboardingViewController: UIViewController, IOnboardingView {
+    private let presenter: IOnboardingPresenter
+
+    init(presenter: IOnboardingPresenter) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,10 +58,10 @@ final class OnboardingViewController: UIViewController {
     }
 
     @objc private func finishTapped() {
-        print("Кнопка нажата")
-        delegate?.onboardingDidFinish()
+        presenter.continueButtonPressed()
     }
 }
+
 
 
 

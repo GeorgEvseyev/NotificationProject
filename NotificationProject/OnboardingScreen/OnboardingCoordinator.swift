@@ -9,7 +9,7 @@ import Foundation
 
 import UIKit
 
-final class OnboardingCoordinator: NSObject {
+final class OnboardingCoordinator {
     private weak var navigationController: UINavigationController?
     var onFinish: (() -> Void)?
 
@@ -18,17 +18,17 @@ final class OnboardingCoordinator: NSObject {
     }
 
     func start() {
-        let onboardingVC = OnboardingViewController()
-        onboardingVC.delegate = self
-        navigationController?.setViewControllers([onboardingVC], animated: true)
+        let controller = OnboardingAssembly().assemble(output: self)
+        navigationController?.setViewControllers([controller], animated: true)
     }
 }
 
-extension OnboardingCoordinator: OnboardingViewControllerDelegate {
+extension OnboardingCoordinator: OnboardingPresenterOutput {
     func onboardingDidFinish() {
         onFinish?()
         print("Делегат сработал")
     }
 }
+
 
 

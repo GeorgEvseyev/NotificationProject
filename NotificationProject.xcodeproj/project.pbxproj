@@ -11,6 +11,8 @@
 		560714332CB44D93002053CA /* RegistrationScreenViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560714322CB44D93002053CA /* RegistrationScreenViewControllerTests.swift */; };
 		560F99232E7FF26500AEEA76 /* OnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560F99222E7FF26500AEEA76 /* OnboardingCoordinator.swift */; };
 		560F99252E7FF2AD00AEEA76 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560F99242E7FF2AD00AEEA76 /* OnboardingViewController.swift */; };
+		560F99272E8017C300AEEA76 /* OnboardingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560F99262E8017C300AEEA76 /* OnboardingPresenter.swift */; };
+		560F99292E8017DA00AEEA76 /* OnboardingAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560F99282E8017DA00AEEA76 /* OnboardingAssembly.swift */; };
 		56217BE62B9325AB00843672 /* Offsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56217BE52B9325AB00843672 /* Offsets.swift */; };
 		56217BE82B94763800843672 /* Insets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56217BE72B94763800843672 /* Insets.swift */; };
 		56217BEC2BAB516F00843672 /* UserScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56217BEB2BAB516F00843672 /* UserScreenViewController.swift */; };
@@ -111,6 +113,8 @@
 		560714322CB44D93002053CA /* RegistrationScreenViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationScreenViewControllerTests.swift; sourceTree = "<group>"; };
 		560F99222E7FF26500AEEA76 /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
 		560F99242E7FF2AD00AEEA76 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		560F99262E8017C300AEEA76 /* OnboardingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPresenter.swift; sourceTree = "<group>"; };
+		560F99282E8017DA00AEEA76 /* OnboardingAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingAssembly.swift; sourceTree = "<group>"; };
 		56217BE52B9325AB00843672 /* Offsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Offsets.swift; sourceTree = "<group>"; };
 		56217BE72B94763800843672 /* Insets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Insets.swift; sourceTree = "<group>"; };
 		56217BEB2BAB516F00843672 /* UserScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserScreenViewController.swift; sourceTree = "<group>"; };
@@ -239,13 +243,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		560F99212E7FF1AC00AEEA76 /* OnboardingCoordinator */ = {
+		560F99212E7FF1AC00AEEA76 /* OnboardingScreen */ = {
 			isa = PBXGroup;
 			children = (
 				560F99222E7FF26500AEEA76 /* OnboardingCoordinator.swift */,
 				560F99242E7FF2AD00AEEA76 /* OnboardingViewController.swift */,
+				560F99262E8017C300AEEA76 /* OnboardingPresenter.swift */,
+				560F99282E8017DA00AEEA76 /* OnboardingAssembly.swift */,
 			);
-			path = OnboardingCoordinator;
+			path = OnboardingScreen;
 			sourceTree = "<group>";
 		};
 		56495F592CD762D6001E1127 /* Services */ = {
@@ -397,7 +403,7 @@
 				564D89B32BBF1EC9002B14DF /* Services */,
 				565A2BBC2BCE82D6006EEC1D /* Models */,
 				564D89CB2BBF24BA002B14DF /* AppCoordinator */,
-				560F99212E7FF1AC00AEEA76 /* OnboardingCoordinator */,
+				560F99212E7FF1AC00AEEA76 /* OnboardingScreen */,
 				565A2BBA2BCE7FCF006EEC1D /* RegistrationScreen */,
 				564D89B62BBF1F45002B14DF /* MainScreen */,
 				565A2BDB2BCFD5FF006EEC1D /* DetailScreen */,
@@ -673,6 +679,7 @@
 				5662AC5A2B66407600B42751 /* NetWorkService.swift in Sources */,
 				56217BEE2BACA74D00843672 /* InclineScreenViewController.swift in Sources */,
 				56C3F7762BB94E7D005D3AD2 /* RegisterViewController.swift in Sources */,
+				560F99292E8017DA00AEEA76 /* OnboardingAssembly.swift in Sources */,
 				565A2BDE2BCFD5FF006EEC1D /* DetailScreenViewController.swift in Sources */,
 				563C03CF2B3B5C24009F2811 /* Rectangle.swift in Sources */,
 				564D89C32BBF2416002B14DF /* MainScreenPresenter.swift in Sources */,
@@ -693,6 +700,7 @@
 				565A2BC32BCE83D9006EEC1D /* UserScreenPresenter.swift in Sources */,
 				56217BE62B9325AB00843672 /* Offsets.swift in Sources */,
 				56A7B86D2B1F99180022FC86 /* Manager.swift in Sources */,
+				560F99272E8017C300AEEA76 /* OnboardingPresenter.swift in Sources */,
 				565A2BDC2BCFD5FF006EEC1D /* DetailScreenPresenter.swift in Sources */,
 				56A7B8552B1E557F0022FC86 /* SceneDelegate.swift in Sources */,
 			);
