@@ -20,30 +20,136 @@ protocol IManager {
     func setDate(date: String)
     func getDate() -> String
     func loadNotifications()
-    
-    // Новый метод
     func hasNotifications(for date: String) -> Bool
     func moveNotification(from sourceIndex: Int, to destinationIndex: Int, for date: String)
 }
 
 final class Manager: IManager {
     static let shared = Manager()
+
     private let storageService: IStorageService
+    private let interactor: NotificationsInteractor
 
     private(set) var selectedDate: String = ""
     private(set) var notifications = [String: [MyNotification]]()
 
-    init(storageService: IStorageService = StorageService()) {
+    // MARK: - Init
+
+    init(storageService: IStorageService = StorageService(),
+         interactor: NotificationsInteractor = DefaultNotificationsInteractor(repo: CoreDataNotificationsRepository())) {
         self.storageService = storageService
-        self.notifications = storageService.loadNotifications()
+        self.interactor = interactor
+
+        do {
+            try loadFromCoreData()
+        } catch {
+            notifications = storageService.loadNotifications()
+            print("Manager: fallback to storageService due to Core Data error: \(error)")
+        }
+    }
+
+    // MARK: - DateFormatter
+
+    private static let dateFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "dd.MM.yyyy"
+        f.locale = Locale.current
+        return f
+    }()
+
+    // MARK: - Mapping
+
+    private func map(_ entity: NotificationEntity) -> MyNotification {
+        let id = entity.id ?? UUID()
+        let date = entity.date ?? Date()
+        let dateString = Manager.dateFormatter.string(from: date)
+        let type = NotificationType(rawValue: entity.type) ?? .expense
+
+        return MyNotification(
+            id: id,
+            text: entity.text ?? "",
+            date: dateString,
+            number: 0,
+            state: entity.state,
+            type: type
+        )
+    }
+
+    private func mapToRepoArgs(_ my: MyNotification) -> (text: String, type: NotificationType, date: Date) {
+        let date = Manager.dateFormatter.date(from: my.date) ?? Date()
+        let repoType = my.type
+        return (text: my.text, type: repoType, date: date)
+    }
+
+
+    // MARK: - Load / Refresh
+
+    private func loadFromCoreData() throws {
+        let date: Date? = {
+            guard !selectedDate.isEmpty else { return nil }
+            return Manager.dateFormatter.date(from: selectedDate)
+        }()
+
+        let entities = try interactor.list(for: date)
+        var dict = [String: [MyNotification]]()
+
+        for e in entities {
+            let key = Manager.dateFormatter.string(from: e.date ?? Date())
+            dict[key, default: []].append(map(e))
+        }
+
+        // Сортируем и проставляем number
+        for (k, var arr) in dict {
+            arr.sort {
+                if $0.state == $1.state {
+                    return $0.text.localizedCaseInsensitiveCompare($1.text) == .orderedAscending
+                }
+                return !$0.state && $1.state
+            }
+            for i in 0..<arr.count {
+                arr[i].number = i
+            }
+            dict[k] = arr
+        }
+
+        notifications = dict
+        storageService.saveNotifications(notifications)
+    }
+
+    private func refreshDateNotifications(dateString: String) throws {
+        let date = Manager.dateFormatter.date(from: dateString)
+        let entities = try interactor.list(for: date)
+        var arr = entities.map { map($0) }
+
+        arr.sort {
+            if $0.state == $1.state {
+                return $0.text.localizedCaseInsensitiveCompare($1.text) == .orderedAscending
+            }
+            return !$0.state && $1.state
+        }
+
+        for i in 0..<arr.count {
+            arr[i].number = i
+        }
+
+        notifications[dateString] = arr
+        storageService.saveNotifications(notifications)
     }
 
     // MARK: - CRUD
 
     func removeNotification(id: UUID) {
+        do {
+            try interactor.remove(id: id)
+        } catch {
+            print("Manager.removeNotification CoreData error: \(error)")
+        }
+
         for (date, items) in notifications {
             if let index = items.firstIndex(where: { $0.id == id }) {
                 notifications[date]?.remove(at: index)
+                // пересчитаем number
+                reindex(date: date)
                 storageService.saveNotifications(notifications)
                 return
             }
@@ -51,32 +157,64 @@ final class Manager: IManager {
     }
 
     func addNotification(notification: MyNotification) {
-        notifications[selectedDate, default: []].insert(notification, at: 0)
-        storageService.saveNotifications(notifications)
+        let args = mapToRepoArgs(notification)
+        do {
+            _ = try interactor.add(text: args.text, type: args.type, date: args.date)
+            try refreshDateNotifications(dateString: selectedDate)
+        } catch {
+            print("Manager.addNotification CoreData error: \(error)")
+            notifications[selectedDate, default: []].insert(notification, at: 0)
+            reindex(date: selectedDate)
+            storageService.saveNotifications(notifications)
+        }
     }
 
+
     func toggleNotificationState(id: UUID) {
-        for (date, items) in notifications {
-            if let index = items.firstIndex(where: { $0.id == id }) {
-                notifications[date]?[index].state.toggle()
-                notifications[date]?.sort {
-                    if $0.state == $1.state {
-                        return $0.text.localizedCaseInsensitiveCompare($1.text) == .orderedAscending
-                    }
-                    return !$0.state && $1.state
+        do {
+            try interactor.toggle(id: id)
+            // Обновим локальный кэш: лучше перезагрузить дату, где находится элемент
+            for (date, _) in notifications {
+                if notifications[date]?.contains(where: { $0.id == id }) == true {
+                    try? refreshDateNotifications(dateString: date)
+                    return
                 }
-                storageService.saveNotifications(notifications)
-                return
+            }
+        } catch {
+            print("Manager.toggleNotificationState CoreData error: \(error)")
+            // fallback локально
+            for (date, items) in notifications {
+                if let index = items.firstIndex(where: { $0.id == id }) {
+                    notifications[date]?[index].state.toggle()
+                    notifications[date]?.sort {
+                        if $0.state == $1.state { return $0.text.localizedCaseInsensitiveCompare($1.text) == .orderedAscending }
+                        return !$0.state && $1.state
+                    }
+                    reindex(date: date)
+                    storageService.saveNotifications(notifications)
+                    return
+                }
             }
         }
     }
 
     func updateNotificationText(id: UUID, newText: String) {
-        for (date, items) in notifications {
-            if let index = items.firstIndex(where: { $0.id == id }) {
-                notifications[date]?[index].text = newText
-                storageService.saveNotifications(notifications)
-                return
+        do {
+            try interactor.updateText(id: id, text: newText)
+            for (date, _) in notifications {
+                if notifications[date]?.contains(where: { $0.id == id }) == true {
+                    try? refreshDateNotifications(dateString: date)
+                    return
+                }
+            }
+        } catch {
+            print("Manager.updateNotificationText CoreData error: \(error)")
+            for (date, items) in notifications {
+                if let index = items.firstIndex(where: { $0.id == id }) {
+                    notifications[date]?[index].text = newText
+                    storageService.saveNotifications(notifications)
+                    return
+                }
             }
         }
     }
@@ -89,6 +227,11 @@ final class Manager: IManager {
 
     func setDate(date: String) {
         selectedDate = date
+        do {
+            try refreshDateNotifications(dateString: date)
+        } catch {
+            print("Manager.setDate refresh error: \(error)")
+        }
     }
 
     func getDate() -> String {
@@ -96,15 +239,20 @@ final class Manager: IManager {
     }
 
     func loadNotifications() {
-        notifications = storageService.loadNotifications()
+        do {
+            try loadFromCoreData()
+        } catch {
+            notifications = storageService.loadNotifications()
+            print("Manager.loadNotifications fallback storageService: \(error)")
+        }
     }
 
-    // MARK: - Новый метод
+    // MARK: - Utilities
+
     func hasNotifications(for date: String) -> Bool {
         return notifications[date]?.isEmpty == false
     }
 
-    // MARK: - Перемещение
     func moveNotification(from sourceIndex: Int, to destinationIndex: Int, for date: String) {
         guard var items = notifications[date],
               sourceIndex < items.count,
@@ -113,91 +261,18 @@ final class Manager: IManager {
         let item = items.remove(at: sourceIndex)
         items.insert(item, at: destinationIndex)
         notifications[date] = items
+        reindex(date: date)
         storageService.saveNotifications(notifications)
+
+        // Для сохранения порядка в Core Data добавь атрибут order: Int16 и сохраняй его через interactor/repo.
+    }
+
+    private func reindex(date: String) {
+        guard var arr = notifications[date] else { return }
+        for i in 0..<arr.count {
+            arr[i].number = i
+        }
+        notifications[date] = arr
     }
 }
 
-
-////
-////  Manager.swift
-////  NotificationProject
-////
-////  Created by Георгий Евсеев on 5.12.23.
-////
-//
-//import Foundation
-//import UIKit
-//
-//protocol ManagerDelegate: AnyObject {
-//    func updateData()
-//}
-//
-//protocol IManager {
-//    func removeNotification(notification: MyNotification)
-//    func addNotification(notification: MyNotification)
-//    func toggleNotificationState(notification: MyNotification)
-//    func setNumber()
-//    func getNumber() -> Int
-//    func setDate(date: String)
-//    func getDate() -> String
-//}
-//
-//final class Manager: IManager {
-//    static let shared = Manager()
-//    weak var delegate: ManagerDelegate?
-//    private var storageService: IStorageService
-//    var selectedDate: String = ""
-//    var notificationsNumber = Int()
-//    var notifications = [String: [MyNotification]]()
-//    
-//    init(storageService: IStorageService = StorageService()){
-//        self.storageService = storageService
-//    }
-//
-//    func removeNotification(notification: MyNotification) {
-//        let date = notification.date
-//        
-//        let removeNotification = notification
-//        if let indexNotification = notifications[date]?.firstIndex(where: { notification in
-//            notification.text == removeNotification.text
-//        }) {
-//            notifications[date]?.remove(at: indexNotification)
-//            StorageService().saveNotification()
-//        }
-//    }
-//
-//    func addNotification(notification: MyNotification) {
-//        if notifications[selectedDate] == nil {
-//            notifications[selectedDate] = []
-//        }
-//        notifications[selectedDate]?.append(notification)
-//        setNumber()
-//        StorageService().saveNotification()
-//        delegate?.updateData()
-//    }
-//    
-//    func toggleNotificationState(notification: MyNotification) {
-//        if let firstIndex = notifications[selectedDate]?.firstIndex(where: { myNotification in
-//            myNotification.text == notification.text
-//        }) {
-//            notifications[selectedDate]?[firstIndex].state = !notification.state
-//        }
-//        StorageService().saveNotification()
-//    }
-//    
-//    func setNumber() {
-//        notificationsNumber += 1
-//    }
-//    
-//    func getNumber() -> Int {
-//        notificationsNumber
-//    }
-//    
-//    func setDate(date: String) {
-//        selectedDate = date
-//    }
-//    
-//    func getDate() -> String {
-//        selectedDate
-//    }
-//}

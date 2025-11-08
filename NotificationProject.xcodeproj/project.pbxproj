@@ -22,6 +22,15 @@
 		56217BEE2BACA74D00843672 /* InclineScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56217BED2BACA74D00843672 /* InclineScreenViewController.swift */; };
 		56217BF02BACA76000843672 /* ExpensesScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56217BEF2BACA76000843672 /* ExpensesScreenViewController.swift */; };
 		5622BF8A2BCDA36C00946446 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5622BF892BCDA36C00946446 /* AppDelegate.swift */; };
+		56287BDD2EBF636E00490E1C /* NotificationModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 56287BDB2EBF636E00490E1C /* NotificationModel.xcdatamodeld */; };
+		56287BE12EBF67C400490E1C /* NotificationEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56287BE02EBF67C400490E1C /* NotificationEntity+CoreDataProperties.swift */; };
+		56287BE22EBF67C400490E1C /* NotificationEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56287BDF2EBF67C400490E1C /* NotificationEntity+CoreDataClass.swift */; };
+		56287BE42EBF684D00490E1C /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56287BE32EBF684D00490E1C /* CoreDataManager.swift */; };
+		56287BE62EBF687A00490E1C /* CoreDataNotificationsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56287BE52EBF687A00490E1C /* CoreDataNotificationsRepository.swift */; };
+		56287BE82EBF68AE00490E1C /* DefaultNotificationsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56287BE72EBF68A600490E1C /* DefaultNotificationsInteractor.swift */; };
+		56287BEA2EBF6F7900490E1C /* MigrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56287BE92EBF6F7900490E1C /* MigrationManager.swift */; };
+		56287BEC2EBF74F300490E1C /* NotificationsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56287BEB2EBF74F300490E1C /* NotificationsRepository.swift */; };
+		56287BEE2EBF771500490E1C /* NotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56287BED2EBF771500490E1C /* NotificationType.swift */; };
 		563C03CF2B3B5C24009F2811 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563C03CE2B3B5C24009F2811 /* Rectangle.swift */; };
 		563C03D12B3B5CC9009F2811 /* BurgerMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563C03D02B3B5CC9009F2811 /* BurgerMenu.swift */; };
 		564C32A72CE9D450002D46B7 /* ManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564C32A62CE9D450002D46B7 /* ManagerTests.swift */; };
@@ -47,7 +56,6 @@
 		565A2BDE2BCFD5FF006EEC1D /* DetailScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565A2BD82BCFD5FF006EEC1D /* DetailScreenViewController.swift */; };
 		5662AC582B663F6000B42751 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5662AC572B663F6000B42751 /* ViewModel.swift */; };
 		5662AC5A2B66407600B42751 /* NetWorkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5662AC592B66407600B42751 /* NetWorkService.swift */; };
-		5674E5802EA508B6006844CB /* NotificationsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5674E57E2EA508B6006844CB /* NotificationsModel.xcdatamodeld */; };
 		569C03442D58CF430099556F /* NotificationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569C03432D58CF260099556F /* NotificationMock.swift */; };
 		569C03462D58CF600099556F /* ManagerDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569C03452D58CF540099556F /* ManagerDelegateMock.swift */; };
 		56A7B8552B1E557F0022FC86 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A7B8542B1E557F0022FC86 /* SceneDelegate.swift */; };
@@ -130,6 +138,15 @@
 		56217BED2BACA74D00843672 /* InclineScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InclineScreenViewController.swift; sourceTree = "<group>"; };
 		56217BEF2BACA76000843672 /* ExpensesScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesScreenViewController.swift; sourceTree = "<group>"; };
 		5622BF892BCDA36C00946446 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		56287BDC2EBF636E00490E1C /* NotificationModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NotificationModel.xcdatamodel; sourceTree = "<group>"; };
+		56287BDF2EBF67C400490E1C /* NotificationEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationEntity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		56287BE02EBF67C400490E1C /* NotificationEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationEntity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		56287BE32EBF684D00490E1C /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		56287BE52EBF687A00490E1C /* CoreDataNotificationsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataNotificationsRepository.swift; sourceTree = "<group>"; };
+		56287BE72EBF68A600490E1C /* DefaultNotificationsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNotificationsInteractor.swift; sourceTree = "<group>"; };
+		56287BE92EBF6F7900490E1C /* MigrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationManager.swift; sourceTree = "<group>"; };
+		56287BEB2EBF74F300490E1C /* NotificationsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsRepository.swift; sourceTree = "<group>"; };
+		56287BED2EBF771500490E1C /* NotificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationType.swift; sourceTree = "<group>"; };
 		563C03CE2B3B5C24009F2811 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 		563C03D02B3B5CC9009F2811 /* BurgerMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurgerMenu.swift; sourceTree = "<group>"; };
 		564C32A62CE9D450002D46B7 /* ManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerTests.swift; sourceTree = "<group>"; };
@@ -155,8 +172,6 @@
 		565A2BD82BCFD5FF006EEC1D /* DetailScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailScreenViewController.swift; sourceTree = "<group>"; };
 		5662AC572B663F6000B42751 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		5662AC592B66407600B42751 /* NetWorkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorkService.swift; sourceTree = "<group>"; };
-		5674E57F2EA508B6006844CB /* NotificationsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NotificationsModel.xcdatamodel; sourceTree = "<group>"; };
-		5674E5812EA509CC006844CB /* Untitled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Untitled.swift; sourceTree = "<group>"; };
 		569C03432D58CF260099556F /* NotificationMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationMock.swift; sourceTree = "<group>"; };
 		569C03452D58CF540099556F /* ManagerDelegateMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerDelegateMock.swift; sourceTree = "<group>"; };
 		56A7B84F2B1E557F0022FC86 /* NotificationProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotificationProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -265,6 +280,21 @@
 			path = LoginScreen;
 			sourceTree = "<group>";
 		};
+		56287BDE2EBF679F00490E1C /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				56287BE72EBF68A600490E1C /* DefaultNotificationsInteractor.swift */,
+				56287BDF2EBF67C400490E1C /* NotificationEntity+CoreDataClass.swift */,
+				56287BE02EBF67C400490E1C /* NotificationEntity+CoreDataProperties.swift */,
+				56287BE32EBF684D00490E1C /* CoreDataManager.swift */,
+				56287BE52EBF687A00490E1C /* CoreDataNotificationsRepository.swift */,
+				56287BE92EBF6F7900490E1C /* MigrationManager.swift */,
+				56287BEB2EBF74F300490E1C /* NotificationsRepository.swift */,
+				56287BED2EBF771500490E1C /* NotificationType.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		56495F592CD762D6001E1127 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -276,7 +306,6 @@
 		564D89B32BBF1EC9002B14DF /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				5674E5812EA509CC006844CB /* Untitled.swift */,
 				56A7B86C2B1F99180022FC86 /* Manager.swift */,
 				5662AC592B66407600B42751 /* NetWorkService.swift */,
 				564D89B82BBF229B002B14DF /* StorageService.swift */,
@@ -329,12 +358,12 @@
 		565A2BBC2BCE82D6006EEC1D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				563C03D02B3B5CC9009F2811 /* BurgerMenu.swift */,
 				56CFDFD92B25A7BC00FC4F98 /* EditableTableViewCell.swift */,
 				5662AC572B663F6000B42751 /* ViewModel.swift */,
 				563C03CE2B3B5C24009F2811 /* Rectangle.swift */,
-				563C03D02B3B5CC9009F2811 /* BurgerMenu.swift */,
 				56A7B8682B1F984E0022FC86 /* MyNotification.swift */,
-				5674E57E2EA508B6006844CB /* NotificationsModel.xcdatamodeld */,
+				56287BDB2EBF636E00490E1C /* NotificationModel.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -413,6 +442,7 @@
 			children = (
 				5622BF892BCDA36C00946446 /* AppDelegate.swift */,
 				56A7B8542B1E557F0022FC86 /* SceneDelegate.swift */,
+				56287BDE2EBF679F00490E1C /* Data */,
 				564D89B32BBF1EC9002B14DF /* Services */,
 				565A2BBC2BCE82D6006EEC1D /* Models */,
 				564D89CB2BBF24BA002B14DF /* AppCoordinator */,
@@ -691,7 +721,10 @@
 				565A2BD32BCE8807006EEC1D /* RegistrationPresenter.swift in Sources */,
 				564D89B92BBF229B002B14DF /* StorageService.swift in Sources */,
 				565A2BC72BCE8400006EEC1D /* ExpensesScreenPresenter.swift in Sources */,
+				56287BEE2EBF771500490E1C /* NotificationType.swift in Sources */,
 				564D89CD2BCAB289002B14DF /* AppCoordinator.swift in Sources */,
+				56287BE82EBF68AE00490E1C /* DefaultNotificationsInteractor.swift in Sources */,
+				56287BE62EBF687A00490E1C /* CoreDataNotificationsRepository.swift in Sources */,
 				565A2BD12BCE87FE006EEC1D /* RegistrationScreenAssembly.swift in Sources */,
 				565A2BC12BCE83D1006EEC1D /* UserScreenAssembly.swift in Sources */,
 				565A2BCF2BCE8424006EEC1D /* MenuScreenPresenter.swift in Sources */,
@@ -700,8 +733,10 @@
 				564D89BF2BBF240A002B14DF /* MainScreenAssembly.swift in Sources */,
 				5662AC5A2B66407600B42751 /* NetWorkService.swift in Sources */,
 				56217BEE2BACA74D00843672 /* InclineScreenViewController.swift in Sources */,
-				5674E5802EA508B6006844CB /* NotificationsModel.xcdatamodeld in Sources */,
+				56287BE42EBF684D00490E1C /* CoreDataManager.swift in Sources */,
 				56C3F7762BB94E7D005D3AD2 /* RegisterViewController.swift in Sources */,
+				56287BEA2EBF6F7900490E1C /* MigrationManager.swift in Sources */,
+				56287BDD2EBF636E00490E1C /* NotificationModel.xcdatamodeld in Sources */,
 				560F99292E8017DA00AEEA76 /* OnboardingAssembly.swift in Sources */,
 				565A2BDE2BCFD5FF006EEC1D /* DetailScreenViewController.swift in Sources */,
 				563C03CF2B3B5C24009F2811 /* Rectangle.swift in Sources */,
@@ -712,10 +747,13 @@
 				56A7B86F2B2238E70022FC86 /* MenuViewController.swift in Sources */,
 				560F992C2E8028F500AEEA76 /* LoginScreenController.swift in Sources */,
 				565A2BDD2BCFD5FF006EEC1D /* DetailScreenAssembly.swift in Sources */,
+				56287BE12EBF67C400490E1C /* NotificationEntity+CoreDataProperties.swift in Sources */,
+				56287BE22EBF67C400490E1C /* NotificationEntity+CoreDataClass.swift in Sources */,
 				565A2BCD2BCE841B006EEC1D /* MenuScreenAssembly.swift in Sources */,
 				565A2BD52BCE8C3C006EEC1D /* RegistrationScreenCoordinator.swift in Sources */,
 				560F99232E7FF26500AEEA76 /* OnboardingCoordinator.swift in Sources */,
 				5622BF8A2BCDA36C00946446 /* AppDelegate.swift in Sources */,
+				56287BEC2EBF74F300490E1C /* NotificationsRepository.swift in Sources */,
 				56E99BFF2C8E0275002F1FD8 /* SomePresenter.swift in Sources */,
 				563C03D12B3B5CC9009F2811 /* BurgerMenu.swift in Sources */,
 				560F99252E7FF2AD00AEEA76 /* OnboardingViewController.swift in Sources */,
@@ -1058,13 +1096,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		5674E57E2EA508B6006844CB /* NotificationsModel.xcdatamodeld */ = {
+		56287BDB2EBF636E00490E1C /* NotificationModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				5674E57F2EA508B6006844CB /* NotificationsModel.xcdatamodel */,
+				56287BDC2EBF636E00490E1C /* NotificationModel.xcdatamodel */,
 			);
-			currentVersion = 5674E57F2EA508B6006844CB /* NotificationsModel.xcdatamodel */;
-			path = NotificationsModel.xcdatamodeld;
+			currentVersion = 56287BDC2EBF636E00490E1C /* NotificationModel.xcdatamodel */;
+			path = NotificationModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

@@ -11,22 +11,29 @@ import Foundation
 struct MyNotification: Identifiable, Codable {
     let id: UUID
     var text: String
+    /// dd.MM.yyyy
     var date: String
     var number: Int
-    var state: Bool   // false = активная, true = выполненная
+    /// false = active, true = done
+    var state: Bool
+    var type: NotificationType
 
     init(id: UUID = UUID(),
          text: String,
          date: String,
-         number: Int,
-         state: Bool = false) {
+         number: Int = 0,
+         state: Bool = false,
+         type: NotificationType = .expense) {
         self.id = id
         self.text = text
         self.date = date
         self.number = number
         self.state = state
+        self.type = type
     }
 }
+
+
 
 
 
