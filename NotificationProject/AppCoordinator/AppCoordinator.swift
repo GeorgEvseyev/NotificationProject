@@ -16,6 +16,9 @@ import UIKit
 //    }
 //}
 
+import UIKit
+import FirebaseAuth
+
 final class AppCoordinator {
     private let window: UIWindow
     private let navigationController: UINavigationController
@@ -32,6 +35,14 @@ final class AppCoordinator {
     }
 
     func start() {
+        // Новый шаг: проверка авторизации в Firebase
+        if let _ = Auth.auth().currentUser {
+            // Пользователь уже вошёл — сразу на главный экран
+            showMainScreen()
+            return
+        }
+
+        // Если пользователь не авторизован — старая логика
         if !UserDefaults.standard.bool(forKey: "hasSeenOnboarding") {
             showOnboarding()
         } else {

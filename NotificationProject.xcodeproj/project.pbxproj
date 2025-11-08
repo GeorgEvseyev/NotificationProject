@@ -7,12 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		358FDF1D5DBFDCCDB10EDEFA /* Pods_NotificationProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 749444232832201744575B9A /* Pods_NotificationProject.framework */; };
 		560714332CB44D93002053CA /* RegistrationScreenViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560714322CB44D93002053CA /* RegistrationScreenViewControllerTests.swift */; };
 		560F99232E7FF26500AEEA76 /* OnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560F99222E7FF26500AEEA76 /* OnboardingCoordinator.swift */; };
 		560F99252E7FF2AD00AEEA76 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560F99242E7FF2AD00AEEA76 /* OnboardingViewController.swift */; };
 		560F99272E8017C300AEEA76 /* OnboardingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560F99262E8017C300AEEA76 /* OnboardingPresenter.swift */; };
 		560F99292E8017DA00AEEA76 /* OnboardingAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560F99282E8017DA00AEEA76 /* OnboardingAssembly.swift */; };
+		560F992C2E8028F500AEEA76 /* LoginScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560F992B2E8028F500AEEA76 /* LoginScreenController.swift */; };
+		560F992E2E80292100AEEA76 /* LoginScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560F992D2E80292100AEEA76 /* LoginScreenAssembly.swift */; };
+		560F99322E802C2B00AEEA76 /* LoginScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560F99312E802C2B00AEEA76 /* LoginScreenPresenter.swift */; };
+		560F99342E8039DC00AEEA76 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 560F99332E8039DC00AEEA76 /* GoogleService-Info.plist */; };
 		56217BE62B9325AB00843672 /* Offsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56217BE52B9325AB00843672 /* Offsets.swift */; };
 		56217BE82B94763800843672 /* Insets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56217BE72B94763800843672 /* Insets.swift */; };
 		56217BEC2BAB516F00843672 /* UserScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56217BEB2BAB516F00843672 /* UserScreenViewController.swift */; };
@@ -44,6 +47,7 @@
 		565A2BDE2BCFD5FF006EEC1D /* DetailScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565A2BD82BCFD5FF006EEC1D /* DetailScreenViewController.swift */; };
 		5662AC582B663F6000B42751 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5662AC572B663F6000B42751 /* ViewModel.swift */; };
 		5662AC5A2B66407600B42751 /* NetWorkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5662AC592B66407600B42751 /* NetWorkService.swift */; };
+		5674E5802EA508B6006844CB /* NotificationsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5674E57E2EA508B6006844CB /* NotificationsModel.xcdatamodeld */; };
 		569C03442D58CF430099556F /* NotificationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569C03432D58CF260099556F /* NotificationMock.swift */; };
 		569C03462D58CF600099556F /* ManagerDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569C03452D58CF540099556F /* ManagerDelegateMock.swift */; };
 		56A7B8552B1E557F0022FC86 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A7B8542B1E557F0022FC86 /* SceneDelegate.swift */; };
@@ -53,7 +57,6 @@
 		56A7B8692B1F984E0022FC86 /* MyNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A7B8682B1F984E0022FC86 /* MyNotification.swift */; };
 		56A7B86D2B1F99180022FC86 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A7B86C2B1F99180022FC86 /* Manager.swift */; };
 		56A7B86F2B2238E70022FC86 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A7B86E2B2238E70022FC86 /* MenuViewController.swift */; };
-		56B6935A2BB972E1004D99C0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 56B693592BB972E1004D99C0 /* GoogleService-Info.plist */; };
 		56C3F7762BB94E7D005D3AD2 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C3F7752BB94E7D005D3AD2 /* RegisterViewController.swift */; };
 		56CFDFDA2B25A7BC00FC4F98 /* EditableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CFDFD92B25A7BC00FC4F98 /* EditableTableViewCell.swift */; };
 		56E99BCD2C80D236002F1FD8 /* MainViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99BCC2C80D236002F1FD8 /* MainViewControllerMock.swift */; };
@@ -97,6 +100,7 @@
 		56E99C212C973951002F1FD8 /* InclineScreenAssemblyMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99C202C973951002F1FD8 /* InclineScreenAssemblyMock.swift */; };
 		56E99C232C97396C002F1FD8 /* InclineScreenViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99C222C97396C002F1FD8 /* InclineScreenViewControllerMock.swift */; };
 		56E99C252C973981002F1FD8 /* InclineScreenPresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E99C242C973981002F1FD8 /* InclineScreenPresenterMock.swift */; };
+		59D8DB0D9DA5838DFD8FA701 /* Pods_NotificationProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3920D32357A32EF2E773385 /* Pods_NotificationProject.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,11 +114,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B4846D28B67C2C934877061 /* Pods-NotificationProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationProject.debug.xcconfig"; path = "Target Support Files/Pods-NotificationProject/Pods-NotificationProject.debug.xcconfig"; sourceTree = "<group>"; };
 		560714322CB44D93002053CA /* RegistrationScreenViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationScreenViewControllerTests.swift; sourceTree = "<group>"; };
 		560F99222E7FF26500AEEA76 /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
 		560F99242E7FF2AD00AEEA76 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		560F99262E8017C300AEEA76 /* OnboardingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPresenter.swift; sourceTree = "<group>"; };
 		560F99282E8017DA00AEEA76 /* OnboardingAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingAssembly.swift; sourceTree = "<group>"; };
+		560F992B2E8028F500AEEA76 /* LoginScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenController.swift; sourceTree = "<group>"; };
+		560F992D2E80292100AEEA76 /* LoginScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenAssembly.swift; sourceTree = "<group>"; };
+		560F99312E802C2B00AEEA76 /* LoginScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenPresenter.swift; sourceTree = "<group>"; };
+		560F99332E8039DC00AEEA76 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		56217BE52B9325AB00843672 /* Offsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Offsets.swift; sourceTree = "<group>"; };
 		56217BE72B94763800843672 /* Insets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Insets.swift; sourceTree = "<group>"; };
 		56217BEB2BAB516F00843672 /* UserScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserScreenViewController.swift; sourceTree = "<group>"; };
@@ -146,6 +155,8 @@
 		565A2BD82BCFD5FF006EEC1D /* DetailScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailScreenViewController.swift; sourceTree = "<group>"; };
 		5662AC572B663F6000B42751 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		5662AC592B66407600B42751 /* NetWorkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorkService.swift; sourceTree = "<group>"; };
+		5674E57F2EA508B6006844CB /* NotificationsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NotificationsModel.xcdatamodel; sourceTree = "<group>"; };
+		5674E5812EA509CC006844CB /* Untitled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Untitled.swift; sourceTree = "<group>"; };
 		569C03432D58CF260099556F /* NotificationMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationMock.swift; sourceTree = "<group>"; };
 		569C03452D58CF540099556F /* ManagerDelegateMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerDelegateMock.swift; sourceTree = "<group>"; };
 		56A7B84F2B1E557F0022FC86 /* NotificationProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotificationProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -157,7 +168,6 @@
 		56A7B8682B1F984E0022FC86 /* MyNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNotification.swift; sourceTree = "<group>"; };
 		56A7B86C2B1F99180022FC86 /* Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
 		56A7B86E2B2238E70022FC86 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
-		56B693592BB972E1004D99C0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		56C3F7752BB94E7D005D3AD2 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		56CFDFD92B25A7BC00FC4F98 /* EditableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableTableViewCell.swift; sourceTree = "<group>"; };
 		56E99BC22C80D1D4002F1FD8 /* NotificationProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NotificationProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -202,9 +212,8 @@
 		56E99C202C973951002F1FD8 /* InclineScreenAssemblyMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InclineScreenAssemblyMock.swift; sourceTree = "<group>"; };
 		56E99C222C97396C002F1FD8 /* InclineScreenViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InclineScreenViewControllerMock.swift; sourceTree = "<group>"; };
 		56E99C242C973981002F1FD8 /* InclineScreenPresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InclineScreenPresenterMock.swift; sourceTree = "<group>"; };
-		749444232832201744575B9A /* Pods_NotificationProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8373792C668F335596919346 /* Pods-NotificationProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationProject.release.xcconfig"; path = "Target Support Files/Pods-NotificationProject/Pods-NotificationProject.release.xcconfig"; sourceTree = "<group>"; };
-		EE0DDAF84218D8E038FA6783 /* Pods-NotificationProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationProject.debug.xcconfig"; path = "Target Support Files/Pods-NotificationProject/Pods-NotificationProject.debug.xcconfig"; sourceTree = "<group>"; };
+		6762C9D355D0A697C1F26CE9 /* Pods-NotificationProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationProject.release.xcconfig"; path = "Target Support Files/Pods-NotificationProject/Pods-NotificationProject.release.xcconfig"; sourceTree = "<group>"; };
+		F3920D32357A32EF2E773385 /* Pods_NotificationProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,7 +221,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				358FDF1D5DBFDCCDB10EDEFA /* Pods_NotificationProject.framework in Frameworks */,
+				59D8DB0D9DA5838DFD8FA701 /* Pods_NotificationProject.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,19 +235,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		42751079999985672FD703D5 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				749444232832201744575B9A /* Pods_NotificationProject.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		431935CB6964AD7B1552EDF5 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				EE0DDAF84218D8E038FA6783 /* Pods-NotificationProject.debug.xcconfig */,
-				8373792C668F335596919346 /* Pods-NotificationProject.release.xcconfig */,
+				2B4846D28B67C2C934877061 /* Pods-NotificationProject.debug.xcconfig */,
+				6762C9D355D0A697C1F26CE9 /* Pods-NotificationProject.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -254,6 +255,16 @@
 			path = OnboardingScreen;
 			sourceTree = "<group>";
 		};
+		560F992A2E8028C000AEEA76 /* LoginScreen */ = {
+			isa = PBXGroup;
+			children = (
+				560F992B2E8028F500AEEA76 /* LoginScreenController.swift */,
+				560F992D2E80292100AEEA76 /* LoginScreenAssembly.swift */,
+				560F99312E802C2B00AEEA76 /* LoginScreenPresenter.swift */,
+			);
+			path = LoginScreen;
+			sourceTree = "<group>";
+		};
 		56495F592CD762D6001E1127 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -265,6 +276,7 @@
 		564D89B32BBF1EC9002B14DF /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				5674E5812EA509CC006844CB /* Untitled.swift */,
 				56A7B86C2B1F99180022FC86 /* Manager.swift */,
 				5662AC592B66407600B42751 /* NetWorkService.swift */,
 				564D89B82BBF229B002B14DF /* StorageService.swift */,
@@ -322,6 +334,7 @@
 				563C03CE2B3B5C24009F2811 /* Rectangle.swift */,
 				563C03D02B3B5CC9009F2811 /* BurgerMenu.swift */,
 				56A7B8682B1F984E0022FC86 /* MyNotification.swift */,
+				5674E57E2EA508B6006844CB /* NotificationsModel.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -382,7 +395,7 @@
 				56E99BC32C80D1D4002F1FD8 /* NotificationProjectTests */,
 				56A7B8502B1E557F0022FC86 /* Products */,
 				431935CB6964AD7B1552EDF5 /* Pods */,
-				42751079999985672FD703D5 /* Frameworks */,
+				AE0C53375CE4AA50A1FA4847 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -405,6 +418,7 @@
 				564D89CB2BBF24BA002B14DF /* AppCoordinator */,
 				560F99212E7FF1AC00AEEA76 /* OnboardingScreen */,
 				565A2BBA2BCE7FCF006EEC1D /* RegistrationScreen */,
+				560F992A2E8028C000AEEA76 /* LoginScreen */,
 				564D89B62BBF1F45002B14DF /* MainScreen */,
 				565A2BDB2BCFD5FF006EEC1D /* DetailScreen */,
 				565A2BBB2BCE8295006EEC1D /* MenuScreen */,
@@ -416,7 +430,7 @@
 				56A7B85B2B1E55810022FC86 /* Assets.xcassets */,
 				56A7B85D2B1E55810022FC86 /* LaunchScreen.storyboard */,
 				56A7B8602B1E55810022FC86 /* Info.plist */,
-				56B693592BB972E1004D99C0 /* GoogleService-Info.plist */,
+				560F99332E8039DC00AEEA76 /* GoogleService-Info.plist */,
 			);
 			path = NotificationProject;
 			sourceTree = "<group>";
@@ -511,6 +525,14 @@
 			path = DetailScreen;
 			sourceTree = "<group>";
 		};
+		AE0C53375CE4AA50A1FA4847 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F3920D32357A32EF2E773385 /* Pods_NotificationProject.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -518,11 +540,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 56A7B8632B1E55810022FC86 /* Build configuration list for PBXNativeTarget "NotificationProject" */;
 			buildPhases = (
-				1EB08DFACED2605DFCC56262 /* [CP] Check Pods Manifest.lock */,
+				ACCEF0CDD61CBCFA69D9C8AE /* [CP] Check Pods Manifest.lock */,
 				56A7B84B2B1E557F0022FC86 /* Sources */,
 				56A7B84C2B1E557F0022FC86 /* Frameworks */,
 				56A7B84D2B1E557F0022FC86 /* Resources */,
-				44B6234629B6DF51FC967DD3 /* [CP] Embed Pods Frameworks */,
+				B7CD8F061295699DE0C577CA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -595,8 +617,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				56A7B85F2B1E55810022FC86 /* LaunchScreen.storyboard in Resources */,
+				560F99342E8039DC00AEEA76 /* GoogleService-Info.plist in Resources */,
 				56A7B85C2B1E55810022FC86 /* Assets.xcassets in Resources */,
-				56B6935A2BB972E1004D99C0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -610,7 +632,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1EB08DFACED2605DFCC56262 /* [CP] Check Pods Manifest.lock */ = {
+		ACCEF0CDD61CBCFA69D9C8AE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -632,7 +654,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		44B6234629B6DF51FC967DD3 /* [CP] Embed Pods Frameworks */ = {
+		B7CD8F061295699DE0C577CA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -678,6 +700,7 @@
 				564D89BF2BBF240A002B14DF /* MainScreenAssembly.swift in Sources */,
 				5662AC5A2B66407600B42751 /* NetWorkService.swift in Sources */,
 				56217BEE2BACA74D00843672 /* InclineScreenViewController.swift in Sources */,
+				5674E5802EA508B6006844CB /* NotificationsModel.xcdatamodeld in Sources */,
 				56C3F7762BB94E7D005D3AD2 /* RegisterViewController.swift in Sources */,
 				560F99292E8017DA00AEEA76 /* OnboardingAssembly.swift in Sources */,
 				565A2BDE2BCFD5FF006EEC1D /* DetailScreenViewController.swift in Sources */,
@@ -687,6 +710,7 @@
 				564D89BD2BBF2401002B14DF /* MainScreenCoordinator.swift in Sources */,
 				56CFDFDA2B25A7BC00FC4F98 /* EditableTableViewCell.swift in Sources */,
 				56A7B86F2B2238E70022FC86 /* MenuViewController.swift in Sources */,
+				560F992C2E8028F500AEEA76 /* LoginScreenController.swift in Sources */,
 				565A2BDD2BCFD5FF006EEC1D /* DetailScreenAssembly.swift in Sources */,
 				565A2BCD2BCE841B006EEC1D /* MenuScreenAssembly.swift in Sources */,
 				565A2BD52BCE8C3C006EEC1D /* RegistrationScreenCoordinator.swift in Sources */,
@@ -695,7 +719,9 @@
 				56E99BFF2C8E0275002F1FD8 /* SomePresenter.swift in Sources */,
 				563C03D12B3B5CC9009F2811 /* BurgerMenu.swift in Sources */,
 				560F99252E7FF2AD00AEEA76 /* OnboardingViewController.swift in Sources */,
+				560F99322E802C2B00AEEA76 /* LoginScreenPresenter.swift in Sources */,
 				565A2BC52BCE83F8006EEC1D /* ExpensesScreenAssembly.swift in Sources */,
+				560F992E2E80292100AEEA76 /* LoginScreenAssembly.swift in Sources */,
 				565A2BC92BCE840B006EEC1D /* InclineScreenAssembly.swift in Sources */,
 				565A2BC32BCE83D9006EEC1D /* UserScreenPresenter.swift in Sources */,
 				56217BE62B9325AB00843672 /* Offsets.swift in Sources */,
@@ -899,7 +925,7 @@
 		};
 		56A7B8642B1E55810022FC86 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EE0DDAF84218D8E038FA6783 /* Pods-NotificationProject.debug.xcconfig */;
+			baseConfigurationReference = 2B4846D28B67C2C934877061 /* Pods-NotificationProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -930,7 +956,7 @@
 		};
 		56A7B8652B1E55810022FC86 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8373792C668F335596919346 /* Pods-NotificationProject.release.xcconfig */;
+			baseConfigurationReference = 6762C9D355D0A697C1F26CE9 /* Pods-NotificationProject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1030,6 +1056,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5674E57E2EA508B6006844CB /* NotificationsModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5674E57F2EA508B6006844CB /* NotificationsModel.xcdatamodel */,
+			);
+			currentVersion = 5674E57F2EA508B6006844CB /* NotificationsModel.xcdatamodel */;
+			path = NotificationsModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 56A7B8472B1E557F0022FC86 /* Project object */;
 }

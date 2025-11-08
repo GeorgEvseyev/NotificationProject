@@ -10,13 +10,65 @@ import Foundation
 import UIKit
 
 protocol RegistrationScreenPresenterOutput: AnyObject {
-    func enterButtonPressed()
+    func registrationDidFinish()
     func returnToOnboardingRequested()
+    func loginRequested()
 }
 
 protocol MainScreenPresenterOutput: AnyObject {
     func exitButtonPressed()
 }
+
+protocol LoginScreenPresenterOutput: AnyObject {
+    func loginDidFinish()
+    func returnToRegistrationRequested()
+}
+
+
+final class RegistrationScreenCoordinator {
+    private weak var navigationController: UINavigationController?
+    weak var appCoordinator: AppCoordinator?
+    var onEnter: (() -> Void)?
+
+    init(navigationController: UINavigationController?, appCoordinator: AppCoordinator?) {
+        self.navigationController = navigationController
+        self.appCoordinator = appCoordinator
+    }
+
+    func start() {
+        let controller = RegistrationScreenAssembly().assemble(output: self)
+        navigationController?.setViewControllers([controller], animated: false)
+    }
+}
+
+// MARK: - RegistrationScreenPresenterOutput
+extension RegistrationScreenCoordinator: RegistrationScreenPresenterOutput {
+    func registrationDidFinish() {
+        onEnter?()
+    }
+
+    func returnToOnboardingRequested() {
+        UserDefaults.standard.set(false, forKey: "hasSeenOnboarding")
+        appCoordinator?.restartOnboardingFlow()
+    }
+
+    func loginRequested() {
+        let loginVC = LoginScreenAssembly().assemble(output: self)
+        navigationController?.pushViewController(loginVC, animated: true)
+    }
+}
+
+// MARK: - LoginScreenPresenterOutput
+extension RegistrationScreenCoordinator: LoginScreenPresenterOutput {
+    func loginDidFinish() {
+        onEnter?()
+    }
+
+    func returnToRegistrationRequested() {
+        navigationController?.popViewController(animated: true)
+    }
+}
+
 
 //final class RegistrationScreenCoordinator {
 //
@@ -47,32 +99,8 @@ protocol MainScreenPresenterOutput: AnyObject {
 //    }
 //}
 
-final class RegistrationScreenCoordinator {
-    private weak var navigationController: UINavigationController?
-    weak var appCoordinator: AppCoordinator?
-    var onEnter: (() -> Void)?
 
-    init(navigationController: UINavigationController?, appCoordinator: AppCoordinator?) {
-        self.navigationController = navigationController
-        self.appCoordinator = appCoordinator
-    }
 
-    func start() {
-        let controller = RegistrationScreenAssembly().assemble(output: self)
-        navigationController?.setViewControllers([controller], animated: false)
-    }
-}
-
-extension RegistrationScreenCoordinator: RegistrationScreenPresenterOutput {
-    func enterButtonPressed() {
-        onEnter?()
-    }
-
-    func returnToOnboardingRequested() {
-        UserDefaults.standard.set(false, forKey: "hasSeenOnboarding")
-        appCoordinator?.restartOnboardingFlow()
-    }
-}
 
 
 

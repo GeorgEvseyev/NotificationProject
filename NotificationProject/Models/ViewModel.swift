@@ -18,33 +18,40 @@ protocol IViewModel: AnyObject {
     func addNotificationButtonPressed()
 }
 
-class ViewModel {
+final class ViewModel: IViewModel {
     weak var delegate: ViewModelDelegate?
 
-}
-
-extension ViewModel: IViewModel {
+    // MARK: - Получение всех заметок за выбранную дату
     func getNotifications() -> [MyNotification] {
-        let notifications = Manager.shared.notifications[Manager.shared.getDate()] ?? []
-        return notifications
+        Manager.shared.notifications[Manager.shared.getDate()] ?? []
     }
-    
+
+    // MARK: - Получение конкретной заметки
     func getNotification(index: Int) -> MyNotification {
-        return getNotifications()[index]
+        getNotifications()[index]
     }
-    
+
+    // MARK: - Фильтрация и сортировка
     func getFilteredNotifications() -> [MyNotification] {
-        Manager.shared.notifications[Manager.shared.getDate()]?.sort(by: { (n1, n2) -> Bool in
-            if !n1.state && !n2.state {
-                return n1.text < n2.text
+        let notifications = Manager.shared.notifications[Manager.shared.getDate()] ?? []
+        return notifications.sorted { n1, n2 in
+            if n1.state == n2.state {
+                // если оба выполнены или оба активные → сортируем по тексту
+                return n1.text.localizedCaseInsensitiveCompare(n2.text) == .orderedAscending
             }
-            return n1.state && !n2.state
-        })
-        return Manager.shared.notifications[Manager.shared.getDate()] ?? [MyNotification]()
+            // активные (false) всегда выше выполненных (true)
+            return !n1.state && n2.state
+        }
     }
-    
+
+    // MARK: - Добавление новой заметки
     func addNotificationButtonPressed() {
-        let notification = MyNotification(date: Manager.shared.getDate(), number: Manager.shared.getNumber(), text: "", state: true)
+        let notification = MyNotification(
+            text: "",
+            date: Manager.shared.getDate(),
+            number: Manager.shared.getNumber(),
+            state: false // новая заметка всегда активная
+        )
         Manager.shared.addNotification(notification: notification)
         delegate?.updateView()
     }

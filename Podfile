@@ -1,12 +1,11 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '15.0'
+use_frameworks!
 
 target 'NotificationProject' do
-  # Comment the next line if you don't want to use dynamic frameworks
-  use_frameworks!
-
+  pod 'Firebase/Auth'
+  pod 'Firebase/Analytics'
   pod 'SnapKit'
-pod 'FirebaseCore', :modular_headers => true
-pod 'Firebase/Database'
-pod 'FirebaseAuth'
+  # pod 'Firebase/Firestore' и т.п.
 end
+

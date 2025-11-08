@@ -9,6 +9,7 @@ import Foundation
 
 protocol IUserScreenPresenter {
     func buttonPressed()
+    func didSelectMenuItem(at index: Int)
 }
 
 final class UserScreenPresenter: IUserScreenPresenter {
@@ -27,4 +28,21 @@ final class UserScreenPresenter: IUserScreenPresenter {
             self.output.userScreenBackButtonPressed()
         }
     }
+
+    func didSelectMenuItem(at index: Int) {
+        switch index {
+        case 0:
+            view?.setLabelText("Incline выбран")
+            output.userScreenInclineSelected()
+        case 1:
+            view?.setLabelText("Expenses выбран")
+            output.userScreenExpensesSelected()
+        case 2:
+            view?.setLabelText("Settings выбран")
+            output.userScreenSettingsSelected()
+        default:
+            break
+        }
+    }
 }
+

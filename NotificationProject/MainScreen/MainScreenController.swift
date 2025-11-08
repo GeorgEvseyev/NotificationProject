@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 private extension CGFloat {
     static let height: CGFloat = 44
@@ -45,6 +46,7 @@ private extension Double {
 
 protocol IMainScreenController: AnyObject {
     func setLabelText(_ text: String)
+    func reloadTable()
 }
 
 final class MainScreenController: UIViewController {
@@ -58,14 +60,14 @@ final class MainScreenController: UIViewController {
         let tableView = UITableView()
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = .height
-        tableView.backgroundColor = .lightGray
-        tableView.separatorColor = .orange
+        tableView.backgroundColor = .systemBackground
+        tableView.separatorColor = .separator
         return tableView
     }()
 
     let menuView: UIView = {
         let menuView = UIView()
-        menuView.backgroundColor = .opaqueSeparator
+        menuView.backgroundColor = .secondarySystemBackground
         return menuView
     }()
 
@@ -89,56 +91,62 @@ final class MainScreenController: UIViewController {
 
     let visualShadowView: UIView = {
         let visualShadowView = UIView()
-        visualShadowView.backgroundColor = .black
+        visualShadowView.backgroundColor = UIColor.black.withAlphaComponent(0.4)
         visualShadowView.alpha = .darkAlpha
         return visualShadowView
     }()
 
     let bottomPartOfCalendarView: UIView = {
         let bottomPartOfCalendarView = UIView()
-        bottomPartOfCalendarView.backgroundColor = .opaqueSeparator
+        bottomPartOfCalendarView.backgroundColor = .secondarySystemBackground
         return bottomPartOfCalendarView
     }()
 
     let topImageView: UIView = {
         let imageView = UIView()
-        imageView.backgroundColor = .green
+        imageView.backgroundColor = .systemGroupedBackground
         return imageView
     }()
 
     let titleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.textColor = .black
-        titleLabel.font = .systemFont(ofSize: .font)
+        titleLabel.textColor = .label
+        titleLabel.font = .preferredFont(forTextStyle: .title2)
+        titleLabel.adjustsFontForContentSizeCategory = true
         titleLabel.text = .empty
         return titleLabel
     }()
 
-    private let menuButton: UIButton = {
-        let button = UIButton()
-        let largeConfig = UIImage.SymbolConfiguration(pointSize: .standardPointSize, weight: .regular, scale: .default)
-        button.setImage(UIImage(systemName: "line.horizontal.3", withConfiguration: largeConfig), for: .normal)
-        return button
+    let menuButton: UIButton = {
+        var conf = UIButton.Configuration.tinted()
+        conf.image = UIImage(systemName: "calendar")
+        conf.cornerStyle = .capsule
+        return UIButton(configuration: conf)
     }()
 
     let editButton: UIButton = {
-        let editButton = UIButton()
-        editButton.backgroundColor = .green
-        editButton.setImage(.actions, for: .normal)
-        return editButton
+        var conf = UIButton.Configuration.tinted()
+        conf.image = UIImage(systemName: "slider.horizontal.3")
+        conf.cornerStyle = .capsule
+        return UIButton(configuration: conf)
     }()
 
     let addNotificationButton: UIButton = {
-        let button = UIButton()
-        let largeConfig = UIImage.SymbolConfiguration(pointSize: .standardPointSize, weight: .regular, scale: .default)
-        button.setImage(UIImage(systemName: "plus.circle", withConfiguration: largeConfig), for: .normal)
-        return button
+        var conf = UIButton.Configuration.filled()
+        conf.image = UIImage(systemName: "plus")
+        conf.cornerStyle = .capsule
+        conf.baseBackgroundColor = .tintColor
+        conf.baseForegroundColor = .white
+        return UIButton(configuration: conf)
     }()
 
     let userLabel: UILabel = {
         let userLabel = UILabel()
         userLabel.text = "Username"
         userLabel.textAlignment = .right
+        userLabel.textColor = .secondaryLabel
+        userLabel.font = .preferredFont(forTextStyle: .subheadline)
+        userLabel.adjustsFontForContentSizeCategory = true
         return userLabel
     }()
 
@@ -149,28 +157,38 @@ final class MainScreenController: UIViewController {
     }()
 
     let inclineButton: UIButton = {
-        let inclineButton = UIButton()
-        let largeConfig = UIImage.SymbolConfiguration(pointSize: .standardPointSize, weight: .regular, scale: .default)
-        inclineButton.setImage(UIImage(systemName: "arrow.down.right.and.arrow.up.left.circle", withConfiguration: largeConfig), for: .normal)
-        return inclineButton
+        var conf = UIButton.Configuration.tinted()
+        conf.image = UIImage(systemName: "arrow.down.right.circle")
+        conf.title = "Incomes"
+        conf.imagePadding = 8
+        conf.cornerStyle = .capsule
+        return UIButton(configuration: conf)
     }()
 
     let inclineLabel: UILabel = {
         let inclineLabel = UILabel()
         inclineLabel.text = "Incomes"
+        inclineLabel.textColor = .secondaryLabel
+        inclineLabel.font = .preferredFont(forTextStyle: .caption1)
+        inclineLabel.adjustsFontForContentSizeCategory = true
         return inclineLabel
     }()
 
     let expensesButton: UIButton = {
-        let expensesButton = UIButton()
-        let largeConfig = UIImage.SymbolConfiguration(pointSize: .standardPointSize, weight: .regular, scale: .default)
-        expensesButton.setImage(UIImage(systemName: "arrow.up.left.and.arrow.down.right.circle", withConfiguration: largeConfig), for: .normal)
-        return expensesButton
+        var conf = UIButton.Configuration.tinted()
+        conf.image = UIImage(systemName: "arrow.up.left.circle")
+        conf.title = "Expenses"
+        conf.imagePadding = 8
+        conf.cornerStyle = .capsule
+        return UIButton(configuration: conf)
     }()
 
     let expensesLabel: UILabel = {
         let expensesLabel = UILabel()
         expensesLabel.text = "Expenses"
+        expensesLabel.textColor = .secondaryLabel
+        expensesLabel.font = .preferredFont(forTextStyle: .caption1)
+        expensesLabel.adjustsFontForContentSizeCategory = true
         return expensesLabel
     }()
 
@@ -192,11 +210,14 @@ final class MainScreenController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        storageService.getNotification()
-        presenter.setDate(date: Date().formatted(date: .abbreviated, time: .omitted))
+        // Загружаем уведомления через сервис или менеджер
+        Manager.shared.loadNotifications()
+
+        presenter.setDate(Date().formatted(date: .abbreviated, time: .omitted))
         titleLabel.text = presenter.getDate()
 
-        tableView.register(EditableTableViewCell.self, forCellReuseIdentifier: EditableTableViewCell.identifier)
+        tableView.register(EditableTableViewCell.self,
+                           forCellReuseIdentifier: EditableTableViewCell.identifier)
         tableView.delegate = self
         tableView.dataSource = self
 
@@ -205,7 +226,20 @@ final class MainScreenController: UIViewController {
         calendarView.delegate = self
 
         setupUI()
+        
+        addNotificationButton.accessibilityLabel = "Добавить напоминание"
+        addNotificationButton.accessibilityHint = "Открывает форму создания нового напоминания"
+
+        menuButton.accessibilityLabel = "Календарь"
+        menuButton.accessibilityHint = "Показать панель календаря"
+
+        editButton.accessibilityLabel = "Редактировать"
+        editButton.accessibilityHint = "Переключить режим редактирования списка"
+
+        inclineButton.accessibilityLabel = "Доходы"
+        expensesButton.accessibilityLabel = "Расходы"
     }
+
 
     private func setupUI() {
         let tapGestureRecognizerToView: UITapGestureRecognizer = {
@@ -406,9 +440,11 @@ final class MainScreenController: UIViewController {
                 make.right.equalTo(self.view.snp.left)
             }
             self.view.layoutIfNeeded()
-            Manager.shared.delegate?.updateData()
         }
+
+        presenter.setDate(presenter.getDate())
     }
+
 
     @objc func toggleButtonView() {
         if isButtonViewVisible == false {
@@ -437,6 +473,8 @@ final class MainScreenController: UIViewController {
             self.view.layoutIfNeeded()
         }
     }
+    
+
 
     @objc func hideButtonView() {
         UIView.animate(withDuration: .defaultDuration) {
@@ -455,64 +493,74 @@ final class MainScreenController: UIViewController {
             }
             self.view.layoutIfNeeded()
         }
+        print(1)
     }
 }
 
+// MARK: - UITableViewDelegate & UITableViewDataSource
 extension MainScreenController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView,
+                   numberOfRowsInSection section: Int) -> Int {
         presenter.getFilteredNotifications().count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: EditableTableViewCell.identifier, for: indexPath) as? EditableTableViewCell else { return EditableTableViewCell() }
-        cell.setEditing(true, animated: false)
-        cell.cellTextView.delegate = cell
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: EditableTableViewCell.identifier,
+            for: indexPath
+        ) as? EditableTableViewCell else {
+            return UITableViewCell()
+        }
 
-        cell.configure(notification: presenter.getNotification(index: indexPath.row), index: indexPath.row)
-        cell.configureButton {
-            Manager.shared.toggleNotificationState(notification: self.presenter.getNotification(index: indexPath.row))
-            self.tableView.reloadData()
+        let notification = presenter.getFilteredNotifications()[indexPath.row]
+        cell.configure(notification: notification)
+
+        // чекбокс
+        cell.configureButton { [weak self, weak tableView] in
+            self?.presenter.toggleNotification(id: notification.id)
+            tableView?.reloadRows(at: [indexPath], with: .automatic) // точечное обновление
         }
+
+        // изменение текста
+        cell.configureTextChanged { [weak self] newText in
+            self?.presenter.updateNotificationText(id: notification.id, text: newText)
+            // ⚠️ без reloadData(), чтобы не сбивать ввод
+        }
+
+        // кнопка деталей
         cell.configureDetailButton {
-            self.presenter.cellButtonPressed()
+            print("Открыть детали для \(notification.text)")
         }
+
         return cell
     }
 
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    // удаление
+    func tableView(_ tableView: UITableView,
+                   commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let notification = presenter.getFilteredNotifications()[indexPath.row]
-            Manager.shared.removeNotification(notification: notification)
-            Manager.shared.delegate?.updateData()
+            presenter.deleteNotification(id: notification.id)
+
+            // теперь можно безопасно удалить строку с анимацией
+            tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
 
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
+    // перемещение
+    func tableView(_ tableView: UITableView,
+                   canMoveRowAt indexPath: IndexPath) -> Bool {
+        true
     }
 
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        var filteredNotifications = Manager.shared.notifications[Manager.shared.getDate()] ?? [MyNotification]()
-
-        let item = filteredNotifications[sourceIndexPath.row]
-
-        filteredNotifications.remove(at: sourceIndexPath.row)
-        filteredNotifications.insert(item, at: destinationIndexPath.row)
-
-        if let sourceIndex = Manager.shared.notifications[item.date]?.firstIndex(where: { $0.id == item.id }) {
-            if let destinationIndex = Manager.shared.notifications[item.date]?.firstIndex(where: { $0.id == filteredNotifications[destinationIndexPath.row].id }) {
-                for notification in filteredNotifications {
-                    print(notification.text)
-                }
-
-                Manager.shared.notifications[Manager.shared.getDate()]?.swapAt(sourceIndex, destinationIndex)
-                Manager.shared.notifications[item.date] = filteredNotifications
-                for notification in Manager.shared.notifications[item.date]! {
-                    print(notification.text)
-                }
-            }
-        }
-        tableView.reloadData()
+    func tableView(_ tableView: UITableView,
+                   moveRowAt sourceIndexPath: IndexPath,
+                   to destinationIndexPath: IndexPath) {
+        presenter.moveNotification(from: sourceIndexPath.row,
+                                   to: destinationIndexPath.row)
+        // reloadData() не нужен — данные уже обновлены
     }
 
     func editTableView() {
@@ -520,25 +568,23 @@ extension MainScreenController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+// MARK: - Calendar
 extension MainScreenController: UICalendarSelectionSingleDateDelegate {
-    func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
-        Manager.shared.setDate(date: dateComponents?.date?.formatted(date: .abbreviated, time: .omitted) ?? .error)
-        titleLabel.text = dateComponents?.date?.formatted(date: .abbreviated, time: .omitted)
+    func dateSelection(_ selection: UICalendarSelectionSingleDate,
+                       didSelectDate dateComponents: DateComponents?) {
+        let date = dateComponents?.date?.formatted(date: .abbreviated, time: .omitted) ?? .error
+        presenter.setDate(date)
+        titleLabel.text = date
         tableView.reloadData()
         hideCalendar()
     }
 }
 
 extension MainScreenController: UICalendarViewDelegate {
-    func calendarView(_ calendarView: UICalendarView, decorationFor dateComponents: DateComponents) -> UICalendarView.Decoration? {
-        var dateComponentsForReloading: [DateComponents] = []
-        dateComponentsForReloading.append(dateComponents)
-        DispatchQueue.main.async {
-            calendarView.reloadDecorations(forDateComponents: dateComponentsForReloading, animated: true)
-        }
-
+    func calendarView(_ calendarView: UICalendarView,
+                      decorationFor dateComponents: DateComponents) -> UICalendarView.Decoration? {
         let dateString = dateComponents.date?.formatted(date: .abbreviated, time: .omitted) ?? .empty
-        if Manager.shared.notifications[dateString]?.isEmpty == false {
+        if presenter.hasNotifications(for: dateString) {
             return .default(color: .red, size: .large)
         } else {
             return nil
@@ -546,17 +592,26 @@ extension MainScreenController: UICalendarViewDelegate {
     }
 }
 
+// MARK: - IMainScreenController
 extension MainScreenController: IMainScreenController {
     func setLabelText(_ text: String) {
+        self.title = text
+    }
+
+    func reloadTable() {
+        tableView.reloadData()
     }
 }
 
+// MARK: - UIGestureRecognizerDelegate
 extension MainScreenController: UIGestureRecognizerDelegate {
-    // menuView without gesturerecognizer
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldReceive touch: UITouch) -> Bool {
         if touch.view?.isDescendant(of: menuView) == true {
             return false
         }
         return true
     }
 }
+
+

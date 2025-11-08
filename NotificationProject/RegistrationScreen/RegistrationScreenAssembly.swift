@@ -8,15 +8,12 @@
 import UIKit
 
 final class RegistrationScreenAssembly {
-
     func assemble(output: RegistrationScreenPresenterOutput) -> UIViewController {
-        let storageService = StorageService()
-        let presenter = RegistrationScreenPresenter(output: output, storageService: storageService)
+        let presenter = RegistrationScreenPresenter(output: output)
         let controller = RegistrationScreenController(presenter: presenter)
         presenter.view = controller
-
         return controller
     }
-
 }
+
 
